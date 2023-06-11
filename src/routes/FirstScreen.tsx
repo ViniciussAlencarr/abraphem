@@ -2,6 +2,7 @@ import { Table } from 'react-bootstrap';
 import { BsInfoCircle } from 'react-icons/bs';
 
 import './css/FirstScreen.css';
+import themeImg from '../../public/theme-img.svg'
 
 export const FirstScreen = () => {
     return (
@@ -22,7 +23,7 @@ export const FirstScreen = () => {
                             <td>
                                 <div className='header-img-context new-request'>
                                     <div className='new-request-img'>
-                                        <img className='img' src="./public/theme-img.png" alt="" />
+                                        <img className='img' src={themeImg} alt="" />
                                     </div>
                                     <div className='header-img-name new-request-name'>
                                         <p className='name'>Nova solicitação</p>
@@ -35,7 +36,7 @@ export const FirstScreen = () => {
                             <td>
                                 <div className='header-img-context my-requests'>
                                     <div className='my-requests-img'>
-                                        <img className='img' src="./public/theme-img.png" alt="" />
+                                        <img className='img' src={themeImg} alt="" />
                                     </div>
                                     <div className='header-img-name my-requests-name'>
                                         <p className='name'>Minhas solicitações</p>
@@ -48,7 +49,7 @@ export const FirstScreen = () => {
                             <td>
                                 <div className='header-img-context my-user'>
                                     <div className='my-user-img'>
-                                        <img className='img' src="./public/theme-img.png" alt="" />
+                                        <img className='img' src={themeImg} alt="" />
                                     </div>
                                     <div className='header-img-name my-user-name'>
                                         <p className='name'>Meu usuário</p>

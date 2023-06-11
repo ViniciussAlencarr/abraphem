@@ -1,5 +1,6 @@
 import { TbCircleArrowUp } from 'react-icons/tb';
 import "./css/Home.css"
+import themeImg from '../../public/theme-img.svg'
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
 
@@ -14,14 +15,14 @@ export const Home = () => {
                 <div className='header-icon'></div>
                 <div className='content-info'>
                     <span className='title'>O QUE VOCÊ QUER FAZER?</span>
-                    <div className="themes">
+                    <div className="themes"> 
                         <Table className="table table-borderless">
                             <tbody>
                                 <tr>
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -32,7 +33,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -43,7 +44,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -54,53 +55,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -113,7 +68,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -124,7 +79,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -135,7 +90,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -146,53 +101,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
-                                            </div>
-                                            <div className='theme-info'>
-                                                <span className='theme-name'>Tema 1</span>
-                                                <span className='theme-description'>DESCRIÇÃO</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='theme'>
-                                            <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -205,7 +114,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -216,7 +125,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -227,7 +136,7 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
@@ -238,7 +147,99 @@ export const Home = () => {
                                     <td>
                                         <div className='theme'>
                                             <div className='theme-img'>
-                                                <img className='img' src="./public/theme-img.png" alt="" />
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
+                                            </div>
+                                            <div className='theme-info'>
+                                                <span className='theme-name'>Tema 1</span>
+                                                <span className='theme-description'>DESCRIÇÃO</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className='theme'>
+                                            <div className='theme-img'>
+                                                <img className='img' src={themeImg} alt="" />
                                             </div>
                                             <div className='theme-info'>
                                                 <span className='theme-name'>Tema 1</span>
