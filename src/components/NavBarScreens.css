@@ -1,0 +1,41 @@
+.navbar-collapse {
+    justify-content: space-between;
+    margin: 0px 70px;
+    gap: 20px;
+    .navbar-brand {
+        color: #000;
+        padding: 25px 50px;
+        background-color: #808080;
+    }
+    .user-options {
+        background-color: #E6E6E6;
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none;
+        padding: 10px;
+        transition: ease-out .2s;
+        &:hover {
+            background-color: #cccccc;
+            transition: ease-out .2s;
+        }
+    }
+    .me-auto {
+        margin-right: 0px !important;
+        display: flex;
+        gap: 20px;
+    }
+    .me-auto a {
+        text-decoration: none;
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #000;
+        transition: ease-out .2s;
+        &:hover {
+            color: #5e5e5e;
+            transition: ease-out .2s;
+        }
+    }
+}

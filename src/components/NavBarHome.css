@@ -1,0 +1,68 @@
+.navbar-collapse {
+    justify-content: space-between;
+    margin: 0px 70px;
+    gap: 20px;
+    .navbar-brand {
+        color: #000;
+        padding: 25px 50px;
+        font-size: 14px;
+        text-transform: uppercase;
+        background-color: #808080;
+    }
+    .search-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 4px;
+        padding: 10px 20px;
+        background-color: #808080;
+        transition: ease-out .2s;
+        .search-field {
+            outline: none;
+            border: none;
+            width: 100%;
+            background: none;
+            color: #fff;
+            &::placeholder {
+                color: #fff;
+            }
+        }      
+        .search-icon {
+            color: #FFF;
+        }  
+        &:hover {
+            transition: ease-out .2s;
+            background-color: #979797;
+        }
+    }
+    .search-form {
+        width: -webkit-fill-available;
+    }
+}
+.register-button {
+    background-color: #E6E6E6;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 364px;
+    text-decoration: none;
+    padding: 10px;
+    transition: ease-out .2s;
+    &:hover {
+        background-color: #cccccc;
+        transition: ease-out .2s;
+    }
+}
+.register-button svg {
+    color: #000;
+}
+.register-button button {
+    text-transform: uppercase;
+    color: #000;
+    font-size: 12px;    
+    background: none;
+    border: none;
+    outline: none;
+}

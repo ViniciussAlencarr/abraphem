@@ -1,0 +1,33 @@
+table tbody {
+    text-align: center;
+}
+.first-screen-container {
+    display: flex;
+    justify-content: center;
+    .table {
+        width: 80%;
+    }
+    .header-img-context {
+        min-width: 269px;
+        background-color: #D1D1D1;
+        .header-img-name {
+            margin: 1px;
+            font-weight: 900;
+            text-align: left;
+            padding: 20px;
+            background: #fff;
+            font-size: 20px;
+        }
+        .header-img-description {
+            padding-top: 15px;
+            font-size: 14px;
+            background-color: #fff;
+            .description {
+                width: 241px;
+            }
+        }
+    }
+    .header-img-context img {
+        width: 200px;
+    }
+}

@@ -1,0 +1,255 @@
+.help-info.screens.request-screen {
+    width: 80%;
+}
+.header-icons {
+    display: flex;
+    gap: 10px;
+    justify-content: left;
+    align-items: center;
+    font-weight: 100;
+    .home-icon {
+        display: flex;
+        gap: 3px;
+        align-items: center;
+        justify-content: center;
+    }
+    .progress-label {
+        &.active {
+            font-weight: 500;
+        }
+    }
+}
+.request-container {
+    .form-warning {
+        margin: 0 !important;
+        padding-left: 50px;
+        font-size: 12px;
+        font-weight: 900;
+    }
+    .request-form {
+        width: 90%;
+        margin: 0px 25px 25px 50px;
+        border: 1px solid grey;
+        background-color: #F0F0F0;
+        .request-form-header {
+            font-weight: 900;
+            text-transform: uppercase;
+            border-bottom: 1px solid #555555;
+            .title {
+                margin: 0;
+                font-size: 24px;
+                padding: 15px;
+            }
+        }
+        .addressee {
+            .addressee-header {
+                border-bottom: 1px solid #555555;
+                .title {
+                    font-size: 24px;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    border-bottom: 1px solid #555555;
+                    margin: 0;
+                    padding: 15px;
+                }
+            }
+            .send-request select {
+                background: #E6E6E6;
+                color: #808080;
+                border-radius: 8px;
+                border: 1px solid #555555;
+                outline: none;
+                padding: 6px 16px;
+            }
+            .send-request {
+                display: grid;
+                margin: 15px;
+                
+            }
+        }
+        .description {
+            .description-header {
+                border-bottom: 1px solid #555555;
+                .title {
+                    font-size: 24px;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    border-bottom: 1px solid #555555;
+                    margin: 0;
+                    padding: 15px;
+                }
+            }
+            .talk-content {
+                display: grid;
+                margin: 15px;
+                gap: 5px;
+                .warning-msg {
+                    color: #555555;
+                }
+                .talk-message {
+                    border: 1px solid #555555;
+                    outline: none;
+                    border-radius: 16px;
+                    background: #E6E6E6;
+                    resize: none;
+                    padding: 16px;
+                }
+                .action-buttons {
+                    display: flex;
+                    margin: 15px;
+                    justify-content: right;
+                    gap: 20px;
+                    .transcribe-text,
+                    .attach-files {
+                        color: #808080;
+                        display: flex;
+                        gap: 15px;
+                        cursor: pointer;
+                        transition: ease-out .2s;
+                        &:hover {
+                            color: #000;
+                            transition: ease-out .2s;
+                        }
+                    }
+                }
+            }
+        }
+        .entry-channel {
+            display: grid;
+            margin: 15px;
+            .entry-channel-value {
+                background: #E6E6E6;
+                border-radius: 8px;
+                border: 1px solid #555555;
+                outline: none;
+                padding: 6px 16px;
+            }
+        }
+        .request-form-footer select,
+        .request-form-footer input {
+            background: #E6E6E6;
+            color: #808080;
+            border-radius: 8px;
+            border: 1px solid #555555;
+            outline: none;
+            padding: 6px 16px;
+        }
+        .request-form-footer {
+            display: flex;
+            margin: 15px;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            .uf,
+            .city,
+            .location {
+                display: grid;
+                width: 100%;
+            }
+        }
+    }
+    
+    .request-form form select {
+        background: #E6E6E6;
+        color: #808080;
+    }
+    .request-form form input {
+        background: #BDBDBD;
+    }
+    .request-form form select,
+    .request-form form input {
+        border-radius: 8px;
+        border: 1px solid #555555;
+        outline: none;
+        padding: 6px 16px;
+    }
+    .request-form form {
+        display: flex;
+        margin: 15px;
+        gap: 15px;
+        justify-content: space-between;
+        
+        .form-request-left-side {
+            width: 100%;
+            display: grid;
+            gap: 15px;
+            .name,
+            .document .type,
+            .document .number-value,
+            .contacting {
+                display: grid;
+            }
+            .document .type,
+            .document .number-value {
+                width: 100%;
+            }
+        }
+        .form-request-right-side {
+            width: 100%;
+            display: grid;
+            gap: 20px;
+            .email,
+            .response-mode,
+            .type-hemophilia {
+                display: grid;
+            }
+        }
+    }
+}
+.navigation-form {
+    display: flex;
+    padding: 0px 100px;
+    justify-content: right;
+    gap: 15px;
+    .back button,
+    .advance button {
+        background: none;
+        border: none;
+        text-transform: uppercase;
+        outline: none;
+    }
+    .back,
+    .back button {
+        
+        color: #000;
+    }
+    .advance,
+    .advance button {
+        color: #fff;
+    }
+    .back {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #808080;
+        border: 1px solid #555555;
+        padding: 6px 16px;
+        border-radius: 8px;
+        transition: ease-out .2s;
+        &:hover {
+            transition: ease-out .2s;
+            background-color: #a5a4a4;
+        }
+    }
+    .advance {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #555555;
+        padding: 6px 16px;
+        border-radius: 8px;
+        transition: ease-out .2s;
+        &:hover {
+            transition: ease-out .2s;
+            background-color: #808080;
+        }
+    }
+}
+.back-to-top {
+    font-size: 7px;
+    font-weight: 900;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin: 25px 50px;
+}
