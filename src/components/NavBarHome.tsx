@@ -1,6 +1,5 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Container, Navbar, Form } from 'react-bootstrap'
+import { Container, Navbar } from 'react-bootstrap'
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
 

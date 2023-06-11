@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 import { NavBarHome } from './components'
 import { BsInfoCircle } from 'react-icons/bs';
 
-import { Button, Col, Container, Form, Row, Table } from 'react-bootstrap';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import { MdEmail } from 'react-icons/md';
 
 function App() {

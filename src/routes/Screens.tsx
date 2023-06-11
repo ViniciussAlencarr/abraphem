@@ -1,8 +1,6 @@
-import React from 'react'
 import { NavBarScreen } from '../components'
 import { Outlet } from 'react-router-dom'
 import { Col, Container, Row, Table } from 'react-bootstrap';
-import { BsInfoCircle } from 'react-icons/bs';
 import './css/Screens.css'
 
 export const Screens = () => {

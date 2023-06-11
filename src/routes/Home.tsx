@@ -1,10 +1,7 @@
-import React from 'react'
 import { TbCircleArrowUp } from 'react-icons/tb';
 import "./css/Home.css"
 import { Link } from 'react-router-dom';
 import { Table } from 'react-bootstrap';
-
-
 
 export const Home = () => {
     const setDivToTop = () => {

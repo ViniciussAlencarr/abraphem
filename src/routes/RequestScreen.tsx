@@ -1,13 +1,10 @@
-import React from 'react'
-import { Table } from 'react-bootstrap';
-
-import './css/RequestScreen.css';
 import { BsInfoCircle, BsFillMicFill } from 'react-icons/bs';
 import { IoIosHome, IoIosArrowForward } from 'react-icons/io';
 import { ImAttachment } from 'react-icons/im';
 import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 import { TbCircleArrowUp } from 'react-icons/tb';
 
+import './css/RequestScreen.css';
 export const RequestScreen = () => {
     const progressLabels = [
         {
