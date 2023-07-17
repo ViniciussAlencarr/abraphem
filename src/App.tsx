@@ -1,13 +1,12 @@
-import './App.css'
-import './routes/css/media-layout.css'
 
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { NavBarHome } from './components'
-import { BsInfoCircle } from 'react-icons/bs';
-
-import { Col, Container, Nav, NavDropdown, Navbar, Row, Table } from 'react-bootstrap';
+import { Col, Container, Row, Table } from 'react-bootstrap';
 import { MdEmail } from 'react-icons/md';
 import { VscThreeBars } from 'react-icons/vsc';
+
+import './App.css'
+import './routes/css/media-layout.css'
 
 function App() {
   return (

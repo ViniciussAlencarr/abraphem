@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { FcGoogle } from 'react-icons/fc';
-import { Col, Container, Row, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 
 import './css/Login.css'
 import './css/media-layout.css'

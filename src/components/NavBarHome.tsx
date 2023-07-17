@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
 
