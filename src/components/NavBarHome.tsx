@@ -1,28 +1,31 @@
 import { Link } from 'react-router-dom'
-import { Container, Navbar } from 'react-bootstrap'
+import { Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-
 import './NavBarHome.css'
+import '../routes/css/media-layout.css'
+
+import logo from '../assets/logo.png'
+
 export const NavBarHome = () => {
     return (
-        <Navbar bg="light" expand="lg">
-            <Container fluid>
-                <Navbar.Collapse id="navbarScroll">
-                    <Link className='navbar-brand' to="/">Logo</Link>
-                    <form className='search-form'>
-                        <div className='search-content'>
-                            <input className='search-field' type="text" placeholder='Pesquisar' />
-                            <AiOutlineSearch className="search-icon" />
-                        </div>
-                    </form>
-                    <Link className='register-button' to="/login">
-                            <FaUserCircle size={40} />
-                            <button>Entre ou cadastre-se</button>
-                    </Link>
-                </Navbar.Collapse>
-            </Container>
-        </Navbar>
+        <div className='nav-container'>
+            <div className='logo-container'>
+                <Link className='navbar-brand' to="/">
+                <img width={200} className='logo' src={logo} alt="" />
+                </Link>
+            </div>
+            <div className='search-content'>
+                <input className='search-field' type="text" placeholder='Pesquisa' />
+                <AiOutlineSearch className="search-icon" size={30} />
+            </div>
+            <div className='register'>
+                <Link className='register-button' to="/login">
+                    <FaUserCircle size={40} />
+                    <button>Entre ou cadastre-se</button>
+                </Link>
+            </div>
+        </div>
     )
 }

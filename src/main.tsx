@@ -2,9 +2,22 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
-import {createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate
+} from 'react-router-dom'
 
-import { ErrorPage, Home, FirstScreen, Login, RequestScreen, Screens } from './routes'
+import {
+  ErrorPage,
+  Home,
+  FirstScreen,
+  Login,
+  RequestScreen,
+  Screens,
+  ReplyScreenSent,
+  MyRequests
+} from './routes'
 
 const router = createBrowserRouter([
   {
@@ -36,9 +49,21 @@ const router = createBrowserRouter([
         element: <FirstScreen />
       },
       {
-        path: '/request',
+        path: '/request/new',
         element: <RequestScreen />
-      }
+      },
+      {
+        path: '/request/status/success',
+        element: <ReplyScreenSent />
+      },
+      {
+        path: '/request/status/error',
+        element: <ReplyScreenSent />
+      },
+      {
+        path: '/requests',
+        element: <MyRequests />
+      },
     ]
   },
   {

@@ -1,11 +1,21 @@
+import { useState } from 'react';
 import { BsInfoCircle, BsFillMicFill } from 'react-icons/bs';
 import { IoIosHome, IoIosArrowForward } from 'react-icons/io';
+import { useNavigate } from 'react-router-dom';
 import { ImAttachment } from 'react-icons/im';
 import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 import { TbCircleArrowUp } from 'react-icons/tb';
+import { VscThreeBars } from 'react-icons/vsc';
 
 import './css/RequestScreen.css';
+import './css/media-layout.css';
+
 export const RequestScreen = () => {
+    const [backLabel, setBackLabel] = useState('Voltar')
+    const [forwardLabel, setForwardLabel] = useState('Avançar')
+
+    const navigate = useNavigate();
+
     const progressLabels = [
         {
             id: 'first',
@@ -36,10 +46,19 @@ export const RequestScreen = () => {
     const setDivToTop = () => {
         window.scrollTo(0, 0);
     }
+    const changeVisibilityElements = () => {
+        document.querySelectorAll('input').forEach(input => input.disabled = !input.disabled)
+        document.querySelectorAll('select').forEach(input => input.disabled = !input.disabled)
+        document.querySelectorAll('textarea').forEach(input => input.disabled = !input.disabled)
+    }
     const backNavigation = () => {
         const activeProgressLabel: any = document.querySelector('.progress-label.active')
         let labelProgressIndex = progressLabels.findIndex(label => label.id == activeProgressLabel.id)
-        console.log(progressLabels[labelProgressIndex])
+        if (progressLabels[labelProgressIndex].id == 'fourth') {
+            setBackLabel('Voltar')
+            setForwardLabel('Avançar')
+            changeVisibilityElements()
+        }
         if (!progressLabels[labelProgressIndex].isEnd || progressLabels[labelProgressIndex].id != 'first') {
             let a: any = document.querySelector(`#${progressLabels[labelProgressIndex - 1].id}`)
             activeProgressLabel.classList.remove('active')
@@ -50,17 +69,30 @@ export const RequestScreen = () => {
     const forwardNavigation = () => {
         const activeProgressLabel: any = document.querySelector('.progress-label.active')
         let labelProgressIndex = progressLabels.findIndex(label => label.id == activeProgressLabel.id)
+        if (progressLabels[labelProgressIndex].id == 'fourth') {
+            navigate('/request/status/success')
+        }
+        if (progressLabels[labelProgressIndex].id == 'third') {
+            setBackLabel('Alterar dados')
+            setForwardLabel('Enviar')
+            changeVisibilityElements()
+        }
         if (!progressLabels[labelProgressIndex].isEnd || progressLabels[labelProgressIndex].id != 'fifth') {
             let a: any = document.querySelector(`#${progressLabels[labelProgressIndex + 1].id}`)
             activeProgressLabel.classList.remove('active')
             a.classList.add('active')
+        } else {
+            console.log('é final')
         }
         setDivToTop()
     }
     return (
-        <div>
+        <div className='request-screen-container'>
             <hr />
             <div className='header-info'>
+                <button className="options-btn">
+                    <VscThreeBars size={30} />
+                </button>
                 <span className='header-info-title'>FAÇA SUA SOLICITAÇÃO</span>
                 <div className='help-info screens request-screen'>
                     <span>AJUDA</span>
@@ -70,7 +102,7 @@ export const RequestScreen = () => {
             <hr />
             <div className='header-icons'>
                 <div className='home-icon'>
-                    <IoIosHome style={{ color: '#555555'}} />
+                    <IoIosHome size={20} style={{ color: '#555555'}} />
                     <span id="first" className='progress-label'>HOME</span>
                     <IoIosArrowForward style={{ opacity: '.2'}} />
                 </div>
@@ -90,11 +122,7 @@ export const RequestScreen = () => {
                     <span id="fifth" className='progress-label'>CONCLUSÃO</span>
                 </div>
             </div>
-            <hr />
-            <div>
-                <IoIosHome style={{ opacity: 0}}/>
-            </div>
-            <hr />
+            <hr className='header-icon-hr'/>
             <div className='request-container'>
                 <p className='form-warning'>OS CAMPOS SINALISADOS COM ASTERÍSCO * SÃO DE PREENCHIMENTO OBRIGATÓRIO</p>
                 <div className="request-form">
@@ -223,16 +251,16 @@ export const RequestScreen = () => {
             <div className='navigation-form'>
                 <div onClick={() => backNavigation()} className='back'>
                     <MdOutlineKeyboardDoubleArrowLeft size={30} />
-                    <button>Voltar</button>
+                    <button className='back-nativation-btn'>{backLabel}</button>
                 </div>
                 <div onClick={() => forwardNavigation()} className='advance'>
                     <MdOutlineKeyboardDoubleArrowRight size={30} />
-                    <button>Avançar</button>
+                    <button className='forward-btn'>{forwardLabel}</button>
                 </div>
             </div>
             <div onClick={setDivToTop} className='back-to-top'>
                 <span>VOLTAR AO TOPO</span>
-                <TbCircleArrowUp size={20} />
+                <TbCircleArrowUp size={15} />
             </div>
         </div>  
     ) 

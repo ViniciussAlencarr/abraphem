@@ -22,16 +22,33 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+.content {
+  min-width: 300px;
+}
+.nav-bar-container {
+  background: #DD0301;
+  padding: 20px;
+  min-width: 300px !important;
+}
 .header-info {
   display: flex;
   align-items: center;
-  margin: 10px;
-  justify-content: center;
+  margin: 10px 36px;
+  justify-content: space-between;
+  .options-btn {
+    background: none;
+    border: none;
+    outline: none;
+    svg {
+      color: red;
+    }
+  }
+  .options-btn svg {
+    color: #DD0301;
+  }
   .header-info-title {
     text-align: center;
     width: 100%;
-    display: flex;
-    justify-content: right;
     font-weight: 900;
   }
   .help-info {
@@ -62,14 +79,19 @@
     .info {
       display: grid;
       .subscribe {
-        width: 91px !important;
+        width: 100px !important;
+        margin: 0;
+        font-weight: bold !important;
       }
       .company-name {
+        margin: 0;
         width: 108px;
       }
     }
   }
-  .news-info span {
+  .news-info p {
+    text-align: center;
+    margin: 0;
     font-size: 12px;
   }
   .send-email form {
@@ -102,6 +124,10 @@
   display: grid;
   align-items: center;
   background-color: #E6E6E6;
+  .tables {
+    margin-top: 10px;
+    display: flex;
+  }
   .table * {
     background: transparent;
   }

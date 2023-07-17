@@ -5,68 +5,98 @@ import './css/Screens.css'
 
 export const Screens = () => {
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <NavBarScreen />
-                    <Outlet />
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <div className='footer-bottom'>
-                        <Table className="table table-borderless">
-                            <thead>
-                                <tr>
+        <div className='screens-container'>
+            <NavBarScreen />
+            <Outlet />
+            <div className='footer-bottom'>
+                <div className='tables'>
+                    <Table className="table table-borderless">
+                        <thead>
+                            <tr>
                                 <th scope="col">Titulo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table className="table table-borderless">
+                        <thead>
+                            <tr>
                                 <th scope="col">Titulo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table className="table table-borderless">
+                        <thead>
+                            <tr>
                                 <th scope="col">Titulo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                            <tr>
+                                <td>Informação</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+                    <Table className="table table-borderless">
+                        <thead>
+                            <tr>
                                 <th scope="col">Titulo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
                                 <td>Informação</td>
+                            </tr>
+                            <tr>
                                 <td>Informação</td>
+                            </tr>
+                            <tr>
                                 <td>Informação</td>
+                            </tr>
+                            <tr>
                                 <td>Informação</td>
-                                </tr>
-                                <tr>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                </tr>
-                                <tr>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                </tr>
-                                <tr>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                </tr>
-                                <tr>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                </tr>
-                                <tr>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                <td>Informação</td>
-                                </tr>
-                            </tbody>
-                        </Table>
-                        <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS| Desenvolvido por XXXXXXXXXXX</p>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </div>
-                </Col>
-            </Row>
-        </Container>
+                <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS| Desenvolvido por XXXXXXXXXXX</p>
+            </div>
+        </div>
     )
 }
