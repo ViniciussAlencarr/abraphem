@@ -2,94 +2,152 @@ hr {
     margin: 5px;
 }
 .login-container {
-    text-align: center;
-    margin-top: 5px;
-    .logo {
-        width: min-content;
-        padding: 22px 0px;
-        margin: auto;
-        background-color: #808080;
-    }
-    .logo a {
-        font-size: 14px;
-        padding: 25px 50px;
-        text-decoration: none;
-        color: #000;
-    }
-    .login-content {
-        display: grid;
-        gap: 20px;
-        .title {
-            font-size: 18px;
-            font-weight: 900;
-        }
-        .form-login {
-            .title {
-                font-size: 24px;
-            }
-            .form-field {
-                text-align: left;
-                display: grid;
-                gap: 5px;
-                justify-content: center;
-            }
-            .form-field label {
-                font-weight: 900;
-            }
-            .form-field input {
-                outline: none;
-                color: #555555;
-                text-transform: none;
-                border-radius: 8px;
-                border: 2px solid #555555;
-                padding: 6px 16px;
+    min-width: 300px;
+    .login-header {
+        text-align: center;
+        .logo-container {
+            background: #DD0301;
+            padding: 20px;
+            .logo {
+                width: 200px;
             }
         }
-        .register-account {
-            font-size: 7px;
-            display: flex;
-            justify-content: center;
-            gap: 125px;
-        }
-        .register-account a {
+        .logo a {
+            font-size: 14px;
+            padding: 25px 50px;
             text-decoration: none;
             color: #000;
-            transition: ease-in-out .2s;
-
-            &:hover {
+        }
+        .login-content {
+            display: grid;
+            gap: 10px;
+            margin-top: 30px;
+            .title {
+                margin: 0;
+                font-size: 14px;
+                font-weight: 900;
+                text-transform: uppercase;
+            }
+            .form-login {
+                .title {
+                    text-transform: uppercase;
+                    font-size: 20px;
+                }
+                .form-field {
+                    text-align: left;
+                    display: grid;
+                    gap: 5px;
+                    justify-content: center;
+                }
+                .form-field label {
+                    font-weight: 900;
+                }
+                .form-field input {
+                    outline: none;
+                    color: #555555;
+                    text-transform: none;
+                    border-radius: 8px;
+                    border: 2px solid #555555;
+                    padding: 6px 16px;
+                }
+            }
+            .register-account {
+                font-size: 10px;
+                display: flex;
+                justify-content: center;
+                gap: 55px;
+            }
+            .captcha {
+                display: flex;
+                justify-content: center;
+                .captcha-content {
+                    padding: 5px 10px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 15px;
+                    width: fit-content;
+                    border: 2px solid #ccc;
+                    .captcha-input {
+                        place-content: center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 10px;
+                        .captcha-value-input {
+                            -webkit-appearance: none;
+                            display: grid;
+                            place-content: center;
+                            appearance: none;
+                            background-color: #fff;
+                            margin: 0;
+                            width: 30px;
+                            height: 30px;
+                            border: 2px solid #ccc;
+                            font: inherit;
+                            color: currentColor;
+                            transform: translateY(-0.075em);
+                            &&::before {
+                                content: "";
+                                width: 15px;
+                                height: 15px;
+                                transform: scale(0);
+                                transition: .1s transform ease-in-out;
+                                box-shadow: inset 1em 1em #ccc;
+                            }
+                            &&:checked::before {
+                                transform: scale(1);
+                            }
+                        }
+                    }
+                    .captcha-logo {
+    
+                    }
+                    .captcha-logo .logo {
+                        width: 50px;
+                    }
+                }
+            }
+            .register-account a {
+                text-decoration: none;
+                color: #000;
+                transition: ease-in-out .2s;
+    
+                &:hover {
+                    opacity: .7;
+                }
+            }
+            .login-button {
+                margin: auto;
+                color: #fff;
+                background: #DD0301;
+                border: none;
+                width: 280px;
+                padding: 6px 16px;
+                border-radius: 4px;
+                opacity: .5;
+                transition: ease-out .2s;
+                &:hover {
+                    opacity: 1;
+                    transition: ease-out .2s;
+                }
+            }
+            .google-login-info {
+                display: flex;
+                margin: auto;
+                padding: 6px 18px;
+                border-radius: 8px;
+                cursor: pointer;
+                border: 2px solid #555555;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
                 opacity: .7;
-            }
-        }
-        .login-button {
-            margin: auto;
-            color: #fff;
-            background: #555555;
-            border: none;
-            width: 280px;
-            padding: 6px 16px;
-            border-radius: 4px;
-            opacity: .7;
-            transition: ease-out .2s;
-            &:hover {
-                opacity: 1;
                 transition: ease-out .2s;
-            }
-        }
-        .google-login-info {
-            display: flex;
-            margin: auto;
-            padding: 6px 18px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid #555555;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
-            opacity: .7;
-            transition: ease-out .2s;
-            &:hover {
-                opacity: 1;
-                transition: ease-out .2s;
+                &:hover {
+                    opacity: 1;
+                    transition: ease-out .2s;
+                }
             }
         }
     }
