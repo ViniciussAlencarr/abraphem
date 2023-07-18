@@ -1,15 +1,20 @@
 .img {
-    width: 200px;
+    width: 70px;
 }
 .header-img-context {
-    background: #D1D1D1;
+    display: grid;
+    gap: 10px;
+    background: #fff;
+    text-align: center;
+    width: min-content;
     height: fit-content;
     .header-img-name {
-        margin: 1px;
-        padding: 10px;
         background-color: #fff; 
         .name {
             margin: 0;
+            font-size: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
         }    
     }
     .header-img-description {
@@ -22,38 +27,38 @@
             font-size: 10px;
         }
     }
+    &.my-user {
+        width: 100%;
+    }
 }
 .first-screen-container {
     .header-info {
-        margin: 5px 36px;
-        position: relative;
+        display: flex;
+        text-align: center;
         justify-content: center;
+        align-items: center;
         .header-info-title {
             width: calc(100% - 40%);
         }
-        .help-info {
-            position: absolute;
-            right: 0;
-            font-size: 6px;
-            bottom: 0;
-        }
         .help-info svg {
-            width: 10px;
+            width: 12px;
             
         }
         .options-btn {
             position: absolute;
-            left: 0;
+            left: 55px;
         }
     }
     .table-info-content {
         display: flex;
         margin: 30px 0;
+        margin-bottom: 55px;
         justify-content: center;
         .info-content {
             display: flex;
-            gap: 20px;
-            width: min-content;
+            justify-content: center;
+            gap: 25%;
+            
         }
         
     }

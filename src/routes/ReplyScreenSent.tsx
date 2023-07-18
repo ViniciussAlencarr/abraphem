@@ -20,10 +20,10 @@ export const ReplyScreenSent = () => {
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>SOLICITAÇÃO ENVIADA COM SUCESSO</span>
-                <div className='help-info screens request-screen'>
+                <button className='help-info screens request-screen' onClick={() => navigate('/faq')}>
                     <span>AJUDA</span>
                     <BsInfoCircle size={20}/>
-                </div>
+                </button>
             </div>
             <hr />
             <div className="reply-response">

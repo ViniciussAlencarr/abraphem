@@ -5,7 +5,7 @@ import { Table } from 'react-bootstrap'
 import './css/Login.css'
 import './css/media-layout.css'
 
-import logo from '../assets/logo.png'
+import logo from '../assets/logo-white.svg'
 import reCaptchaLogo from '../assets/reCaptchaLogo.svg'
 
 export const Login = () => {
@@ -17,44 +17,41 @@ export const Login = () => {
                         <img className='logo' src={logo} alt="" />
                     </Link>
                 </div>
-                <div className='login-content'>
-                    <p className='title'>Para continuar, faça o login</p>
-                    <form id="form-login" className='form-login'>
-                        <p className='title'>Login Abraphem</p>
-                        <div className='form-field cpf'>
-                            <label htmlFor="cpf">CPF</label>
-                            <input id="cpf" type="text"/>
-                        </div>
-                        <div className='form-field password'>
-                            <label htmlFor="password">Senha</label>
-                            <input id="password" type="password"/>
-                        </div>
-                    </form>
-                    <div className='register-account'>
-                        <div className='register-redirect'>
-                            <span>Não possui usuário? <b><Link to="">Criar conta</Link></b></span>
-                        </div>
-                        <div className="forget-password">
-                            <Link to="">Esqueci a senha</Link>
-                        </div>
-                    </div>
-                    <div className="captcha">
-                        <div className="captcha-content">
-                            <div className="captcha-input">
-                                <input type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
-                                <label htmlFor="captcha-value-input">I am not  a robot</label>
+                <hr />
+                <div className='login-container-form'>
+                    <div className='login-content'>
+                        <p className='title'>Para continuar, faça o login</p>
+                        <form id="form-login" className='form-login'>
+                            <p className='title'>LOGIN OUVIDORIA DA ABRAPHEM</p>
+                            <div className='form-field cpf'>
+                                <label htmlFor="cpf">CPF</label>
+                                <input id="cpf" type="text"/>
                             </div>
-                            <div className="captcha-logo">
-                                <img className='logo' src={reCaptchaLogo} alt="" />
+                            <div className='form-field password'>
+                                <label htmlFor="password">Senha</label>
+                                <input id="password" type="password"/>
+                            </div>
+                        </form>
+                        <div className='register-account'>
+                            <div className='register-redirect'>
+                                <span>Não possui usuário? <b><Link to="">Criar conta</Link></b></span>
+                            </div>
+                            <div className="forget-password">
+                                <Link to="">Esqueci a senha</Link>
                             </div>
                         </div>
-                    </div>
-                    <button className='login-button'>Entrar</button>
-                    <hr />
-                    <span className='separator-span'>OU</span>
-                    <div className='google-login-info'>
-                        <FcGoogle size={30} />
-                        <span>Continue com o google</span>
+                        <div className="captcha">
+                            <div className="captcha-content">
+                                <div className="captcha-input">
+                                    <input type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
+                                    <label htmlFor="captcha-value-input">I am not  a robot</label>
+                                </div>
+                                <div className="captcha-logo">
+                                    <img className='logo' src={reCaptchaLogo} alt="" />
+                                </div>
+                            </div>
+                        </div>
+                        <button className='login-button'>Entrar</button>
                     </div>
                 </div>
             </div>

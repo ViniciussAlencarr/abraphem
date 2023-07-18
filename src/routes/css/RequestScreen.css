@@ -6,17 +6,34 @@
 
     .header-info {
         position: relative;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        text-align: center;
         .options-btn {
-            left: 0;
-            position: absolute;
-        }
-        .help-info {
-            right: 0;
-            font-size: 8px;
+            left: 55px;
             position: absolute;
         }
         .help-info svg {
             width: 12px;
+        }
+    }
+
+    .navigation-context {
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        margin-left: 65px;
+        font-weight: 100;
+        font-size: 12px;
+        gap: 5px;
+        .navitation-start {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .current span {
+            font-weight: 500;
         }
     }
     .header-icons {
@@ -25,7 +42,7 @@
         justify-content: left;
         align-items: center;
         font-size: 12px;
-        margin: 15px 20px;
+        margin: 15px 25px;
         font-weight: 100;
         .home-icon {
             display: flex;

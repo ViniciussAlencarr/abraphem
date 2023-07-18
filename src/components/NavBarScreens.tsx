@@ -5,28 +5,27 @@ import { Link } from 'react-router-dom'
 import './NavBarScreens.css'
 import '../routes/css/media-layout.css'
 
-import logo from '../assets/logo.png'
+import logo from '../assets/logo-white.svg'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 export const NavBarScreen = () => {
     return (
         <div className='nav-screens-container'>
             <div className="logo-redirect">
                 <Link className='navbar-brand' to="/">
-                    <img width={200} className='logo' src={logo} alt="" />
+                    <img width={300} className='logo' src={logo} alt="" />
                 </Link>
             </div>
-            <div>
-                
+            <div className='search-content'>
+                <input className='search-field' type="text" placeholder='O que você procura?' />
+                <AiOutlineSearch className="search-icon" size={20} />
             </div>
             <div className="redirect-links">
-                <div className="home-redirect">
-                    <Link to="/">Inicio</Link>
-                </div>
                 <div className="new-request-redirect">
-                    <Link to="/request/new">Nova solicitação</Link>
+                    <Link to="/request/new">Nova manifestação</Link>
                 </div>
                 <div className="request-redirect">
-                    <Link to="/requests">Minhas solicitações</Link>
+                    <Link to="/requests">Minhas manifestações</Link>
                 </div>
             </div>
             <div className='options'>

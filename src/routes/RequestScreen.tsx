@@ -93,14 +93,19 @@ export const RequestScreen = () => {
                 <button className="options-btn">
                     <VscThreeBars size={30} />
                 </button>
-                <span className='header-info-title'>FAÇA SUA SOLICITAÇÃO</span>
-                <div className='help-info screens request-screen'>
-                    <span>AJUDA</span>
-                    <BsInfoCircle size={20}/>
-                </div>
+                <span className='header-info-title'>FAÇA SUA MANIFESTAÇÃO</span>
             </div>
             <hr />
-            <div className='header-icons'>
+            <div className='navigation-context'>
+                <div className='navitation-start'>
+                    <span>Ínicio</span>
+                    <IoIosArrowForward style={{ opacity: '.2'}} />
+                </div>
+                <div className='current'>
+                    <span>Descrição</span>
+                </div>
+            </div>
+            {/* <div className='header-icons'>
                 <div className='home-icon'>
                     <IoIosHome size={20} style={{ color: '#555555'}} />
                     <span id="first" className='progress-label'>HOME</span>
@@ -121,8 +126,7 @@ export const RequestScreen = () => {
                 <div>
                     <span id="fifth" className='progress-label'>CONCLUSÃO</span>
                 </div>
-            </div>
-            <hr className='header-icon-hr'/>
+            </div> */}
             <div className='request-container'>
                 <p className='form-warning'>OS CAMPOS SINALISADOS COM ASTERÍSCO * SÃO DE PREENCHIMENTO OBRIGATÓRIO</p>
                 <div className="request-form">

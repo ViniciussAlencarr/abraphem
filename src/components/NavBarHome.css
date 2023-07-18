@@ -1,29 +1,83 @@
 .nav-container {
+    margin-right: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px;
     .search-content {
-        background: #666666;
-        width: 100%;
+        background: transparent;
+        border: 2px solid #DD0301;
         height: 100%;
-        margin: 0 50px;
         display: flex;
-        padding: 5px 20px;
+        width: 27%;
+        padding: 3px 10px;
         border-radius: 4px;
-        color: #fff;
+        color: #000;
         justify-content: space-between;
         align-items: center;
         .search-field {
             background: none;
+            text-align: center;
             border: none;
+            font-size: 12px;
             width: 100%;
             outline: none;
-            color: #fff;
+            color: #000;
             &::placeholder {
-                text-transform: uppercase;
-                color: #fff;
+                text-align: center;
+                color: #000;
             }
         }
+    }
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        .download-primer-platform {
+            opacity: .5;
+            font-size: 12px;
+            .download-primer-platform-btn {
+                border: none;
+                padding: 12px;
+                border-radius: 8px;
+                width: max-content;
+                color: #fff;
+                background: #DD0301;
+            }
+            transition: .2s ease-out;
+            &:hover {
+                transition: .2s ease-out;
+                opacity: 1;
+            }
+        }
+        .register-button {
+            background-color: #DD0301;
+            width: max-content;
+            height: 100%;
+            display: flex;
+            padding: 5px;
+            gap: 5px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: ease-out .2s;
+            &:hover {
+                background-color: #dd0301b0;
+                transition: ease-out .2s;
+            }
+        }
+        .register-button svg {
+            color: #fff;
+        }
+        .register-button button {
+            text-transform: uppercase;
+            color: #fff;
+            font-size: 12px;    
+            background: none;
+            border: none;
+            outline: none;
+        }
+        
     }
 }
 .bg-body-tertiary {
@@ -50,6 +104,7 @@
         .search-field {
             background: none;
             border: none;
+            font-size: 12px;
             width: 100%;
             outline: none;
             color: #fff;
@@ -59,40 +114,4 @@
             }
         }
     }
-}
-.register-button {
-    background-color: #fff;
-    width: max-content;
-    height: 100%;
-    display: flex;
-    padding: 10px;
-    gap: 5px;
-    border-radius: 12px;
-    text-decoration: none;
-    transition: ease-out .2s;
-    &:hover {
-        background-color: #cccccc;
-        transition: ease-out .2s;
-    }
-    /* background-color: #E6E6E6;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    width: 364px;
-    text-decoration: none;
-    padding: 10px;
-     */
-}
-.register-button svg {
-    color: #000;
-}
-.register-button button {
-    text-transform: uppercase;
-    color: #000;
-    font-size: 12px;    
-    background: none;
-    border: none;
-    outline: none;
 }

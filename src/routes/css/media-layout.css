@@ -1,3 +1,38 @@
+@media (max-width: 1148px) {
+    .screens-container {
+        .nav-screens-container {
+            position: relative !important;
+            .redirect-links {
+                position: absolute !important;
+                bottom: 0 !important;
+                left: 33% !important;
+                right: 30% !important;
+                text-align: center !important;
+            }
+            .search-content {
+                position: absolute !important;
+                bottom: 36% !important;
+                height: auto !important;
+                left: 37% !important;
+            }
+        }
+                
+    }
+
+}
+@media (max-width: 1120px) {
+    .nav-container {
+        height: 160px !important;
+        position: relative !important;
+        .search-content {
+            position: absolute !important;
+            bottom: 5px !important;
+            height: auto !important;
+            left: 6% !important;
+            width: 92% !important;
+        }
+    }
+}
 @media (max-width: 922px) {
     .footer-top {
         justify-content: center !important;
@@ -50,15 +85,18 @@
     .screens-container {
         .nav-screens-container {
             position: relative !important;
-            height: 140px;
+            height: 180px !important;
             .logo-redirect {
+                top: 10px !important;
                 position: absolute !important;
                 left: 0 !important;
             }
             .redirect-links {
                 position: absolute !important;
-                bottom: 15px !important;
+                bottom: 10px !important;
                 width: -webkit-fill-available !important;
+                left: 5% !important;
+                right: 1% !important;
                 .home-redirect {
                     display: none !important;
                 }
@@ -68,8 +106,16 @@
                 }
             }
             .options {
+                top: 30px !important;
                 position: absolute !important;
                 right: 30px !important;
+            }
+            .search-content {
+                width: 91.2%;
+                position: absolute !important;
+                bottom: 25% !important;
+                height: auto !important;
+                left: 5% !important;
             }
         }
                 
@@ -119,9 +165,14 @@
 }
 @media (max-width: 740px) {
     .nav-container {
+        height: auto !important;
         flex-direction: column !important;
-        gap: 20px !important;
-        margin: 20px !important;
+        gap: 10px !important;
+        margin: 0 40px !important;
+        .search-content {
+            position: unset !important;
+            width: 100% !important;
+        }
     }
     .home-container {
         .content {
@@ -142,6 +193,9 @@
             .table-info-content {
                 .info-content {
                     display: grid !important;
+                    width: min-content !important;
+                    margin: 20px !important;
+                    gap: 2% !important;
                 }
             }
         }
@@ -151,9 +205,23 @@
                     margin: 0 15% !important;
                 }
             }
+            .header-info .header-info-title {
+                font-size: 14px !important;
+            }
         }
     }
 }
+@media (max-width: 690px) {
+    .screens-container {
+        .nav-screens-container {
+            .search-content {
+                width: 87% !important;
+                left: 7% !important;
+            }
+        }
+    }
+}
+
 @media (max-width: 560px) {
     .screens-container {
         .request-screen-container {
@@ -249,14 +317,35 @@
     }
 }
 @media (max-width: 425px) {
+    .help-info {
+        font-size: 7px !important;
+    }
+    .help-info svg {
+        width: 12px !important;
+    }
     .screens-container {
+        .faq-container {
+            .header-info .help-info {
+                display: none !important;
+            }
+            .faq-themes {
+                margin-top: 10px !important;
+                .faq-theme .title {
+                    font-size: 12px !important;
+                }
+            }
+            .header-icons,
+            .hr-separator {
+                display: none !important;
+            }
+        }
         .nav-screens-container {
             padding: 0 !important;
             position: relative !important;
             .logo-redirect {
                 top: 20px !important;
                 position: absolute !important;
-                left: -15px !important;
+                left: 5px !important;
                 .navbar-brand .logo {
                     width: 150px !important;
                 }
@@ -291,24 +380,27 @@
                 }
                 margin: 5px 15px !important;
                 .help-info {
-                    font-size: 6px !important;
+                    display: none !important;
                 }
-                .help-info svg {
-                    width: 10px !important;
-                }
+                
             }
             .header-icon-hr,
-            .header-icons {
+            .navigation-context {
                 display: none !important;
             }
             .navigation-form {
                 margin: 0 5px !important;
                 font-size: 12px !important;
                 justify-content: space-between !important;
+                .back svg,
+                .advance svg {
+                    width: 12px !important;
+                }
                 .back button,
                 .advance button {
                     padding: 0 5px !important;
                 }
+
             }
             .request-container {
                 margin: 5px !important;
@@ -349,11 +441,11 @@
             }
             .login-content {
                 .title {
-                    font-size: 12px !important;
+                    font-size: 10px !important;
                 }
                 .form-login {
                     .title {
-                        font-size: 16px !important;
+                        font-size: 14px !important;
                     }
                     .form-field input {
                         font-size: 12px !important;
@@ -364,12 +456,12 @@
                 }
                 .register-account {
                     font-size: 8px !important;
-                    gap: 40px !important;
+                    margin: 10px !important;
                     .register-redirect {}
                 }
                 .login-button {
                     font-size: 12px !important;
-                    width: 215px !important;
+                    width: 180px !important;
                 }
                 .google-login-info {
                     font-size: 12px !important;
@@ -382,6 +474,8 @@
                     .captcha-content {
                         padding: 0px 5px !important;
                         gap: 10px !important;
+                        margin: 0 !important;
+                        margin-bottom: 10px !important;
                         .captcha-input {
                             .captcha-value-input {
                                 width: 20px !important;
@@ -407,7 +501,7 @@
         }
     }
     .nav-bar-container {
-        padding: 0;
+        padding: 0 !important;
     }
     .home-container {
         .content {
@@ -416,12 +510,6 @@
                     padding: 10px 0px !important;
                     gap: calc(50% - 130px) !important;
                     font-size: 12px !important;
-                    .help-info span {
-                        font-size: 8px !important;
-                    }
-                    .help-info svg {
-                        width: 12px !important;
-                    }
                 }
                 .themes {
                     .table {
@@ -432,19 +520,16 @@
                             .theme-img {
                                 height: max-content;
                                 .img {
-                                    width: 84px !important;
+                                    width: 170px !important;
+                                    border-top-left-radius: 8px !important;
+                                    border-bottom-left-radius: 8px !important;
                                     height: 100% !important;
                                 }
                             }
-                            .theme-info {
-                                width: 100% !important;
-                                margin: 1px !important;
-                                .theme-name {
-                                    font-size: 12px !important;
-                                }
-                                .theme-description {
-                                    font-size: 10px !important;
-                                }
+                            .theme-description {
+                                border-radius: 8px !important;
+                                margin: 5px !important;
+                                font-size: 10px !important;
                             }
                         }
                     }
@@ -459,12 +544,11 @@
             }
         }
         .footer {
-            margin: 15px 0px !important;
             .redirect-buttons {
-                gap: 40px !important;
+                gap: 5px !important;
                 .consult-request,
                 .common-questions {
-                    font-size: 8px !important;
+                    font-size: 9px !important;
                     border-radius: 4px !important;
                     margin: 0 !important;
                     padding: 9px 4px !important;
@@ -522,30 +606,29 @@
     }
     .header-info {
         .options-btn {
-            display: none;
+            display: none !important;
         }
         .header-info-title {
-            font-size: 10px;
+            font-size: 10px !important;
         }
     }
     .nav-container {
         position: relative !important;
-        height: 100px !important;
-        .logo-container,
+        padding: 0 !important;
+        /* .logo-container,
         .search-content,
         .register {
             position: absolute !important;
-        }
+        } */
         .logo-container {
-            left: -35px !important;
             .navbar-brand {
                 .logo {
-                    width: 150px !important;
+                    width: 200px !important;
                 }
             }
         }
         .search-content {
-            top: 70px !important;
+            
             padding: 0 10px !important;
             height: auto !important;
             .search-field {
@@ -555,16 +638,30 @@
         .search-content svg {
             width: 20px !important;
         }
-        .register {
-            right: 0 !important;
-            .register-button {
-                padding: 5px;
+        .action-buttons {
+            display: grid !important;
+            gap: 8px !important;
+            .download-primer-platform {
+                justify-content: center;
+                display: flex;
+                .download-primer-platform-btn {
+                    padding: 5px !important;
+                }
             }
-            .register-button svg {
-                width: 30px !important;
-            }
-            .register-button button {
-                font-size: 9px !important;
+            .register {
+                display: flex !important;
+                justify-content: center !important;
+                .register-button {
+                    gap: 0 !important;
+                    padding: 0px 5px !important;
+
+                }
+                .register-button svg {
+                    width: 20px !important;
+                }
+                .register-button button {
+                    font-size: 9px !important;
+                }
             }
         }
     }
@@ -576,22 +673,6 @@
                 .title {
                     font-size: 10px !important;
                     gap: calc(50% - 100px) !important;
-
-                    /* display: grid !important;
-                    justify-content: center !important;
-                    align-items: center !important;
-                    text-align: center !important;
-                    .help-info {
-                        text-align: center !important;
-                        width: 100% !important;
-                        justify-content: center !important;
-                    }
-                    .help-info span {
-                        font-size: 8px !important;
-                    }
-                    .help-info svg {
-                        width: 12px !important;
-                    } */
                 }
             }
         }
