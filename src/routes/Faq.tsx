@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Collapse } from "react-bootstrap"
 import { BsInfoCircle } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-
 import './css/Faq.css'
 import './css/media-layout.css'
 import { IoIosArrowForward, IoIosHome } from "react-icons/io";
