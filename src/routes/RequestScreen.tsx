@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { BsInfoCircle, BsFillMicFill } from 'react-icons/bs';
-import { IoIosHome, IoIosArrowForward } from 'react-icons/io';
+import { BsFillMicFill } from 'react-icons/bs';
+import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { ImAttachment } from 'react-icons/im';
 import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';

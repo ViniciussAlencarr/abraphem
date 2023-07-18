@@ -1,6 +1,4 @@
-import { BsInfoCircle } from 'react-icons/bs';
 import { VscThreeBars } from 'react-icons/vsc';
-import { useNavigate } from 'react-router-dom';
 
 import './css/FirstScreen.css';
 import './css/media-layout.css';
@@ -10,8 +8,6 @@ import myManifestation from '../assets/my-manifestation.svg'
 import myUser from '../assets/my-user.svg'
 
 export const FirstScreen = () => {
-    const navigate = useNavigate();
-
     return (
         <div className='first-screen-container'>
             <hr />

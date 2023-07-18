@@ -2,8 +2,6 @@
 import { Outlet } from 'react-router-dom'
 import { NavBarHome } from './components'
 import { Table } from 'react-bootstrap';
-import { MdEmail } from 'react-icons/md';
-import { VscThreeBars } from 'react-icons/vsc';
 
 import './App.css'
 import './routes/css/media-layout.css'

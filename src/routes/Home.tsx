@@ -1,7 +1,5 @@
-import { TbCircleArrowUp } from 'react-icons/tb';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Carousel, Table } from 'react-bootstrap';
-import { BsInfoCircle } from 'react-icons/bs';
 
 import "./css/Home.css"
 import './css/media-layout.css'
@@ -17,8 +15,6 @@ import requestCard from '../assets/CARDS_HOME_solicitação 1.svg'
 import suggestionCard from '../assets/CARDS_HOME_sugestão 1.svg'
 
 export const Home = () => {
-    const navigate = useNavigate();
-
     return (
         <div className='home-container'>
             <div className='content content-home'>
