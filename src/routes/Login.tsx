@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { FcGoogle } from 'react-icons/fc';
 import { Table } from 'react-bootstrap'
 
 import './css/Login.css'
