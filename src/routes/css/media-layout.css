@@ -209,6 +209,25 @@
                 font-size: 14px !important;
             }
         }
+        .requests-container {
+            .manifests-table-content {
+                margin: 35px !important;
+                margin-top: 0 !important;
+                .header {
+                    position: relative;
+                    padding-bottom: 40px !important;
+                    padding-top: 0 !important;
+                    height: 200px !important;
+                    .filter {
+                        width: -webkit-fill-available;
+                        position: absolute !important;
+                        bottom: 20px !important;
+                        left: 0 !important;
+                        margin: 0 35px !important;
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 690px) {
@@ -239,6 +258,34 @@
                     }
                     .form-request  {
                         gap: 5px !important
+                    }
+                }
+            }
+        }
+        .requests-container {
+            .manifests-table-content {
+                margin: 35px !important;
+                margin-top: 0 !important;
+                .header {
+                    height: auto !important;
+                    display: block;
+                    padding-top: 20px !important;
+                    padding-bottom: 70px !important;
+                    .select {
+                        font-size: 12px;
+                        .form-label {
+                            font-size: 11px !important;
+                        }
+                        .mb-3 {
+                        }
+                    }
+                    .filter {
+                        width: -webkit-fill-available;
+                        position: absolute !important;
+                        bottom: 20px !important;
+                        left: 0 !important;
+                        font-size: 12px;
+                        margin: 0 35px !important;
                     }
                 }
             }
@@ -302,6 +349,7 @@
                 }
             }
             .reply-response {
+                margin: 0 !important;
                 .title {
                     font-size: 14px !important;
                 }
@@ -433,11 +481,19 @@
                 }
             }
         }
+        .requests-container {
+            .manifests-table-content {
+                .subtitle-status {
+                    display: grid !important;
+                    font-size: 8px !important;
+                }
+            }
+        }
     }
     .login-container {
         .login-header {
             .logo-container a .logo {
-                width: 150px !important;
+                width: 200px !important;
             }
             .login-content {
                 .title {
@@ -615,6 +671,7 @@
     .nav-container {
         position: relative !important;
         padding: 0 !important;
+        padding-top: 20px !important;
         /* .logo-container,
         .search-content,
         .register {
@@ -642,10 +699,13 @@
             display: grid !important;
             gap: 8px !important;
             .download-primer-platform {
+
                 justify-content: center;
                 display: flex;
                 .download-primer-platform-btn {
-                    padding: 5px !important;
+                        font-size: 10px;
+                        padding: 6px 6px !important;
+                        border-radius: 6px;
                 }
             }
             .register {

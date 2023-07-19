@@ -8,6 +8,12 @@
     text-align: center;
     width: min-content;
     height: fit-content;
+    .new-request-img,
+    .my-requests-img,
+    .my-user-img {
+        cursor: pointer;
+
+    }
     .header-img-name {
         background-color: #fff; 
         .name {

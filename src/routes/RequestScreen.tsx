@@ -66,11 +66,10 @@ export const RequestScreen = () => {
         }
         setDivToTop()
     }
-    const forwardNavigation = () => {
+    /* const forwardNavigation = () => {
         const activeProgressLabel: any = document.querySelector('.progress-label.active')
         let labelProgressIndex = progressLabels.findIndex(label => label.id == activeProgressLabel.id)
         if (progressLabels[labelProgressIndex].id == 'fourth') {
-            navigate('/request/status/success')
         }
         if (progressLabels[labelProgressIndex].id == 'third') {
             setBackLabel('Alterar dados')
@@ -85,7 +84,7 @@ export const RequestScreen = () => {
             console.log('é final')
         }
         setDivToTop()
-    }
+    } */
     return (
         <div className='request-screen-container'>
             <hr />
@@ -257,7 +256,7 @@ export const RequestScreen = () => {
                     <MdOutlineKeyboardDoubleArrowLeft size={30} />
                     <button className='back-nativation-btn'>{backLabel}</button>
                 </div>
-                <div onClick={() => forwardNavigation()} className='advance'>
+                <div onClick={() => navigate('/request/status/success')} className='advance'>
                     <MdOutlineKeyboardDoubleArrowRight size={30} />
                     <button className='forward-btn'>{forwardLabel}</button>
                 </div>

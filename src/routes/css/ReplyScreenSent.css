@@ -2,42 +2,57 @@
     margin: 0;
 }
 .request-screen-container {
-    .reply-response {
-        background-color: #E6E6E6;
+    .reply-response-container {
         margin: 25px;
-        display: grid;
-        text-align: center;
-        padding: 25px;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        .title {
-            font-weight: bold;
-            font-size: 19px;
-        }
-        .advice-message {
-            margin: 0 30%;
+        margin-bottom: 55px;
+        .reply-response {
+            background-color: transparent;
+            margin: 0 25%;
+            display: grid;
+            text-align: center;
+            padding: 20px;
+            border-radius: 6px;
+            border: 2px solid #D97E7E;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            .title {
+                font-weight: bold;
+                color: #C00405;
+                font-size: 19px;
+            }
+            .advice-message {
+                font-weight: 500;
+                margin: 0 20%;
+                font-size: 12px;
+                .advice-info {
+                    font-weight: 900;
+                    display: grid;
+                    gap: 15px;
+                }
+            }
         }
     }
     .action-buttons {
         display: flex;
-        gap: 20px;
+        gap: 25%;
         justify-content: center;
         align-items: center;
+        margin-bottom: 40px;
         .new-request,
         .requests {
-            background-color: #555555;
+            background-color: #D97E7E;
             text-align: center;
             text-decoration: none;
             border: none;
             font-size: 12px;
             color: #fff;
-            padding: 9px 20px;
+            padding: 14px 20px;
             border-radius: 8px;
             transition: ease-out .2s;
             &:hover {
                 transition: ease-out .2s;
-                background-color: #777777;
+                background-color: #FF0000;
             }
         }
     }

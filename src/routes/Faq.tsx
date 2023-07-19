@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { Button, Collapse } from "react-bootstrap"
-import { BsInfoCircle } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import './css/Faq.css'
 import './css/media-layout.css'
-import { IoIosArrowForward, IoIosHome } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
 import { RiArrowDownSLine } from "react-icons/ri";
+import { VscThreeBars } from "react-icons/vsc";
 
 export const Faq = () => {
-    const navigate = useNavigate();
 
     const [openTheme, setOpenTheme] = useState<any>({
         'theme-1': false,
@@ -88,31 +86,28 @@ export const Faq = () => {
         <div className="faq-container">
             <hr />
             <div className='header-info'>
-                <span className='header-info-title'>PERGUNTAS FREQUENTES</span>
-                <button className='help-info' onClick={() => navigate('/faq')}>
-                    <span>AJUDA</span>
-                    <BsInfoCircle size={20}/>
+                <button className="options-btn">
+                    <VscThreeBars size={30} />
                 </button>
+                <span className='header-info-title'>PERGUNTAS FREQUENTES</span>
             </div>
             <hr />
             <div className='header-icons'>
                 <div className='home-icon'>
-                    <IoIosHome size={20} style={{ color: '#555555', margin: '2px'}} />
-                    <span className='home-label'>HOME</span>
-                    <IoIosArrowForward style={{ opacity: '.2', margin: '2px'}} />
+                    <span className='home-label'>ÍNICIO</span>
+                    <IoIosArrowForward style={{ opacity: '.2'}} />
                 </div>
                 <div>
                     <span id="second" className='progress-label'>Perguntas frequentes</span>
                 </div>
             </div>
-            <hr className="hr-separator"/>
             <div className="faq-themes">
                 {
                     content.map(data => 
                         <div className="faq-theme">
                             <Button className="title" onClick={(event) => setTheme(event, data.id)} aria-controls="theme-paragraph" aria-expanded={data.ref}>
                                 {data.title}
-                                <RiArrowDownSLine />
+                                <RiArrowDownSLine size={30}/>
                             </Button>
                             <Collapse in={data.ref}>
                                 <div className="theme-paragraph">
