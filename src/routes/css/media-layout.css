@@ -33,6 +33,27 @@
         }
     }
 }
+@media (max-width: 1080px) {
+    .screens-container {
+        .my-user-container {
+            .edit-user-info {
+                .edit-form-info {
+                    .form-context-personal-information {
+                        .gender_race_category_email {
+                            display: grid !important;
+                        }
+                    }
+                    .form-context-patient-information {
+                        .type-coagulopathy_severity-coagulopathy_location-treatment-center,
+                        .pcd_which_accept-use-my-data .pcd_whick {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 @media (max-width: 922px) {
     .footer-top {
         justify-content: center !important;
@@ -118,6 +139,21 @@
                 left: 5% !important;
             }
         }
+        .my-user-container {
+            .edit-user-info {
+                .edit-form-info {
+                    .form-context-personal-information {
+                        .name_cpf_date-birth_state_city {
+                            display: contents !important;
+                            justify-content: left !important;
+                            .cpf_date-birth_state_city {
+                                justify-content: space-between !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
                 
     }
     .request-screen-container {
@@ -161,6 +197,21 @@
                     }
                 }
             }
+    }
+}
+@media (max-width: 780px) {
+    .screens-container {
+        .my-user-container {
+            .edit-user-info {
+                .edit-form-info {
+                    .form-context-personal-information {
+                        .phone-type_phone-value_owner-name {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 740px) {
@@ -238,6 +289,70 @@
                 left: 7% !important;
             }
         }
+        .my-user-container {
+            .edit-user-info {
+                .header {
+                    gap: 10px !important;
+                    display: grid !important;
+                    justify-content: center;
+                    font-size: 12px;
+                    .preview-user-img {
+                        display: flex;
+                        justify-content: center;
+                        .user-picture {
+                            width: 100px !important;
+                            height: 100px !important;
+                        }
+                    }
+                    .preview-user-name {
+                        margin: 0 !important;
+                        text-align: center;
+                    }
+                }
+                .edit-form-info {
+                    gap: 5px !important;
+                    .info-advice {
+                        font-size: 8px !important;
+                    }
+                    .title {
+                        font-size: 14px !important;
+                    }
+                    .form-context-personal-information {
+                        .input-context,
+                        .select-context {
+                            font-size: 10px !important;
+                            gap: 0 !important;
+                        }
+                        .input-context label,
+                        .select-context label {
+                            font-size: 12px !important;
+                        }
+                    }
+                    .form-context-patient-information  {
+                        .pcd_which_accept-use-my-data {
+                            display: grid !important;
+                            .accept-use-data {
+                                .accept-use-my-data label {
+                                    font-size: 12px !important;
+
+                                }
+                            }
+                        }
+                    }
+                    .save-changes { 
+                        .save-changes-btn {
+                            font-size: 12px !important;
+                        }
+                    }
+                    .back-to-top {
+                        font-size: 8px !important;
+                        .logo {
+                            width: 20px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -286,6 +401,38 @@
                         left: 0 !important;
                         font-size: 12px;
                         margin: 0 35px !important;
+                    }
+                }
+            }
+        }
+        .my-user-container {
+            .edit-user-info {
+                .edit-form-info {
+                    .form-context-personal-information {
+                        .input-context,
+                        .select-context {
+                            width: 100% !important;
+                        }
+                        .name_cpf_date-birth_state_city {
+                            display: contents !important;
+                            /* display: grid !important;
+                            justify-content: left !important; */
+                            .cpf_date-birth_state_city {
+                                display: grid !important;
+                                justify-content: initial !important;
+                                .state_city {
+                                    justify-content: space-between !important;
+                                    .select-context {
+                                        width: 100%;
+                                    }
+                                }
+                            }
+                        }
+                        .gender_race_category_email {
+                            .category_email {
+                                display: grid !important;
+                            }
+                        }
                     }
                 }
             }
@@ -486,6 +633,23 @@
                 .subtitle-status {
                     display: grid !important;
                     font-size: 8px !important;
+                }
+            }
+        }
+        .my-user-container {
+            .edit-user-info {
+                .edit-form-info {
+                    .form-context-personal-information {
+                        .name_cpf_date-birth_state_city {
+                            /* display: grid !important;
+                            justify-content: left !important; */
+                            .cpf_date-birth_state_city {
+                                .cpf_date-birth {
+                                    display: grid !important;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -726,6 +890,23 @@
         }
     }
 }
+@media (max-width: 370px) {
+    .screens-container {
+        .my-user-container {
+            .edit-user-info {
+                .edit-form-info {
+                    .form-context-personal-information {
+                        .phone-type_phone-value_owner-name {
+                            .phone-type_phone-value {
+                                display: grid !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 @media (max-width: 357px) {
     .home-container {
         .content {
@@ -737,4 +918,5 @@
             }
         }
     }
+    
 }

@@ -56,4 +56,11 @@
             }
         }
     }
+    .back-to-top {
+        display: flex;
+        justify-content: right;
+        gap: 5px;
+        font-size: 10px;
+        
+    }
 }

@@ -14,6 +14,9 @@
             left: 30px;
             position: absolute;
         }
+        .header-info-title {
+            font-weight: 600;
+        }
         .help-info svg {
             width: 12px;
         }
@@ -286,13 +289,15 @@
         }
     }
     .back-to-top {
-        font-size: 8px;
-        gap: 1px;
-        font-weight: 900;
+        font-size: 10px;
+        gap: 5px;
         display: flex;
         justify-content: right;
         align-items: center;
         margin: 25px;
         margin-top: 10px;
+        .logo {
+            width: 20px;
+        }
     }
 }

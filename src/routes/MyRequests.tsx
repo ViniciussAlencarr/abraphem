@@ -1,37 +1,84 @@
 import { VscThreeBars } from 'react-icons/vsc'
-import './css/MyRequests.css'
-import './css/media-layout.css'
 import { IoIosArrowForward } from 'react-icons/io'
 import { Button, Collapse, Form } from 'react-bootstrap'
 import { RiArrowDownSFill, RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from 'react'
 import TablePagination from '@mui/base/TablePagination';
-var teste = [
-    { name: '1'},
-    { name: '2'},
-    { name: '3'},
-    { name: '4'},
-    { name: '5'},
-    { name: '6'},
-    { name: '7'},
-    { name: '8'},
-    { name: '9'},
-    { name: '10'},
-    { name: '11'},
-    { name: '12'},
-    { name: '13'},
-    { name: '14'},
-    { name: '14'},
-    { name: '14'},
-    { name: '14'},
-    { name: '14'},
-    { name: '14'},
-    { name: '14'},
-]
+
+import './css/MyRequests.css'
+import './css/media-layout.css'
+
 export const MyRequests = () => {
-    const [open, setOpen] = useState(false)
+    const [teste, setTest] = useState([
+        {
+            id: '1',
+            protocol: {
+                number: 123456778,
+                period: '00/00/0000 ÁS 16H00'
+            },
+            title: 'Título da manifestação',
+            description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
+            status: 'Concluido',
+            open: false
+        },
+        {
+            id: '2',
+            protocol: {
+                number: 123456778,
+                period: '00/00/0000 ÁS 16H00'
+            },
+            title: 'Título da manifestação',
+            description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
+            status: 'Em andamento',
+            open: false
+        },
+        {
+            id: '3',
+            protocol: {
+                number: 123456778,
+                period: '00/00/0000 ÁS 16H00'
+            },
+            title: 'Título da manifestação',
+            description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
+            status: 'Aberto',
+            open: false
+        },
+        {
+            id: '4',
+            protocol: {
+                number: 123456778,
+                period: '00/00/0000 ÁS 16H00'
+            },
+            title: 'Título da manifestação',
+            description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
+            status: 'Em andamento',
+            open: false
+        },
+        {
+            id: '5',
+            protocol: {
+                number: 123456778,
+                period: '00/00/0000 ÁS 16H00'
+            },
+            title: 'Título da manifestação',
+            description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
+            status: 'Concluido',
+            open: false
+        },
+        {
+            id: '6',
+            protocol: {
+                number: 123456778,
+                period: '00/00/0000 ÁS 16H00'
+            },
+            title: 'Título da manifestação',
+            description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
+            status: 'Concluido',
+            open: false
+        },
+    ])
     const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
+    const [rowsPerPage, setRowsPerPage] = useState(3);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -50,16 +97,18 @@ export const MyRequests = () => {
     };
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - teste.length) : 0;
 
-    const openMoreInfoAboutManifest = (event: any) => {
+    const openMoreInfoAboutManifest = (event: any, row: any) => {
         /* let aux: any = document.querySelector('.tr-table-context') */
         /* if (aux.style.display == 'block') {
             aux.style.display = 'none'
         } else {
             aux.style.display = 'block'
         } */
-        console.log(event.target)
         event.target.classList.toggle('active')
-        setOpen(!open)
+        let aux = teste
+        let index = aux.findIndex((value: any) => value.id == row.id)
+        aux[index].open = !aux[index].open
+        setTest([...aux])
     }
     return (
         <div className='requests-container'>
@@ -151,8 +200,8 @@ export const MyRequests = () => {
                         <thead>
                             <tr className='table-titles'>
                                 <th style={{width: '15%' }}>Protocolo</th>
-                                <th style={{ width: '75%' }}>Descrição</th>
-                                <th style={{ textAlign: 'center', width: '150px', float: 'right' }}>Status</th>
+                                <th style={{ width: '70%' }}>Descrição</th>
+                                <th style={{ textAlign: 'center' }}>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -162,28 +211,34 @@ export const MyRequests = () => {
                                         <tr>
                                             <td className='protocol'>
                                                 <div className='protocol-container'>
-                                                    <div className='number'>123456789</div>
-                                                    <div className='date'>00/00/0000 ÁS 16H00</div>
+                                                    <div className='number'>{row.protocol.number}</div>
+                                                    <div className='date'>{row.protocol.period}</div>
                                                 </div>
                                             </td>
                                             <td className='description'>
                                                 <div className='description-container'>
                                                     <div className='description-title'>
-                                                        Titulo da manifestação
+                                                        {row.title}
                                                     </div>
                                                     <div className='value'>
-                                                        DESCRIÇÃO DA {row.name}MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;
+                                                        {row.description}
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className='status-context-tr'>
                                                 <div className='status-context'>
-                                                    <div className='status-context-color concluded'></div>
+                                                    <div className={`status-context-color
+                                                        ${row.status.toLowerCase() == 'concluido' ?
+                                                            'concluded' :
+                                                                row.status.toLowerCase() == 'em andamento' ?
+                                                                    'in-progress' :
+                                                                    'open'}`
+                                                    }></div>
                                                     <div className='status-text'>
-                                                        Concluido
+                                                        {row.status}
                                                     </div>
                                                     <div className='open-more-info'>
-                                                        <Button className='open-more-info-btn' onClick={(event) => openMoreInfoAboutManifest(event)} aria-controls="theme-paragraph" aria-expanded={open}>
+                                                        <Button className='open-more-info-btn' onClick={(event) => openMoreInfoAboutManifest(event, row)} aria-controls="theme-paragraph" aria-expanded={row.open}>
                                                             <RiArrowDownSLine size={20}/>
                                                         </Button>
                                                     </div>
@@ -192,7 +247,7 @@ export const MyRequests = () => {
                                         </tr>
                                         <tr className='tr-table-context'>
                                             <td colSpan={2}>
-                                                <Collapse in={open}>
+                                                <Collapse in={row.open}>
                                                     <div className="theme-paragraph">
                                                         <table className='analize-table-content'>
                                                             <tbody>
@@ -371,6 +426,20 @@ export const MyRequests = () => {
                                                     </div>
                                                 </Collapse>
                                             </td>
+                                            <td className='td-status-color'>
+                                                <div className='status'>
+                                                    <div className={`left-color-status
+                                                        ${row.status.toLowerCase() == 'concluido' ?
+                                                            'concluded' :
+                                                                row.status.toLowerCase() == 'em andamento' ?
+                                                                    'in-progress' :
+                                                                    'open'}`
+                                                    }></div>
+                                                    <div className='right-color-status'>
+                                                        <Button className='open-more-info-btn' onClick={(event) => openMoreInfoAboutManifest(event, row)} aria-controls="theme-paragraph" aria-expanded={row.open}></Button>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                     </>
                                 )
@@ -383,23 +452,27 @@ export const MyRequests = () => {
                         </tbody>
                         <tfoot>
                             <tr>
+                                <td className='pagination-info'>
+                                    Exibindo <b>{rowsPerPage}</b> de <b>{teste.length}</b> | Página {page}
+                                </td>
+                                {/* {page} */}
                                 <TablePagination
-                                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                                colSpan={3}
-                                count={teste.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                slotProps={{
-                                    select: {
-                                    "aria-label": "rows per page"
-                                    },
-                                    actions: {
-                                    showFirstButton: true,
-                                    showLastButton: true
-                                    }
-                                }}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                    rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
+                                    colSpan={3}
+                                    count={teste.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    slotProps={{
+                                        select: {
+                                        "aria-label": "rows per page"
+                                        },
+                                        actions: {
+                                        showFirstButton: false,
+                                        showLastButton: false
+                                        }
+                                    }}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
                                 />
                             </tr>
                         </tfoot>

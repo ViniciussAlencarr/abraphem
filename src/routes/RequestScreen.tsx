@@ -4,11 +4,12 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 import { ImAttachment } from 'react-icons/im';
 import { MdOutlineKeyboardDoubleArrowLeft, MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
-import { TbCircleArrowUp } from 'react-icons/tb';
 import { VscThreeBars } from 'react-icons/vsc';
 
 import './css/RequestScreen.css';
 import './css/media-layout.css';
+
+import arrowUpIcon from '../assets/arrow-up.svg'
 
 export const RequestScreen = () => {
     const [backLabel, setBackLabel] = useState('Voltar')
@@ -262,8 +263,8 @@ export const RequestScreen = () => {
                 </div>
             </div>
             <div onClick={setDivToTop} className='back-to-top'>
-                <span>VOLTAR AO TOPO</span>
-                <TbCircleArrowUp size={15} />
+                <span>Voltar ao topo</span>
+                <img className='logo' src={arrowUpIcon} />
             </div>
         </div>  
     ) 

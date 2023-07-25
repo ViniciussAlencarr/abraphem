@@ -189,15 +189,17 @@
                     position: relative;
                     .status-context {
                         position: absolute;
+                        border-left: 1px #C00405 solid;
                         height: 100%;
                         top: 0;
                         align-items: center;
                         display: flex;
-                        width: 150px;
+                        width: -webkit-fill-available;
                         float: right;
                         justify-content: space-between;
                         .status-text {
                             font-size: 12px;
+                            text-align: center;
                         }
                         .open-more-info {
                             background-color: #D2D2D2;
@@ -221,9 +223,6 @@
                                     rotate: calc(180deg);
                                 }
                             }
-                            &:hover {
-                                opacity: .7;
-                            }
                         }
                         .status-context-color {
                             height: -webkit-fill-available;
@@ -234,18 +233,16 @@
                             &.in-progress {
                                 background-color: #FF6B00;
                             }
-                            .open {
+                            &.open {
                                 background-color: #FFD600;
                             }
                             transition: ease-in .2s;
-
-                            &:hover {
-                                transition: ease-in .2s;
-                                opacity: .7;
-                            }
                         }
                     }
                 }
+            }
+            .manifest-table tbody .tr-table-context td {
+                padding: 0;
             }
             .manifest-table tbody .tr-table-context {
                 .analize-table-content {
@@ -317,10 +314,6 @@
                         font-weight: 900;
                         align-items: center;
                         transition: ease-in .1s;
-                        &:hover {
-                            background-color: #d55252;
-                            transition: ease-in .1s;
-                        }
                     }
                     .service-context {
                         border-left: 3px solid #fff;
@@ -365,6 +358,80 @@
                             }
                         }
                     }
+                }
+                .td-status-color {
+                    position: relative;
+                    .status {
+                        justify-content: space-between;
+                        margin-right: 1px;
+                        top: 0;
+                        position: absolute;
+                        display: flex;
+                        height: 100%;
+                        width: -webkit-fill-available;
+                        border-left: 1px solid #C00405;
+                        .left-color-status {
+                            width: 30px;
+                            height: -webkit-fill-available;
+                            background: grey;
+                            &.concluded {
+                                background-color: #6EC501;
+                            }
+                            &.in-progress {
+                                background-color: #FF6B00;
+                            }
+                            &.open {
+                                background-color: #FFD600;
+                            }
+                            transition: ease-in .2s;
+                        }
+                        .right-color-status {
+                            width: 30px;
+                            height: -webkit-fill-available;
+                            background: #D2D2D2;
+                            .open-more-info-btn {
+                                border: none;
+                                background: none;
+                                outline: none;
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+            .manifest-table tfoot tr td {
+                padding-top: 10px;
+                &.pagination-info {
+                    text-transform: uppercase;
+                    font-size: 12px;
+                }
+            }
+            .manifest-table tfoot tr td .MuiTablePagination-toolbar {
+                .MuiTablePagination-selectLabel,
+                .MuiTablePagination-select,
+                .MuiTablePagination-displayedRows {
+                    display: none !important;
+                }
+                .MuiTablePagination-actions {
+                    display: flex;
+                    justify-content: center;
+                    gap: 20px;
+                }
+                .MuiTablePagination-actions button {
+                    background-color: red;
+                    color: #fff;
+                    border: none;
+                    border-radius: 4px;
+                    transition: ease-in .2s;
+                    &:hover {
+                        transition: ease-in .2s;
+                        opacity: .7;
+                    }
+                    &:disabled {
+                        opacity: .5;
+                    }
+                    
                 }
             }
         }

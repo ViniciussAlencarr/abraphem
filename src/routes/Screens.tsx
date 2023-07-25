@@ -51,6 +51,7 @@ export const Screens = () => {
                             <tr>
                                 <td>Informação</td>
                             </tr>
+
                         </tbody>
                     </Table>
                     <Table className="table table-borderless">

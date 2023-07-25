@@ -143,10 +143,9 @@
             justify-content: right;
             margin: 25px;
             align-items: center;
-            font-size: 10px !important;
+            font-size: 10px;
             cursor: pointer;
-            gap: 3px;
-            font-weight: 600;
+            gap: 5px;
             font-size: 10px;
             .logo {
                 width: 20px;

@@ -17,7 +17,8 @@ import {
   Screens,
   ReplyScreenSent,
   MyRequests,
-  Faq
+  Faq,
+  MyUser
 } from './routes'
 
 const router = createBrowserRouter([
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: '/faq',
         element: <Faq />
+      },
+      {
+        path: '/account/user',
+        element: <MyUser />
       },
     ]
   },

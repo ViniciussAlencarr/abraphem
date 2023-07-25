@@ -1,10 +1,11 @@
 import { VscThreeBars } from 'react-icons/vsc';
-import { TbCircleArrowUp } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
+import { IoIosArrowForward } from 'react-icons/io';
 
 import './css/ReplyScreenSent.css'
 import './css/media-layout.css';
-import { IoIosArrowForward } from 'react-icons/io';
+
+import arrowUpIcon from '../assets/arrow-up.svg'
 
 export const ReplyScreenSent = () => {
     const navigate = useNavigate();
@@ -66,8 +67,8 @@ export const ReplyScreenSent = () => {
                 </button>
             </div>
             <div onClick={setDivToTop} className='back-to-top'>
-                <span>VOLTAR AO TOPO</span>
-                <TbCircleArrowUp size={15} />
+                <span>Voltar ao topo</span>
+                <img className='logo' src={arrowUpIcon} />
             </div>
         </div>  
     ) 

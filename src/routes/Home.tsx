@@ -4,7 +4,6 @@ import { Carousel, Table } from 'react-bootstrap';
 import "./css/Home.css"
 import './css/media-layout.css'
 
-
 import arrowUpIcon from '../assets/arrow-up.svg'
 
 import infoCard from '../assets/CARDS_HOME_informação 1.svg'

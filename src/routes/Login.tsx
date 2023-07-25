@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
 
 import './css/Login.css'
@@ -6,13 +6,33 @@ import './css/media-layout.css'
 
 import logo from '../assets/logo-white.svg'
 import reCaptchaLogo from '../assets/reCaptchaLogo.svg'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const Login = () => {
+    const navigate = useNavigate()
+    const login = () => {
+        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+        toast.promise(
+            resolveAfter3Sec,
+            {
+            pending: 'Fazendo login...',
+            success: {
+                render() {
+                    setTimeout(() => navigate('/'), 2000)
+                    return 'Login realizado com sucesso!'
+                }
+            },
+            error: 'Ocorreu um problema ao realizar o login'
+            }
+        )
+    }
     return (
         <div className='login-container'>
             <div className='login-header'>
                 <div className="logo-container">
-                    <Link to="/">
+                    <Link to="">
                         <img className='logo' src={logo} alt="" />
                     </Link>
                 </div>
@@ -50,7 +70,7 @@ export const Login = () => {
                                 </div>
                             </div>
                         </div>
-                        <button className='login-button'>Entrar</button>
+                        <button className='login-button' onClick={login}>Entrar</button>
                     </div>
                 </div>
             </div>
@@ -143,6 +163,7 @@ export const Login = () => {
                 </div>
                 <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS| Desenvolvido por XXXXXXXXXXX</p>
             </div>
+            <ToastContainer />
         </div>
     )
 }

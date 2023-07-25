@@ -58,6 +58,9 @@
         padding: 6px 12px;
         color: #fff;
         transition: .2s ease-in;
+        .profile-picture {
+            width: 40px;
+        }
         .nav-item a {
             text-transform: uppercase;
         }

@@ -2,9 +2,11 @@
 import { Outlet } from 'react-router-dom'
 import { NavBarHome } from './components'
 import { Table } from 'react-bootstrap';
+import { ToastContainer } from 'react-toastify';
 
 import './App.css'
 import './routes/css/media-layout.css'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -108,6 +110,7 @@ function App() {
             <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS| Desenvolvido por XXXXXXXXXXX</p>
           </div>
         </div>
+        <ToastContainer />
     </div>
     /* <Container fluid>
       <Row className="justify-content-md-center">
