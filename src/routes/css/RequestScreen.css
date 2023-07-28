@@ -39,252 +39,185 @@
             font-weight: 500;
         }
     }
-    .header-icons {
-        display: flex;
-        gap: 10px;
-        justify-content: left;
-        align-items: center;
-        font-size: 12px;
-        margin: 15px 25px;
-        font-weight: 100;
-        .home-icon {
-            display: flex;
-            gap: 3px;
-            align-items: center;
-            justify-content: center;
+    .new-request-container {
+        margin: 0 35px;
+        .info-advice {
+            margin: 15px 0;
+            font-size: 10px;
+            font-weight: 300;
+            text-transform: uppercase;
         }
-        .progress-label {
-            &.active {
-                font-weight: 500;
+        .title {
+            text-transform: uppercase;
+            color: #C00405;
+            font-weight: 500;
+            font-size: 20px;
+            margin-bottom: 15px;
+            &.second {
+                margin: 0;
             }
         }
-    }
-    .request-container {
-        margin: 35px;
-        margin-top: 0;
-        .form-warning {
-            margin: 0 !important;
-            font-size: 12px;
-            padding-top: 15px;
-            padding-bottom: 15px;
-            font-weight: 900;
-        }
-        .request-form {
-            /* margin: 25px; */
-            border: 1px solid grey;
-            background-color: #F0F0F0;
-            .request-form-header {
-                font-weight: 900;
-                text-transform: uppercase;
-                border-bottom: 1px solid #555555;
-                .title {
-                    margin: 0;
-                    font-size: 20px;
-                    padding: 15px;
-                }
+        .form-context {
+            display: grid;
+            gap: 15px;
+            .type-manifestation_who-opening-manifest_input-channel,
+            .name_cpf_date-birth_state_city,
+            .cpf_date-birth_state_city,
+            .cpf_date-birth,
+            .state_city,
+            .gender_race_email,
+            .gender_race,
+            .email-context,
+            .type-phone_phone_owner-name,
+            .type-coagulopathy_severity-coagulopathy_location-treatment-center,
+            .disabled-person_which-person_accept-use-my-data,
+            .disabled-person_which-person,
+            .accept-use-data {
+                display: flex;
+                width: 100%;
+                gap: 15px;
+                align-items: center;
             }
-            .addressee {
-                .addressee-header {
-                    border-bottom: 1px solid #555555;
-                    .title {
-                        font-size: 24px;
-                        font-weight: 900;
-                        text-transform: uppercase;
-                        border-bottom: 1px solid #555555;
-                        margin: 0;
-                        padding: 15px;
-                    }
+            
+            .select-context {
+                width: 100%;
+                display: grid;
+                font-size: 12px;
+                gap: 5px;
+                .label-value {
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 14px;
                 }
-                .send-request select {
-                    background: #E6E6E6;
-                    color: #808080;
-                    border-radius: 8px;
-                    border: 1px solid #555555;
-                    outline: none;
-                    padding: 6px 16px;
-                }
-                .send-request {
-                    display: grid;
-                    margin: 15px;
-                    
-                }
-            }
-            .description {
-                .description-header {
-                    border-bottom: 1px solid #555555;
-                    .title {
-                        font-size: 24px;
-                        font-weight: 900;
-                        text-transform: uppercase;
-                        border-bottom: 1px solid #555555;
-                        margin: 0;
-                        padding: 15px;
-                    }
-                }
-                .talk-content {
-                    display: grid;
-                    margin: 15px;
-                    gap: 5px;
-                    .warning-msg {
-                        color: #555555;
-                    }
-                    .talk-message {
-                        border: 1px solid #555555;
+                .select-input {
+                    border: 1px solid #C00405;
+                    border-radius: 6px;
+                    padding: 4px 12px;
+                    display: flex;
+                    justify-content: space-between;
+                    .select-element {
+                        border: none;
                         outline: none;
-                        border-radius: 16px;
-                        background: #E6E6E6;
-                        resize: none;
-                        padding: 16px;
+                        background: none;
+                        -moz-appearance: none;
+                        -webkit-appearance: none;
+                        width: -webkit-fill-available;
                     }
-                    .action-buttons {
-                        display: flex;
-                        margin: 15px;
-                        justify-content: right;
-                        gap: 20px;
-                        .transcribe-text,
-                        .attach-files {
-                            color: #808080;
-                            display: flex;
-                            gap: 15px;
-                            cursor: pointer;
-                            transition: ease-out .2s;
-                            &:hover {
-                                color: #000;
-                                transition: ease-out .2s;
-                            }
+                }
+            }
+            .input-context {
+                width: 100%;
+                display: grid;
+                font-size: 12px;
+                gap: 5px;
+                .label-value {
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 14px;
+                }
+                .input-text {
+                    padding: 8px 12px;
+                    outline: none;
+                    border-radius: 6px;
+                    border: 1px solid #C00405;
+                    &::placeholder {
+                        color: #000;
+                    }
+                }
+                &.accept-use-my-data {
+                    display: flex;
+                    align-items: center;
+                }
+                &.accept-use-my-data {
+                    margin-top: 25px;
+                }
+            }
+            .cpf_date-birth {
+                .cpf {
+                    width: auto;
+                }
+                .date-birth {
+                    width: max-content;
+                }
+            }
+            .manifest-value {
+                display: grid;
+                .manifest-label {
+                    font-size: 12px;
+                    margin-bottom: 10px;
+                }
+                .manifest-text-value {
+                    border-radius: 6px;
+                    border: 1px solid #D97E7E;
+                    background-color: transparent;
+                    padding: 6px 12px;
+                    outline: none;
+                    resize: none;
+                    font-size: 12px;
+                    height: 200px;
+                    &::placeholder {
+                        color: #000;
+                    }
+                }
+            }
+            .actions {
+                display: flex;
+                justify-content: right;
+                gap: 35px;
+                .action-button-context {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    font-size: 12px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    .action-btn  {
+                        background: none;
+                        border: none;
+                        outline: none;
+                        .icon {
+                            color: #C00405;
+                        }
+                    }
+                    .action-label {
+                        cursor: pointer;
+                    }
+                    &:hover {
+                        opacity: .6;
+                    }
+                }
+            }
+            .forward-back-btns {
+                display: flex;
+                margin: 15px 0;
+                gap: 35px;
+                justify-content: right;
+                .btn-action {
+                    font-size: 16px;
+                    padding: 12px 56px;
+                    border-radius: 8px;
+                    outline: none;
+                    border: none;
+                    background: #D93C3C;
+                    color: #fff;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    transition: ease-in .2s;
+                    &.back {
+                        opacity: .6;
+                        transition: ease-in .2s;
+                        &:hover {
+                            transition: ease-in .2s;
+                            opacity: 1;
+                        }
+                    }
+                    &.forward {
+                        &:hover {
+                            transition: ease-in .2s;
+                            opacity: .6;
                         }
                     }
                 }
-            }
-            .entry-channel {
-                display: grid;
-                margin: 15px;
-                .entry-channel-value {
-                    background: #E6E6E6;
-                    border-radius: 8px;
-                    border: 1px solid #555555;
-                    outline: none;
-                    padding: 6px 16px;
-                }
-            }
-            .request-form-footer select,
-            .request-form-footer input {
-                background: #E6E6E6;
-                color: #808080;
-                border-radius: 8px;
-                border: 1px solid #555555;
-                outline: none;
-                padding: 6px 16px;
-            }
-            .request-form-footer {
-                display: flex;
-                margin: 15px;
-                align-items: center;
-                justify-content: center;
-                gap: 15px;
-                .uf,
-                .city,
-                .location {
-                    display: grid;
-                    width: 100%;
-                }
-            }
-        }
-        
-        .request-form form select {
-            background: #E6E6E6;
-            color: #808080;
-        }
-        .request-form form input {
-            background: #BDBDBD;
-        }
-        .request-form form select,
-        .request-form form input {
-            border-radius: 8px;
-            border: 1px solid #555555;
-            outline: none;
-            padding: 6px 16px;
-        }
-        .request-form form {
-            display: flex;
-            margin: 15px;
-            gap: 15px;
-            justify-content: space-between;
-            
-            .form-request-left-side {
-                width: 100%;
-                display: grid;
-                gap: 15px;
-                .name,
-                .document .type,
-                .document .number-value,
-                .contacting {
-                    display: grid;
-                }
-                .document .type,
-                .document .number-value {
-                    width: 100%;
-                }
-            }
-            .form-request-right-side {
-                width: 100%;
-                display: grid;
-                gap: 20px;
-                .email,
-                .response-mode,
-                .type-hemophilia {
-                    display: grid;
-                }
-            }
-        }
-    }
-    .navigation-form {
-        display: flex;
-        margin: 0 25px;
-        padding-top: 10px;
-        justify-content: right;
-        gap: 15px;
-        .back button,
-        .advance button {
-            background: none;
-            border: none;
-            text-transform: uppercase;
-            outline: none;
-        }
-        .back,
-        .back button {
-            
-            color: #000;
-        }
-        .advance,
-        .advance button {
-            color: #fff;
-        }
-        .back {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #808080;
-            border: 1px solid #555555;
-            padding: 6px 16px;
-            border-radius: 8px;
-            transition: ease-out .2s;
-            &:hover {
-                transition: ease-out .2s;
-                background-color: #a5a4a4;
-            }
-        }
-        .advance {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #555555;
-            padding: 6px 16px;
-            border-radius: 8px;
-            transition: ease-out .2s;
-            &:hover {
-                transition: ease-out .2s;
-                background-color: #808080;
             }
         }
     }

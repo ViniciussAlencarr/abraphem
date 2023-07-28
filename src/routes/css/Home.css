@@ -4,16 +4,23 @@
         min-width: 275px;
         overflow: auto;
         .header-icon {
-            background-color: rgba(122, 35, 35, 0.30)            ;
+            .header-banner-img {
+                width: 100%;
+                height: 100%;
+            }
             height: 300px;
             .carousel {
                 height: 100%;
-                margin: 25px;
                 .carousel-indicators {
                     display: flex;
                     margin: 0;
+                    bottom: 35px;
                     justify-content: center;
                     align-items: center;
+                }
+                .carousel-inner,
+                .carousel-item {
+                    height: 100%;
                 }
                 .carousel-indicators button {
                     width: 6px;
@@ -29,12 +36,15 @@
                         height: 6px;
                         background: red;
                     }
-
                 }
                 .carousel-control-next {
+                    /* bottom: 35px; */
+                    right: 10px;
                     width: auto;
                 }
                 .carousel-control-prev {
+                    left: 10px;
+                    /* bottom: 35px; */
                     width: auto;
                     opacity: 1;
                     .carousel-control-prev-icon {
@@ -58,7 +68,8 @@
             display: grid;
             .title {
                 justify-content: center;
-                position: sticky;
+                position: relative;
+                align-items: center;
                 width: 100%;
                 display: flex;
                 font-size: 14px;
@@ -68,13 +79,27 @@
                 .help-info {
                     background: none;
                     display: flex;
+                    position: absolute;
+                    cursor: pointer;
+                    right: 10px;
                     align-items: center;
-                    gap: 3px;
                     outline: none;
                     border: none;
+                    gap: 5px;
+                    color: #C00405;
                     font-size: 9px;
                     font-weight: 900;
                     text-transform: uppercase;
+                    .help-info-btn {
+                        background: none;
+                        border: none;
+                        color: #C00405;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    .help-info-label {
+                        cursor: pointer;
+                    }
                 }
                 .help-info svg {
                     width: 12px;
@@ -85,7 +110,8 @@
                 height: 100%;
                 border-radius: 8px;
                 display: grid;
-                border: 2px solid #F00;
+                /* border: 2px solid #F00; */
+                box-shadow: 0px 3px 10px -3px #0000006e;
                 .theme-img {
                     .img {
                         width: 100%;
@@ -99,8 +125,12 @@
                     margin: 15px;
                     border-radius: 8px;
                 }
+                transition: ease-in .2s;
+
                 &:hover {
-                    opacity: .8;
+                    transition: ease-in .2s;
+                    box-shadow: 0px 3px 10px -3px #000000f0;
+
                 }
             }
         }
@@ -149,6 +179,65 @@
             font-size: 10px;
             .logo {
                 width: 20px;
+            }
+        }
+    }
+}
+
+.modal-sm {
+    --bs-modal-width: inherit !important;
+    justify-content: center !important;
+}
+.modal-content {
+    width: auto !important;
+    .modal-body {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        .content {
+            width: 1200px;
+            padding: 40px;
+            .title {
+                color: #C00405;
+                font-size: 16px;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+            .first-info {
+                font-size: 12px;
+                display: grid;
+
+                gap: 30px;
+                margin-top: 30px;
+                .info-text p {
+                    margin: 0 !important;
+                }
+            }
+            .second-info {
+                font-size: 12px;
+                display: grid;
+                gap: 30px;
+                margin-top: 30px;
+            }
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: red;
+            .close-modal-btn {
+                background: none;
+                border: none;
+                text-transform: uppercase;
+                font-size: 12px;
+                margin: 0;
+                font-weight: 500;
+                padding: 0;
+                margin-top: 2px;
             }
         }
     }

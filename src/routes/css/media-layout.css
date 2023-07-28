@@ -52,6 +52,30 @@
                 }
             }
         }
+        .request-screen-container {
+            .new-request-container {
+                .form-context {
+                    .type-manifestation_who-opening-manifest_input-channel,
+                    .name_cpf_date-birth_state_city,
+                    .disabled-person_which-person_accept-use-my-data .disabled-person_which-person {
+                        display: grid !important;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1020px) {
+    .screens-container {
+        .request-screen-container {
+            .new-request-container {
+                .form-context {
+                    .type-coagulopathy_severity-coagulopathy_location-treatment-center {
+                        display: grid !important;
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 922px) {
@@ -148,6 +172,24 @@
                             justify-content: left !important;
                             .cpf_date-birth_state_city {
                                 justify-content: space-between !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .request-screen-container {
+            .new-request-container {
+                .form-context {
+                    .name_cpf_date-birth_state_city {
+                        .cpf_date-birth_state_city {
+                            display: grid !important;
+                            .cpf_date-birth {
+                                justify-content: space-between !important;
+                                .input-context {
+                                    width: 100% !important;
+                                }
+
                             }
                         }
                     }
@@ -259,6 +301,22 @@
             .header-info .header-info-title {
                 font-size: 14px !important;
             }
+            .new-request-container {
+                .form-context {
+                    .disabled-person_which-person_accept-use-my-data {
+                        display: grid !important;
+                        .accept-use-data {
+                            .accept-use-my-data {
+                                gap: 5px !important;
+                                margin: 0 !important;
+                                .accept-use-my-data-value {
+                                    font-size: 10px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         .requests-container {
             .manifests-table-content {
@@ -353,9 +411,42 @@
                 }
             }
         }
+        .request-screen-container {
+            .title {
+                font-size: 13px !important;
+            }
+            .new-request-container {
+                .form-context {
+                    .label-value {
+                        font-size: 12px !important;
+                    }
+                    .select-input,
+                    .input-context {
+                        gap: 0 !important;
+                        font-size: 10px !important;
+                    }
+                    .manifest-value {
+                        .manifest-label {
+                            font-size: 10px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
+@media (max-width: 580px) {
+    .screens-container {
+        .new-request-container {
+            .form-context {
+                .type-phone_phone_owner-name {
+                    display: grid !important;
+                }
+            }
+        }
+    }
+}
 @media (max-width: 560px) {
     .screens-container {
         .request-screen-container {
@@ -508,6 +599,37 @@
             .action-buttons {
                 display: grid !important;
             }
+            .new-request-container {
+                .form-context {
+                    .name_cpf_date-birth_state_city {
+                        .cpf_date-birth_state_city {
+                            display: grid !important;
+                            .cpf_date-birth {
+                                display: grid !important;
+                                justify-content: normal !important;
+
+                            }
+                        }
+                    }
+                    .gender_race_email {
+                        display: grid !important;
+                    }
+                    .manifest-value {
+                        .manifest-text-value {
+                            font-size: 10px !important;
+                        }
+                    }
+                    .forward-back-btns {
+                        justify-content: space-between !important;
+                        gap: 15px !important;
+                        .btn-action {
+                            font-size: 10px !important;
+                            padding: 7px 30px !important;
+                            border-radius: 4px;
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -627,6 +749,18 @@
                     }
                 }
             }
+            .new-request-container {
+                .form-context {
+                    .actions {
+                        display: grid !important;
+                        gap: 15px !important;
+                        .action-button-context {
+                            font-size: 10px !important;
+                            justify-content: right !important;
+                        }
+                    }
+                }
+            }
         }
         .requests-container {
             .manifests-table-content {
@@ -734,6 +868,8 @@
                 .themes {
                     .table {
                         .theme {
+                            margin: 5px 0 !important;
+                            box-shadow: 0px 1px 7px -5px black;
                             display: flex !important;
                             align-items: center !important;
                             height: auto !important;
