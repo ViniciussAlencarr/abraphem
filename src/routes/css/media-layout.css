@@ -1,3 +1,33 @@
+@media (max-width: 1224px) {
+    .screens-container {
+        .requests-container {
+            .manifests-table-content {
+                .manifest-table-container {
+                    .manifest-table {
+                        .tr-table-context {
+                            .table-context-td {
+                                .theme-paragraph {
+                                    .service {
+                                        .service-context {
+                                            display: grid !important;
+                                            gap: 10px !important;
+                                        }
+                                        .send-assessment {
+                                            .send-assessment-btn {
+                                                float: right !important;
+                                                margin-right: 20px !important;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 @media (max-width: 1148px) {
     .screens-container {
         .nav-screens-container {
@@ -63,6 +93,33 @@
                 }
             }
         }
+        .requests-container {
+            .manifests-table-content {
+                .manifest-table-container {
+                    .manifest-table {
+                        .tr-table-context {
+                            .table-context-td {
+                                .theme-paragraph {
+                                    .service {
+                                        .service-context {
+                                            .service-questions {
+                                                gap: 20px !important;
+                                                .question-context {
+                                                    display: grid !important;
+                                                    .response {
+                                                        gap:  10px !important;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 1020px) {
@@ -72,6 +129,49 @@
                 .form-context {
                     .type-coagulopathy_severity-coagulopathy_location-treatment-center {
                         display: grid !important;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 990px) {
+    .screens-container {
+        .requests-container {
+            .manifests-table-content {
+                .manifest-table-container {
+                    .manifest-table {
+                        .table-titles {
+                            .status-title {
+                                display: none !important;
+                            }
+                        }
+                        .status-context-tr {
+                            display: none !important;
+                        }
+                        .description {
+                            .description-container {
+                                .value {
+                                    margin: 0 !important;
+                                }
+                            }
+                        }
+                        .status-new-bottom-context {
+                            display: table-row !important;
+                        }
+                        .tr-table-context {
+                            .table-context-td {
+                                .theme-paragraph {
+                                    .service,
+                                    .analize-table-content {
+                                        margin: 20px 0 !important;
+                                    }
+                                }
+                            }
+                            .td-status-color {
+                                display: none !important;
+                            }
+                        }
                     }
                 }
             }
@@ -335,6 +435,33 @@
                         margin: 0 35px !important;
                     }
                 }
+                .manifest-table-container {
+                    .manifest-table {
+                        .tr-table-context {
+                            .table-context-td {
+                                .theme-paragraph {
+                                    .service {
+                                        display: grid !important;
+                                        .service-title {
+                                            padding: 20px !important;
+                                            justify-content: center;
+                                        }
+                                        .service-context {
+                                            border-top: 3px solid #fff !important;
+                                            padding: 10px 20px !important;
+                                            border-left: 0 solid #fff !important;
+                                            .send-assessment {
+                                                .send-assessment-btn {
+                                                    margin-right: 0 !important;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -494,6 +621,44 @@
                         margin: 0 35px !important;
                     }
                 }
+                .manifest-table-container {
+                    .manifest-table {
+                        .status-new-bottom-context {
+                            .new-status-context {
+                                .status-context {
+                                    .status-context-color,
+                                    .open-more-info .open-more-info-btn {
+                                        width: 100% !important;
+                                    }
+                                }
+                            }
+                        }
+                        .tr-table-context {
+                            .table-context-td {
+                                .theme-paragraph {
+                                    .service {
+                                        .service-context {
+                                            .service-questions {
+                                                .question-context {
+                                                    .response {
+                                                        display: grid !important;
+                                                    }
+                                                }
+                                            }
+                                            .send-assessment {
+                                                display: flex !important;
+                                                justify-content: center;
+                                                .send-assessment-btn {
+                                                    /* float: ; */
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         .my-user-container {
@@ -555,7 +720,6 @@
                 .header-info-title {
                     font-size: 12px !important;
                 }
-                margin: 5px 25px !important;
             }
             .request-container {
                 .request-form {
@@ -763,12 +927,59 @@
             }
         }
         .requests-container {
+            .navigation-context {
+                display: none !important;
+            }
             .manifests-table-content {
                 .subtitle-status {
                     display: grid !important;
                     font-size: 8px !important;
                 }
+                .manifest-table-container {
+                    .manifest-table {
+                        .status-new-bottom-context {
+                            .new-status-context {
+                                .status-context {
+                                    display: grid !important;
+                                    justify-content: unset !important;
+                                    .status-text {
+                                        text-align: center !important;
+                                    }
+                                    .status-context-color,
+                                    .open-more-info .open-more-info-btn {
+                                        width: 100% !important;
+                                        height: 30px !important;
+                                    }
+                                }
+                            }
+                        }
+                        .tr-table-context {
+                            .theme-paragraph {
+                                .analize-table-content tbody tr {
+                                    display: grid !important;
+
+                                }
+                                .analize-table-content tbody {
+                                    .wait-analize-response {
+                                        .wait-analize-status-advice {
+                                            padding: 0 20px !important;
+                                            padding-bottom: 20px !important;
+                                        }
+                                    }
+                                    .analize-response {
+                                        .ombudsman-response {
+                                            padding: 0 20px !important;
+                                            padding-bottom: 20px !important;
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
             }
+            
         }
         .my-user-container {
             .edit-user-info {
@@ -859,6 +1070,9 @@
     }
     .home-container {
         .content {
+            .header-icon {
+                display: none !important;
+            }
             .content-info {
                 .title {
                     padding: 10px 0px !important;
@@ -967,6 +1181,10 @@
         .header-info-title {
             font-size: 10px !important;
         }
+    }
+    .option-menu {
+        display: none !important;
+
     }
     .nav-container {
         position: relative !important;

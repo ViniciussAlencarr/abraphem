@@ -3,6 +3,7 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { Button, Collapse, Form } from 'react-bootstrap'
 import { RiArrowDownSFill, RiArrowDownSLine } from 'react-icons/ri'
 import { useState } from 'react'
+import { MenuOptions } from '../components/MenuOptions'
 import TablePagination from '@mui/base/TablePagination';
 
 import './css/MyRequests.css'
@@ -79,6 +80,7 @@ export const MyRequests = () => {
     ])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(3);
+    const [open, setOpen] = useState(false);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -114,7 +116,7 @@ export const MyRequests = () => {
         <div className='requests-container'>
             <hr />
             <div className='header-info'>
-                <button className="options-btn">
+                <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>MINHAS MANIFESTAÇÕES</span>
@@ -130,6 +132,8 @@ export const MyRequests = () => {
                 </div>
             </div>
             <div className="manifests-table-content">
+                <MenuOptions open={open} />
+
                 <div className="title">
                     Todas as manifestações
                 </div>
@@ -201,7 +205,7 @@ export const MyRequests = () => {
                             <tr className='table-titles'>
                                 <th style={{width: '15%' }}>Protocolo</th>
                                 <th style={{ width: '70%' }}>Descrição</th>
-                                <th style={{ textAlign: 'center' }}>Status</th>
+                                <th className='status-title' style={{ textAlign: 'center' }}>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -245,8 +249,32 @@ export const MyRequests = () => {
                                                 </div>
                                             </td>
                                         </tr>
+                                        <tr className='status-new-bottom-context'>
+                                            <td className='title-status'>
+                                                Status
+                                            </td>
+                                            <td colSpan={1} className='new-status-context'>
+                                                <div className='status-context'>
+                                                    <div className={`status-context-color
+                                                        ${row.status.toLowerCase() == 'concluido' ?
+                                                            'concluded' :
+                                                                row.status.toLowerCase() == 'em andamento' ?
+                                                                    'in-progress' :
+                                                                    'open'}`
+                                                    }></div>
+                                                    <div className='status-text'>
+                                                        {row.status}
+                                                    </div>
+                                                    <div className='open-more-info'>
+                                                        <Button className='open-more-info-btn' onClick={(event) => openMoreInfoAboutManifest(event, row)} aria-controls="theme-paragraph" aria-expanded={row.open}>
+                                                            <RiArrowDownSLine size={20}/>
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
                                         <tr className='tr-table-context'>
-                                            <td colSpan={2}>
+                                            <td colSpan={2} className='table-context-td'>
                                                 <Collapse in={row.open}>
                                                     <div className="theme-paragraph">
                                                         <table className='analize-table-content'>
@@ -435,6 +463,9 @@ export const MyRequests = () => {
                                                                     'in-progress' :
                                                                     'open'}`
                                                     }></div>
+                                                    <div className='status-text' style={{opacity: 0}}>
+                                                        {row.status}
+                                                    </div>
                                                     <div className='right-color-status'>
                                                         <Button className='open-more-info-btn' onClick={(event) => openMoreInfoAboutManifest(event, row)} aria-controls="theme-paragraph" aria-expanded={row.open}></Button>
                                                     </div>

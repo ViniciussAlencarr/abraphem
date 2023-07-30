@@ -40,6 +40,11 @@
         }
     }
     .new-request-container {
+        position: relative;
+        .option-menu  {
+            left: -35px;
+            top: -39px;
+        }
         margin: 0 35px;
         .info-advice {
             margin: 15px 0;

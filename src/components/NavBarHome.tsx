@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-import './NavBarHome.css'
+import './css/NavBarHome.css'
 import '../routes/css/media-layout.css'
 
 import logo from '../assets/logo-white.svg'

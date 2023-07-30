@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Button, Collapse } from "react-bootstrap"
-import './css/Faq.css'
-import './css/media-layout.css'
 import { IoIosArrowForward } from "react-icons/io";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { VscThreeBars } from "react-icons/vsc";
+import { MenuOptions } from "../components/MenuOptions";
+
+import './css/Faq.css'
+import './css/media-layout.css'
 
 export const Faq = () => {
+    const [open, setOpen] = useState(false);
 
     const [openTheme, setOpenTheme] = useState<any>({
         'theme-1': false,
@@ -86,7 +89,7 @@ export const Faq = () => {
         <div className="faq-container">
             <hr />
             <div className='header-info'>
-                <button className="options-btn">
+                <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>PERGUNTAS FREQUENTES</span>
@@ -102,6 +105,7 @@ export const Faq = () => {
                 </div>
             </div>
             <div className="faq-themes">
+                <MenuOptions open={open} />
                 {
                     content.map(data => 
                         <div className="faq-theme">

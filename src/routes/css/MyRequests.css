@@ -30,8 +30,14 @@
         }
     }
     .manifests-table-content {
+        position: relative;
         margin: 35px;
         margin-top: 0;
+        .option-menu {
+            top: -24.9px;
+            left: -35px;
+            bottom: -35px;
+        }
         .title {
             padding: 15px 0;
             text-transform: uppercase;
@@ -226,6 +232,7 @@
                         }
                         .status-context-color {
                             height: -webkit-fill-available;
+                            min-width: 30px;
                             width: 30px;
                             &.concluded {
                                 background-color: #6EC501;
@@ -240,8 +247,9 @@
                         }
                     }
                 }
+                
             }
-            .manifest-table tbody .tr-table-context td {
+            .manifest-table tbody .tr-table-context .table-context-td {
                 padding: 0;
             }
             .manifest-table tbody .tr-table-context {
@@ -340,6 +348,10 @@
                                     display: flex;
                                     align-items: center;
                                     justify-content: center;
+                                    gap: 5px;
+                                    .form-check-inline {
+                                        margin-right: 0 !important;
+                                    }
                                 }
                             }
                         }
@@ -363,15 +375,19 @@
                     position: relative;
                     .status {
                         justify-content: space-between;
-                        margin-right: 1px;
                         top: 0;
                         position: absolute;
                         display: flex;
                         height: 100%;
                         width: -webkit-fill-available;
                         border-left: 1px solid #C00405;
+                        .status-text {
+                            font-size: 12px;
+                            text-align: center;
+                        }
                         .left-color-status {
                             width: 30px;
+                            min-width: 30px;
                             height: -webkit-fill-available;
                             background: grey;
                             &.concluded {
@@ -387,6 +403,7 @@
                         }
                         .right-color-status {
                             width: 30px;
+                            min-width: 30px;
                             height: -webkit-fill-available;
                             background: #D2D2D2;
                             .open-more-info-btn {
@@ -432,6 +449,60 @@
                         opacity: .5;
                     }
                     
+                }
+            }
+            .manifest-table tbody .status-new-bottom-context {
+                display: none;
+                justify-content: space-between;
+                .title-status {
+                    font-weight: 600;
+                }
+                .new-status-context {
+                    .status-context {
+                        display: flex;
+                        gap: 10px;
+                        justify-content: space-between;
+                        .status-context-color {
+                            
+                            width: 100%;
+                            &.concluded {
+                                background-color: #6EC501;
+                            }
+                            &.in-progress {
+                                background-color: #FF6B00;
+                            }
+                            &.open {
+                                background-color: #FFD600;
+                            }
+                            transition: ease-in .2s;
+                        }
+                        .status-text {
+                            text-align: center;
+                        }
+                        .open-more-info {
+                            background-color: #D2D2D2;
+                            display: flex;
+                            align-items: center;
+                            width: 100%;
+                            .open-more-info-btn svg {
+                                transition: ease-in .3s;
+                                rotate: calc(0deg);
+                            }
+                            .open-more-info-btn {
+                                width: 100%;
+                                padding: 0;
+                                background: none;
+                                border-radius: 0;
+                                height: 100%;
+                                border: none;
+                                color: #000;
+                                &.active svg {
+                                    transition: ease-in .2s;
+                                    rotate: calc(180deg);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

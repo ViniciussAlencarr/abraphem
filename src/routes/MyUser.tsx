@@ -3,6 +3,7 @@ import { IoIosArrowForward } from "react-icons/io"
 import { VscThreeBars } from "react-icons/vsc"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { ProfilePicture } from '../contexts/ProfilePicture'
+import { MenuOptions } from "../components/MenuOptions"
 
 import './css/MyUser.css'
 import './css/media-layout.css'
@@ -13,6 +14,8 @@ import defaultProfile from './../assets/profile.svg'
 export const MyUser = () => {
     const [userName, setUserName] = useState('')
     const [userImg, setUserImg] = useState(defaultProfile)
+    const [open, setOpen] = useState(false);
+
 
     useEffect(() => {
         setUserName('nome do usuário')
@@ -27,7 +30,7 @@ export const MyUser = () => {
         <div className="my-user-container">
             <hr />
             <div className='header-info'>
-                <button className="options-btn">
+                <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>MEU USUÁRIO</span>
@@ -43,6 +46,7 @@ export const MyUser = () => {
                 </div>
             </div>
             <div className="edit-user-info">
+                <MenuOptions open={open} />
                 <div className="header">
                     <div className="preview-user-img">
                         <ProfilePicture.Provider value={{ userImg }} >

@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 
-import './NavBarScreens.css'
+import './css/NavBarScreens.css'
 import '../routes/css/media-layout.css'
 
 import logo from '../assets/logo-white.svg'

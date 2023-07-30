@@ -1,4 +1,7 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc';
+import { MenuOptions } from '../components/MenuOptions'
 
 import './css/FirstScreen.css';
 import './css/media-layout.css';
@@ -6,21 +9,23 @@ import './css/media-layout.css';
 import newManifestation from '../assets/new-manifestation.svg'
 import myManifestation from '../assets/my-manifestation.svg'
 import myUser from '../assets/my-user.svg'
-import { useNavigate } from 'react-router-dom';
 
 export const FirstScreen = () => {
     const navigate = useNavigate()
+    const [open, setOpen] = useState(false);
+    
     return (
         <div className='first-screen-container'>
             <hr />
             <div className='header-info'>
-                <button className="options-btn">
+                <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>BEM VINDO À PLATAFORMA DE OUVIDORIA DA ABRAPHEM</span>
             </div>
             <hr />
             <div className='table-info-content'>
+                <MenuOptions open={open} />
                 <div className="info-content">
                     <div className='header-img-context new-request'>
                         <div className='new-request-img'>

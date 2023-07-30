@@ -2,14 +2,18 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { BsMic } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { VscThreeBars } from 'react-icons/vsc';
+import { useState } from 'react';
+import { RiArrowDownSFill } from 'react-icons/ri';
+import { MenuOptions } from '../components/MenuOptions';
 
 import './css/RequestScreen.css';
 import './css/media-layout.css';
 
 import arrowUpIcon from '../assets/arrow-up.svg'
-import { RiArrowDownSFill } from 'react-icons/ri';
 
 export const RequestScreen = () => {
+    const [open, setOpen] = useState(false);
+
     const setDivToTop = () => {
         window.scrollTo(0, 0);
     }
@@ -17,7 +21,7 @@ export const RequestScreen = () => {
         <div className='request-screen-container'>
             <hr />
             <div className='header-info'>
-                <button className="options-btn">
+                <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>FAÇA SUA MANIFESTAÇÃO</span>
@@ -33,6 +37,7 @@ export const RequestScreen = () => {
                 </div>
             </div>
             <div className="new-request-container">
+                <MenuOptions open={open} />
                 <div className="info-advice">OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO</div>
                 <div className="title">Identificação</div>
                 <div className="form-context">

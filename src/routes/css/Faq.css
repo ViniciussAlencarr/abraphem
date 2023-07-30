@@ -40,6 +40,11 @@
         border-radius: 6px;
         border-bottom: 0;
         margin: 25px 35px;
+        position: relative;
+        .option-menu {
+            left: -37px;
+            top: -51px;
+        }
         .faq-theme {
             border-bottom: 2px solid #C00405;
             padding: 10px 0;
