@@ -29,7 +29,7 @@ export const FirstScreen = () => {
                 <div className="info-content">
                     <div className='header-img-context new-request'>
                         <div className='new-request-img'>
-                            <img className='img' onClick={() => navigate('/request/new')} src={newManifestation} alt="" />
+                            <img className='img' onClick={() => navigate('/manifest/new')} src={newManifestation} alt="" />
                         </div>
                         <div className='header-img-name new-request-name'>
                             <p className='name'>Nova Manifestação</p>

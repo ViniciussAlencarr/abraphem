@@ -49,8 +49,8 @@ export const MenuOptions = (params: { open: boolean }) => {
                                     <div className='redirect-links'>
                                         <div className='links-btns'>
                                             <Link className='link' to="/">Início</Link>
-                                            <Link className='link' to="/request/new">Nova manifestação</Link>
-                                            <Link className='link' to="/requests">Minhas manifestações</Link>
+                                            <Link className='link' to="/manifest/new">Nova manifestação</Link>
+                                            <Link className='link' to="/manifests">Minhas manifestações</Link>
                                             <Link className='link' to="" onClick={logOut}>Sair</Link>
                                         </div>
                                     </div>

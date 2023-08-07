@@ -47,23 +47,23 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/firstScreen',
+        path: '/welcome',
         element: <FirstScreen />
       },
       {
-        path: '/request/new',
+        path: '/manifest/new',
         element: <RequestScreen />
       },
       {
-        path: '/request/status/success',
+        path: '/manifest/status/success',
         element: <ReplyScreenSent />
       },
       {
-        path: '/request/status/error',
+        path: '/manifest/status/error',
         element: <ReplyScreenSent />
       },
       {
-        path: '/requests',
+        path: '/manifests',
         element: <MyRequests />
       },
       {

@@ -59,10 +59,10 @@ export const ReplyScreenSent = () => {
                 </div>
             </div>
             <div className="action-buttons">
-                <button className="new-request" onClick={() => navigate('/request/new')}>
+                <button className="new-request" onClick={() => navigate('/manifest/new')}>
                     Fazer nova manifestação
                 </button>
-                <button className="requests" onClick={() => navigate('/requests')}>
+                <button className="requests" onClick={() => navigate('/manifests')}>
                     Ver minhas manifestações
                 </button>
             </div>

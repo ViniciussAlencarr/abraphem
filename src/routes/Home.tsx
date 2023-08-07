@@ -156,7 +156,7 @@ export const Home = () => {
             </div>
             <div className='footer'>
                 <div className='redirect-buttons'>
-                    <Link className='consult-request' to="/firstScreen">CONSULTE SUA MANIFESTAÇÃO</Link>
+                    <Link className='consult-request' to="/welcome">CONSULTE SUA MANIFESTAÇÃO</Link>
                     <Link className='common-questions' to="/faq">PERGUNTAS FREQUENTES</Link>
                 </div>
                 <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className='back-to-top'>

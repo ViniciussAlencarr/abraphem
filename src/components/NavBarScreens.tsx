@@ -38,10 +38,10 @@ export const NavBarScreen = () => {
             </div>
             <div className="redirect-links">
                 <div className="new-request-redirect">
-                    <Link to="/request/new">Nova manifestação</Link>
+                    <Link to="/manifest/new">Nova manifestação</Link>
                 </div>
                 <div className="request-redirect">
-                    <Link to="/requests">Minhas manifestações</Link>
+                    <Link to="/manifests">Minhas manifestações</Link>
                 </div>
             </div>
             <div className='options'>
