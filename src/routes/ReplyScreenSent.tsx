@@ -1,14 +1,24 @@
 import { VscThreeBars } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowForward } from 'react-icons/io';
+import { MenuOptions } from '../components/MenuOptions';
+import { useEffect, useState } from 'react';
 
 import './css/ReplyScreenSent.css'
 import './css/media-layout.css';
 
 import arrowUpIcon from '../assets/arrow-up.svg'
 
+import { validateUserSession } from '../utils/validateSession.utils'
+
 export const ReplyScreenSent = () => {
+    const [open, setOpen] = useState(false);
+    
     const navigate = useNavigate();
+
+    useEffect(() => {
+        validateUserSession(navigate)
+    }, [])
 
     const setDivToTop = () => {
         window.scrollTo(0, 0);
@@ -17,13 +27,14 @@ export const ReplyScreenSent = () => {
         <div className='request-screen-container'>
             <hr />
             <div className='header-info'>
-                <button className="options-btn">
+                <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
                 <span className='header-info-title'>MANIFESTAÇÃO ENVIADA COM SUCESSO</span>
             </div>
             <hr />
             <div className='navigation-context'>
+                <MenuOptions open={open} />
                 <div className='navitation-start'>
                     <span>Ínicio</span>
                     <IoIosArrowForward style={{ opacity: '.2'}} />

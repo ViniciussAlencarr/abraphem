@@ -1,0 +1,177 @@
+.login-admin {
+    display: grid;
+    min-width: 300px;
+    .login-header {
+        text-align: center;
+        .logo-container {
+            background: #fff;
+            padding: 20px;
+            .logo {
+                width: 250px;
+            }
+        }
+        .logo a {
+            font-size: 14px;
+            padding: 25px 50px;
+            text-decoration: none;
+            color: #000;
+        }
+        .login-container-form {
+            background-color: #C00405;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            .login-content {
+                display: grid;
+                width: max-content;
+                gap: 10px;
+                margin: 15px 0;
+                margin-bottom: 35px;
+                .title {
+                    margin: 0;
+                    font-size: 12px;
+                    text-transform: uppercase;
+                }
+                .form-login {
+                    display: grid;
+                    gap: 10px;
+                    .title {
+                        text-transform: uppercase;
+                        font-size: 17px;
+                        font-weight: 900;
+                    }
+                    .form-field {
+                        text-align: left;
+                        display: grid;
+                        gap: 5px;
+                        justify-content: center;
+                    }
+                    .form-field label {
+                        font-size: 14px;
+
+                        text-transform: uppercase;
+                    }
+                    .form-field input {
+                        outline: none;
+                        color: #fff;
+                        background: transparent;
+                        text-transform: none;
+                        border-radius: 8px;
+                        border: 1px solid #fff;
+                        padding: 4px 16px;
+                    }
+                }
+                .register-account {
+                    font-size: 10px;
+                    text-transform: uppercase;
+                    display: grid;
+                    margin: 10px 0px;
+                    gap: 10px;
+                    justify-content: left;
+                    text-align: left;
+                    margin-bottom: 0;
+                }
+                .captcha {
+                    display: flex;
+                    justify-content: center;
+                    .captcha-content {
+                        padding: 2px 10px;
+                        display: flex;
+                        background-color: #fff;
+                        color: #000;
+                        margin: 15px;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 15px;
+                        width: fit-content;
+                        border: 2px solid #ccc;
+                        .captcha-input {
+                            place-content: center;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 10px;
+                            .captcha-value-input {
+                                -webkit-appearance: none;
+                                display: grid;
+                                place-content: center;
+                                appearance: none;
+                                background-color: #fff;
+                                margin: 0;
+                                width: 25px;
+                                height: 25px;
+                                border: 2px solid #ccc;
+                                font: inherit;
+                                color: currentColor;
+                                transform: translateY(-0.075em);
+                                &&::before {
+                                    content: "";
+                                    width: 10px;
+                                    height: 10px;
+                                    transform: scale(0);
+                                    transition: .1s transform ease-in-out;
+                                    box-shadow: inset 1em 1em #ccc;
+                                }
+                                &&:checked::before {
+                                    transform: scale(1);
+                                }
+                            }
+                        }
+                        .captcha-input label{
+                            font-size: 12px;
+                        }
+                        .captcha-logo {
+        
+                        }
+                        .captcha-logo .logo {
+                            width: 40px;
+                        }
+                    }
+                }
+                .register-account a {
+                    text-decoration: none;
+                    color: #fff;
+                    transition: ease-in-out .2s;
+        
+                    &:hover {
+                        opacity: .7;
+                    }
+                }
+                .login-button {
+                    margin: auto;
+                    color: #000;
+                    background: #fff;
+                    border: none;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                    font-size: 14px;
+                    width: 200px;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    transition: ease-out .2s;
+                    &:hover {
+                        background: #d7d7d7;
+                        transition: ease-out .2s;
+                    }
+                }
+                .google-login-info {
+                    display: flex;
+                    margin: auto;
+                    padding: 6px 18px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    border: 2px solid #555555;
+                    justify-content: center;
+                    align-items: center;
+                    margin-bottom: 20px;
+                    opacity: .7;
+                    transition: ease-out .2s;
+                    &:hover {
+                        opacity: 1;
+                        transition: ease-out .2s;
+                    }
+                }
+            }
+        }
+    }
+}

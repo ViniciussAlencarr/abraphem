@@ -1,10 +1,18 @@
+import { useEffect } from 'react';
 import { NavBarScreen } from '../components'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { Table } from 'react-bootstrap';
 
 import './css/Screens.css'
 
+import { validateUserSession } from '../utils/validateSession.utils'
+
 export const Screens = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        validateUserSession(navigate)
+    }, [])
+    
     return (
         <div className='screens-container'>
             <NavBarScreen />

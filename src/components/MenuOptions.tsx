@@ -19,6 +19,8 @@ export const MenuOptions = (params: { open: boolean }) => {
         element.classList.toggle('active')
     }
     const logOut = () => {
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('bearer_token');
         navigate('/login')
     }
 

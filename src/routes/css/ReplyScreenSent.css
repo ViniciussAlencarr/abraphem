@@ -2,6 +2,10 @@
     margin: 0;
 }
 .request-screen-container {
+    .option-menu  {
+        top: 172px;
+        bottom: -11px;
+    }
     .reply-response-container {
         margin: 25px;
         margin-bottom: 55px;

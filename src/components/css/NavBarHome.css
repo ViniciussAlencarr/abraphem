@@ -1,11 +1,9 @@
 .nav-container {
-    margin-right: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-left: 0;
     padding: 20px;
-    padding-left: 0;
     .search-content {
         background: transparent;
         border: 2px solid #DD0301;
@@ -78,6 +76,39 @@
             background: none;
             border: none;
             outline: none;
+        }
+        .options {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 6px;
+            background-color: #FF0000;
+            padding: 6px 12px;
+            color: #fff;
+            transition: .2s ease-in;
+            .profile-picture {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
+            .nav-item a {
+                text-transform: uppercase;
+            }
+            &:hover {
+                background-color: #dd0301b0;
+                transition: ease-out .2s;
+            }
+        }
+        .options svg {
+            color: #fff;
+        }
+        .redirect-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
         }
         
     }

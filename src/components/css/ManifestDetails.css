@@ -1,0 +1,271 @@
+.see-manifest-details {
+    .option-menu {
+        top: 172px;
+    }
+    .see-progress-manifests-header {
+        display: flex;
+        align-items: center;
+        margin: 35px;
+        margin-top: 15px; 
+        justify-content: space-between;
+        .back-btn-context {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-radius: 4px;
+            width: fit-content;
+            padding: 5px 12px;
+            border: 2px solid #C00405;
+            color: #C00405;
+            .back-btn {
+                background: none;
+                border: none;
+                color: #C00405;
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+            transition: ease-in .2s;
+            &:hover {
+                opacity: .6;
+            }
+        }
+        .manifest-type {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 35px;
+            width: 100%;
+            .manifest-type-context {
+                display: grid;
+                gap: 10px;
+                .icon-imgs {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    .img-icon {
+                        width: 30px;
+                        position: absolute;
+                        &.arrow-icon {
+                            z-index: 1;
+                            width: 20px;
+                        }
+                    }
+                }
+                .type-label {
+                    color: #969696;
+                    font-size: 12px;
+                    &.active {
+                        color: #FFD600
+                    }
+                }
+            }
+            .line-marker {
+                width: 100px;
+                height: 2px;
+            }
+        }
+    }
+    .manifest-content {
+        display: grid;
+        text-align: left;
+        gap: 15px;
+        margin: 35px;
+        .requester-name {
+            .name {
+                font-weight: 500;
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+        }
+        .more-info-about-user {
+            .more-info-btn {
+                background-color: #DE5353;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                padding: 6px 22px;
+                text-transform: uppercase;
+                font-size: 14px;
+                transition: ease-in .2s;
+                &:hover {
+                    transition: ease-in .2s;
+                    opacity: .8;
+                }
+            }
+        }
+        .protocol_manifest {
+            font-size: 12px;
+            text-transform: uppercase;
+            display: flex;
+            gap: 130px;
+            .protocol,
+            .manifest {
+                display: grid;
+                height: fit-content;
+                gap: 10px;
+                &.title {
+                    font-weight: 600;
+                }
+            }
+            .protocol .protocol-number,
+            .manifest .manifest-title {
+                font-weight: 600;
+            }
+        }
+        .answer-manifest {
+            background-color: #F0F0F0;
+            border-radius: 4px;
+            font-size: 12px;
+            text-transform: uppercase;
+            .answer-manifest-header {
+                gap: 35px;
+                display: flex;
+                width: 100%;
+                padding: 15px 20px;
+                border-bottom: 2px solid #C00405;
+                .wait-analize {
+                    display: grid;
+                    gap: 10px;
+                    .wait-analize-title {
+                        font-weight: 600;
+                    }
+                }
+                .wait-analize-message {
+                }
+            }
+            .answer-context {
+                display: flex;
+                gap: 115px;
+                padding: 15px 20px;
+                .answer-context-title {
+                    font-weight: 600;
+                }
+                .answer-value-textarea {
+                    width: 100%;
+                    .answer-value {
+                        resize: none;
+                        background-color: #F0F0F0;
+                        width: 100%;
+                        min-height: 100px;
+                        border: none;
+                        outline: none;
+                        border-radius: 4px;
+                        &::placeholder {
+                            text-transform: uppercase;
+                            color: #000;
+                        }
+                    }
+                }
+                .analize-answer-info {
+                    display: flex;
+                    background-color: #D97E7E;
+                    border-radius: 6px;
+                    color: #fff;
+                    padding: 10px;
+                    align-items: center;
+                    gap: 10px;
+                }
+            }
+            .send-response {
+                display: flex;
+                justify-content: right;
+                padding: 15px 20px;
+                padding-top: 0;
+                .send-response-btn {
+                    color: #fff;
+                    background-color: #DE5353;
+                    border-radius: 8px;
+                    border: none;
+                    outline: none;
+                    transition: ease-in .2s;
+                    font-size: 14px;
+                    padding: 5px 60px;
+                    text-transform: uppercase;
+                    &:hover {
+                        transition: ease-in .2s;
+                        opacity: .8;
+                    }
+                }
+            }
+        }
+    }
+    .service-evaluation {
+        background-color: #D93C3C;
+        color: #fff;
+        border-radius: 10px;
+        margin: 35px;
+        display: flex;
+        align-items: center;
+        .service-evaluation-title {
+            font-size: 19px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .service-evaluation-context {
+            border-left: 2px solid #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            width: 100%;
+            .questions {
+                font-size: 14px;
+                display: grid;
+                gap: 10px;
+                .question {
+                    width: min-content;
+                    &.first-question {
+                        min-width: 123px;
+                    }
+                    &.second-question {
+                        min-width: 153px;
+                    }
+                    &.third-question {
+                        min-width: 170px;
+                    }
+                }
+            }
+            .responses {
+                display: grid;
+                gap: 35px;
+                .response {
+                    font-size: 12px;
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    .form-check {
+                        .form-check-input:disabled {
+                            opacity: 1 !important;
+                        }
+                        .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label {
+                            opacity: 1 !important;
+                        }
+                    }
+                }
+            }
+            .send-service-evaluation {
+                .send-service-evaluation-btn,
+                .sent-service-evaluation-btn {
+                    background-color: #fff;
+                    border: none;
+                    border-radius: 6px;
+                    padding: 10px 20px;
+                    color: #C00405;
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-size: 14px;
+                    transition: ease-in .2s;
+                    &:hover {
+                        transition: ease-in .2s;
+                        background-color: #ebebeb;
+                    }
+                }
+                .sent-service-evaluation-btn {
+                    color: #000;
+                }
+            }
+        }
+    }
+}

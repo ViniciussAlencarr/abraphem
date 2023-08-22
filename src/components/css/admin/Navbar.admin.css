@@ -1,0 +1,74 @@
+.admin-nav-screens {
+    padding: 32px 35px;
+    border-bottom: 1px solid #C00405;
+    .admin-nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .search-context {
+            width: 300px;
+            display: flex;
+            align-items: center;
+            border: 1px solid #C00405;
+            padding: 0px 5px;
+            border-radius: 4px;
+            .search-value {
+                border: none;
+                font-size: 12px;
+                width: 100%;
+                text-align: center;
+                outline: none;
+                background: none;
+                &::placeholder {
+                    color: #000;
+                }
+            }
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            .action-icons {
+                display: flex;
+                gap: 25px;
+                .action-btn {
+                    background: none;
+                    border: none;
+                    outline: none;
+                    transition: ease-in .2s;
+                    .icon {
+                        width: 30px;
+                    }
+                    &:hover {
+                        opacity: .6;
+                    }
+                }
+            }
+            .my-user-btn {
+                background-color: #FF0000;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                gap: 25px;
+                .dropdown-title {
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-size: 12px;
+                    .dropdown-toggle::after {
+                        display: inline-block;
+                        margin-left: 1.255em;
+                        vertical-align: 0;
+                        content: "";
+                        border-top: 8px solid;
+                        border-right: 5px solid transparent;
+                        border-bottom: 0px solid transparent;
+                        border-left: 5px solid transparent;
+                    }
+
+                }
+            }
+        }
+    }
+}

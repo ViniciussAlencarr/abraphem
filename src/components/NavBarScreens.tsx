@@ -1,21 +1,41 @@
 import { NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
+import api from '../services/api'
 
 import './css/NavBarScreens.css'
 import '../routes/css/media-layout.css'
 
 import logo from '../assets/logo-white.svg'
-/* import defaultProfileImg from '../assets/profile.svg' */
-import { FaUserCircle } from 'react-icons/fa'
+import defaultProfile from '../assets/profile.svg'
 
 export const NavBarScreen = () => {
-    const navigate = useNavigate()
-    const logOut = () => {
-        navigate('/login')
-    }
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [username, setUsername] = useState('');
+    const [userImg, setUserImg] = useState(defaultProfile)
 
+    const navigate = useNavigate()
+    
+    const logOut = () => {
+        setIsLoggedIn(false);
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('bearer_token');
+        return navigate('/login')
+    }
+    const getUser = async () => {
+        try {
+            let userId = localStorage.getItem('user_id');
+            const { data } = await api.get(`user/${userId}`, { headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
+            }})
+            setUserImg(data.profilePictureURL)
+            setUsername(data.username)
+        } catch (err) {
+            console.log(err)
+            logOut()
+        }
+    }
     useEffect(() => {
         /* let profilePictureListener = setInterval(() => {
             if (localStorage.getItem('profile-picture-url') != null) {
@@ -23,13 +43,14 @@ export const NavBarScreen = () => {
                 clearInterval(profilePictureListener)
             }
         }, 1000)  */       
-    }, [])
+        getUser()
+    }, [isLoggedIn])
 
     return (
         <div className='nav-screens-container'>
             <div className="logo-redirect">
                 <Link className='navbar-brand' to="/">
-                    <img width={300} className='logo' src={logo} alt="" />
+                    <img width={250} className='logo' src={logo} alt="" />
                 </Link>
             </div>
             <div className='search-content'>
@@ -45,8 +66,8 @@ export const NavBarScreen = () => {
                 </div>
             </div>
             <div className='options'>
-                <FaUserCircle size={40} />
-                <NavDropdown title="Nome do usuário" id="basic-nav-dropdown" style={{fontSize: '12px'}}>
+                <img className='profile-picture' src={userImg} alt="" />
+                <NavDropdown title={username} id="basic-nav-dropdown" style={{fontSize: '12px'}}>
                     <NavDropdown.Item href="/account/user">Meu usuário</NavDropdown.Item>
                     <NavDropdown.Divider />
                     <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>

@@ -26,6 +26,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+html,
+body,
+#root {
+  height: 100%;
+}
 .container-app {
   min-width: 300px;
   .nav-bar-container {

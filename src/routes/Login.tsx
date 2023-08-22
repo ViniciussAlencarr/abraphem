@@ -1,30 +1,68 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
+import { ToastContainer, toast } from 'react-toastify'
+import api from '../services/api'
 
 import './css/Login.css'
 import './css/media-layout.css'
-
-import logo from '../assets/logo-white.svg'
-import reCaptchaLogo from '../assets/reCaptchaLogo.svg'
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
+import reCaptchaLogo from '../assets/reCaptchaLogo.svg'
+import logo from '../assets/logo-white.svg'
 
 export const Login = () => {
+    const [cpf, setCpf] = useState('')
+    const [password, setPassword] = useState('')
+    
     const navigate = useNavigate()
+    const { search } = useLocation()
+
+    useEffect(() => {
+        let interval = setInterval(() => {
+            if (search.includes('sessionExpired')) {
+                clearInterval(interval)
+                toast.warn('Sua sessão expirou, faça login novamente.', {
+                    position: "top-right",
+                    autoClose: false,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                window.history.pushState({}, document.title, window.location.pathname);
+            }
+        }, 100)
+    }, [])    
+
     const login = () => {
-        const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 1000));
+        let errorMsg = cpf == '' && password == '' ? 'Os campos são obrigatorios' : 
+            cpf == '' ? 'Insira um valor para o CPF' : 'Digite a senha'
+        const makeLogin = async () => {
+            try {
+                const { data } = await api.post('/login?role=2', { document: cpf, password })
+                api.defaults.headers.Authorization = `Bearer ${data.token}`;
+                localStorage.setItem('user_id', data.user.id)
+                localStorage.setItem('bearer_token', data.token)
+            } catch (err) {
+                console.log(err)
+                throw err
+            }
+        }
+        if (cpf == '' || password == '') return toast.error(errorMsg)
         toast.promise(
-            resolveAfter3Sec,
+            makeLogin,
             {
-            pending: 'Fazendo login...',
-            success: {
-                render() {
-                    setTimeout(() => navigate('/'), 2000)
-                    return 'Login realizado com sucesso!'
-                }
-            },
-            error: 'Ocorreu um problema ao realizar o login'
+                pending: 'Fazendo login...',
+                success: {
+                    render() {
+                        setTimeout(() => navigate('/'), 500)
+                        return 'Login realizado com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao realizar o login'
             }
         )
     }
@@ -44,11 +82,11 @@ export const Login = () => {
                             <p className='title'>LOGIN OUVIDORIA DA ABRAPHEM</p>
                             <div className='form-field cpf'>
                                 <label htmlFor="cpf">CPF</label>
-                                <input id="cpf" type="text"/>
+                                <input id="cpf" type="text" value={cpf} onChange={event => setCpf(event.target.value)}/>
                             </div>
                             <div className='form-field password'>
                                 <label htmlFor="password">Senha</label>
-                                <input id="password" type="password"/>
+                                <input id="password" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                             </div>
                         </form>
                         <div className='register-account'>

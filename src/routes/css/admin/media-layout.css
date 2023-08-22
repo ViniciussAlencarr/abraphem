@@ -1,0 +1,291 @@
+@media (max-width: 1240px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 278vh !important;
+
+        }
+    }
+}
+@media (max-width: 1220px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 432.7vh !important;
+
+        }
+        .screens-context {
+            .dashboard-admin {
+                .charts {
+                    display: grid !important;
+                    gap: 0 !important;
+                    .chart-1 {
+                        .apexcharts-canvas {
+                            /* width: 700px !important; */
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1061px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 441.6vh !important;
+        }
+        .screens-context {
+            .admin-nav-screens {
+                .admin-nav-container {
+                    display: grid !important;
+                    gap: 25px;
+                    justify-content: center !important;
+                    .search-context {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 800px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 480.7vh !important;
+        }
+        .screens-context {
+            .dashboard-admin {
+                .manifest-status-info {
+                    display: grid !important;
+                    .info-container {
+                        display: flex !important;
+                        justify-content: left !important;
+                        .info-context {
+                            font-size: 12px !important;
+                            .title {
+                                padding: 15px 0 !important;
+                                padding-right: 15px !important;
+                            }
+                            .status-color {
+                                width: 25px !important;
+                            }
+                            .info-number {
+                                font-size: 20px !important;
+                                padding: 15px 0 !important;
+                            }
+                        }
+                        .see-manifests {
+                            .see-manifests-btn {
+                                font-size: 12px !important;
+                            }
+                            
+                        }
+                    }
+                }
+                .manifestation-funnel {
+                    border-bottom: 0 !important;
+                    .funil-context-container {
+                        display: grid !important;
+                        justify-content: inherit !important;
+                        .funil-content {
+                            display: flex !important;
+                            border: none !important;
+                            border-bottom: 1px solid #C00405 !important;
+                            .type-title,
+                            .amount {
+                                border: none !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 760px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 461.8vh !important;
+        }
+    }
+}
+@media (max-width: 725px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 459.9vh !important;
+            .icon {
+                .logo-icon {
+                    width: 250px !important;
+                }
+            }
+            .options {
+                .title {
+                    font-size: 12px !important;
+                }
+                .options-redirect {
+                    .option a {
+                        font-size: 10px !important;
+                    }
+                }
+            }
+        }
+        .screens-context {
+            .admin-nav-screens {
+                .admin-nav-container {
+                    .search-context {
+                        .search-value {
+                            font-size: 10px !important;
+                        }
+                    }
+                    .actions {
+                        .action-icons {
+                            gap: 15px !important;
+                            .action-btn {
+                                .icon {
+                                    width: 20px !important;
+                                }
+                                &.action-email-btn {
+                                    .icon {
+                                        width: 25px !important;
+                                    }
+
+                                }
+                            }
+                        }
+                        .my-user-btn {
+                            padding: 0 10px !important;
+                            gap: 10px !important;
+                            .dropdown-title {
+                                font-size: 10px !important;
+                            }
+                        }
+                        .my-user-btn svg {
+                            width: 25px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 425px) {
+    .login-admin {
+        .login-header {
+            .logo-container a .logo {
+                width: 200px !important;
+            }
+            .login-content {
+                .title {
+                    font-size: 10px !important;
+                }
+                .form-login {
+                    .title {
+                        font-size: 14px !important;
+                    }
+                    .form-field input {
+                        font-size: 12px !important;
+                    }
+                    .form-field label {
+                        font-size: 12px !important;
+                    }
+                }
+                .register-account {
+                    font-size: 8px !important;
+                    margin: 10px !important;
+                    .register-redirect {}
+                }
+                .login-button {
+                    font-size: 12px !important;
+                    width: 180px !important;
+                }
+                .google-login-info {
+                    font-size: 12px !important;
+                    gap: 5px !important;
+                }
+                .separator-span {
+                    font-size: 12px;
+                }
+                .captcha {
+                    .captcha-content {
+                        padding: 0px 5px !important;
+                        gap: 10px !important;
+                        margin: 0 !important;
+                        margin-bottom: 10px !important;
+                        .captcha-input {
+                            .captcha-value-input {
+                                width: 20px !important;
+                                height: 20px !important;
+                                &&::before {
+                                    width: 10px !important;
+                                    height: 10px !important;
+                                }
+                            }
+                        }
+                        .captcha-input label {
+                            font-size: 12px !important;
+                        }
+                        .captcha-logo {
+        
+                        }
+                        .captcha-logo .logo {
+                            width: 40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .admin-screens-container {
+        .menu-context {
+            height: 482.9vh !important;
+            .icon {
+                margin-bottom: 20px !important;
+                .logo-icon {
+                    width: 200px !important;
+                }
+            }
+            .options {
+                .title {
+                    padding: 5px 20px !important;
+                }
+                .options-redirect {
+                    .option {
+                        padding: 5px 20px !important;
+                    }
+                }
+            }
+        }
+        .screens-context {
+            .dashboard-admin {
+                .manifest-status-info {
+                    .info-container {
+                        display: grid !important; 
+                        justify-content: left !important;
+                        gap: 15px !important;
+                        .info-context {
+                            .title {
+                                padding-right: 15px !important;
+                                text-align: left !important;
+                            }
+                        }
+                        .see-manifests {
+                            justify-content: center !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 346px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 473.8vh !important;
+        }
+    }
+}
+@media (max-width: 336px) {
+    .admin-screens-container {
+        .menu-context {
+            height: 474.8vh !important;
+        }
+    }
+}

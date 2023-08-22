@@ -37,7 +37,7 @@
         width: 100%;
     }
 }
-.first-screen-container {
+.dashboard-container {
     .header-info {
         display: flex;
         text-align: center;

@@ -1,21 +1,27 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate,  } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc';
 import { MenuOptions } from '../components/MenuOptions'
 
-import './css/FirstScreen.css';
+import { validateUserSession } from '../utils/validateSession.utils'
+
+import './css/Dashboard.css';
 import './css/media-layout.css';
 
 import newManifestation from '../assets/new-manifestation.svg'
 import myManifestation from '../assets/my-manifestation.svg'
 import myUser from '../assets/my-user.svg'
 
-export const FirstScreen = () => {
+export const Dashboard = () => {
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     
+    useEffect(() => {
+        validateUserSession(navigate)
+    }, [])
+
     return (
-        <div className='first-screen-container'>
+        <div className='dashboard-container'>
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
@@ -40,7 +46,7 @@ export const FirstScreen = () => {
                     </div>
                     <div className='header-img-context my-requests'>
                         <div className='my-requests-img'>
-                            <img className='img' src={myManifestation} alt="" />
+                            <img className='img' onClick={() => navigate('/manifests')} src={myManifestation} alt="" />
                         </div>
                         <div className='header-img-name my-requests-name'>
                             <p className='name'>Minhas Manifestações</p>
@@ -51,7 +57,7 @@ export const FirstScreen = () => {
                     </div>
                     <div className='header-img-context my-user'>
                         <div className='my-user-img'>
-                            <img className='img' src={myUser} alt="" />
+                            <img className='img' onClick={() => navigate('/account/user')}  src={myUser} alt="" />
                         </div>
                         <div className='header-img-name my-user-name'>
                             <p className='name'>Meu usuário</p>

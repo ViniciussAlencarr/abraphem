@@ -11,7 +11,7 @@ hr {
             background: #fff;
             padding: 20px;
             .logo {
-                width: 300px;
+                width: 250px;
             }
         }
         .logo a {
@@ -48,6 +48,7 @@ hr {
                         justify-content: center;
                     }
                     .form-field label {
+                        font-size: 14px;
                         text-transform: uppercase;
                     }
                     .form-field input {
@@ -56,7 +57,7 @@ hr {
                         text-transform: none;
                         border-radius: 8px;
                         border: 2px solid #D97E7E;
-                        padding: 6px 16px;
+                        padding: 4px 16px;
                     }
                 }
                 .register-account {

@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Collapse } from "react-bootstrap"
 import { IoIosArrowForward } from "react-icons/io";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { VscThreeBars } from "react-icons/vsc";
 import { MenuOptions } from "../components/MenuOptions";
+import { useNavigate } from "react-router-dom";
 
 import './css/Faq.css'
 import './css/media-layout.css'
 
+import { validateUserSession } from "../utils/validateSession.utils";
+
 export const Faq = () => {
+    const navigate = useNavigate()
     const [open, setOpen] = useState(false);
 
     const [openTheme, setOpenTheme] = useState<any>({
@@ -79,6 +83,9 @@ export const Faq = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae porta eros, ut rutrum arcu. Ut convallis non lorem a malesuada. Duis sodales enim ac ullamcorper maximus. Quisque et neque pellentesque libero porta iaculis. Nulla nec pellentesque lacus, vitae imperdiet lectus. Sed mollis sagittis urna, eget commodo nulla fermentum ut. Proin hendrerit sollicitudin dui, eu aliquet ex mattis sit amet. Vivamus tristique aliquet porttitor. Suspendisse ut ex a odio posuere volutpat a sit amet metus. Quisque efficitur tellus et ligula scelerisque interdum. Nullam ullamcorper maximus leo, at tristique ligula commodo.`
         },
     ]
+    useEffect(() => {
+        validateUserSession(navigate)
+    }, [])    
     
     const setTheme = (event: any, type: string) => {
         event.target.classList.toggle('active')

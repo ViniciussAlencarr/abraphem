@@ -1,0 +1,61 @@
+.admin-screens-container {
+    min-width: 300px;
+    min-height: 100vh;
+    display: flex;
+    .menu-context {
+        border: 1px solid #C00405;
+        .icon {
+            margin: 20px;
+            .logo-icon {
+                width: 200px;
+            }
+        }
+        .options {
+            display: grid;
+            border-top: 1px solid #C00405;
+            .title {
+                padding: 5px 40px;
+                font-weight: 600;
+                text-transform: uppercase;
+                font-size: 14px;
+            }
+            .options-redirect {
+                display: grid;
+                .option {
+                    cursor: pointer;
+                    border-top: 1px solid #C00405;
+                    padding: 5px 20px;
+                    &.active {
+                        background-color: #C00405;
+                    }
+                    &.active a {
+                        color: #fff;
+                    }
+                }
+                .option a {
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    color: #000;
+                    text-decoration: none;
+                    &:hover {
+                        opacity: .6;
+                    }
+                }
+
+            }
+        }
+    }
+    .screens-context {
+        width: 100%;
+    }
+    .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #C00405;
+        color: #fff;
+        padding: 15px;
+        text-align: center;
+        font-size: 12px;
+    }
+}

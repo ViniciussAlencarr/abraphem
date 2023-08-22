@@ -1,0 +1,121 @@
+.dashboard-admin {
+    .manifest-status-info {
+        padding: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 35px;
+        border-bottom: 1px solid #C00405;
+        .info-container  {
+            display: grid;
+            gap: 20px;
+            text-align: center;
+            justify-content: center;
+            .info-context {
+                border: 2px solid #000;
+                border-radius: 4px;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+                align-items: center;
+                font-weight: 899;
+                text-transform: uppercase;
+                font-size: 14px;
+                .info-number {
+                    padding: 20px 0;
+                }
+                .title {
+                    padding: 20px 0px;
+                    padding-right: 20px;
+                    text-align: left;
+                }
+                .info-number {
+                    font-size: 24px;
+                }
+                .status-color {
+                    width: 30px;
+                    height: 100%;
+                    &.open-manifests {
+                        background-color: #FFD600;
+                    }
+                    &.progress-manifests {
+                        background-color: #FF6B00;
+                    }
+                    &.concluded-manifests {
+                        background-color: #6EC501;
+                    }
+                }
+            }
+            .see-manifests {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .see-manifests-btn {
+                    color: #fff;
+                    background-color: #D93C3C;
+                    border-radius: 8px;
+                    border: none;
+                    padding: 6px 24px;
+                    text-transform: uppercase;
+                    opacity: .8;
+                    transition: ease-in .2s;
+
+                    &:hover {
+                        opacity: 1;
+                        transition: ease-in .2s;
+                    }
+
+                }
+            }
+        }
+    }
+    .charts {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        margin: 20px 0;
+    }
+    .manifestation-funnel {
+        margin: 35px;
+        display: grid;
+        border-radius: 4px;
+        border: 1px solid #C00405;
+        text-transform: uppercase;
+        font-size: 12px;
+        .title {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #C00405;
+        }
+        .funil-context-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            .funil-content {
+                width: 100%;
+                display: grid;
+                text-align: center;
+                border-left: 1px solid #C00405;
+                .type-title {
+                    border-bottom: 1px solid #C00405;
+                    padding: 10px;
+                }
+                .amount {
+                    font-size: 16px;
+                    font-weight: bold;
+                    padding: 10px;
+                    border-bottom: 1px solid #C00405;
+                }
+                .percent-value {
+                    padding: 10px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: #C00405;
+                }
+                &.first {
+                    border-left: 0;
+                }
+            }
+        }
+    }
+}

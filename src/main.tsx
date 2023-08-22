@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 
@@ -11,14 +10,22 @@ import {
 import {
   ErrorPage,
   Home,
-  FirstScreen,
+  Dashboard,
   Login,
-  RequestScreen,
+  CreateManifest,
   Screens,
   ReplyScreenSent,
-  MyRequests,
+  Manifests,
   Faq,
-  MyUser
+  MyUser,
+  AdminScreens,
+  CompletedManifests,
+  DashboardAdmin,
+  LoginAdmin,
+  OpenManifests,
+  ProgressManifests,
+  ExportData,
+  RegisteredUsers
 } from './routes'
 
 const router = createBrowserRouter([
@@ -48,11 +55,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/welcome',
-        element: <FirstScreen />
+        element: <Dashboard />
       },
       {
         path: '/manifest/new',
-        element: <RequestScreen />
+        element: <CreateManifest />
       },
       {
         path: '/manifest/status/success',
@@ -64,7 +71,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/manifests',
-        element: <MyRequests />
+        element: <Manifests />
       },
       {
         path: '/faq',
@@ -80,11 +87,44 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />
   },
+  {
+    path: '/',
+    element: <AdminScreens />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/administrador/welcome',
+        element: <DashboardAdmin />
+      },
+      {
+        path: '/administrador/clients',
+        element: <RegisteredUsers />
+      },
+      {
+        path: '/administrador/manifests/complete',
+        element: <CompletedManifests />
+      },
+      {
+        path: '/administrador/manifests/in-progress',
+        element: <ProgressManifests />
+      },
+      {
+        path: '/administrador/manifests/open',
+        element: <OpenManifests />
+      },
+      {
+        path: '/administrador/export-data',
+        element: <ExportData />
+      },
+    ]
+  },
+  {
+    path: '/administrador/login',
+    element: <LoginAdmin />
+  },
 ])
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <RouterProvider router={router}/>
-  </React.StrictMode>,
+  <RouterProvider router={router}/>
 )
