@@ -53,7 +53,8 @@ export const DashboardAdmin = () => {
             setManifestNumber(data.length)
 
             getTypeOfManifests(data)
-            getManifestsRequest(data)
+            /* TODO: descomentar */
+            /* getManifestsRequest(data) */
             getTypeOfManifestsGenderNumber(data)
 
             setOpenManifests(data.filter((manifest: any) => manifest.manifestStatus.toLowerCase() == 'em aberto').length)
@@ -75,7 +76,7 @@ export const DashboardAdmin = () => {
         })
     }
 
-    const getManifestsRequest = (data: any) => {
+    /* const getManifestsRequest = (data: any) => {
         const currentDate = new Date();
         const currentMonth = currentDate.getMonth();
         const currentYear = currentDate.getFullYear();
@@ -88,7 +89,7 @@ export const DashboardAdmin = () => {
         const previousMonthDate = new Date(previousYear, previousMonth, 1).getMonth();
         let currentMonthRequestsNumber = data.filter((manifest: any) => manifest.created_at.includes(currentMonth + 1)).length
         let previousMonthRequestsNumber = data.filter((manifest: any) => manifest.created_at.includes(previousMonthDate + 1)).length
-    }
+    } */
 
     const getTypeOfManifestsGenderNumber = (data: any) => {
         setThirdChartInfo({
