@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { FaUserCircle } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
 
 import './css/NavBarHome.css'
