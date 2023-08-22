@@ -15,7 +15,6 @@ export const SeeDetailsOfUser = (params: {
     const [userImg, setUserImg] = useState(defaultProfile)
 
     useEffect(() => {
-        console.log(params.user.profilePictureURL)
         setUserImg(params.user.profilePictureURL != '' ? params.user.profilePictureURL : userImg)
     }, [])
 

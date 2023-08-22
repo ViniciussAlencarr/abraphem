@@ -214,7 +214,7 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                             </div>
                             <div className="manifest">
                                 <span className="manifest-title">{params.manifest.title}</span>
-                                <span className="manifest-description">{params.manifest.description}</span>
+                                <span className="manifest-description">{params.manifest.manifestValue}</span>
                             </div>
                         </div>
                         <div className="answer-manifest">
