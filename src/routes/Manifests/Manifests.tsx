@@ -63,9 +63,6 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
     })
 
     useEffect(() => {
-        setInterval(() => {
-            getManifests()
-        }, 5000)
         getManifests()
     }, [])
 

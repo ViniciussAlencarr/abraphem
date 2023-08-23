@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Carousel, Modal, Table } from 'react-bootstrap';
 import { TfiHelpAlt } from "react-icons/tfi"
 import { AiOutlineClose } from "react-icons/ai"
@@ -18,14 +18,14 @@ import complaintCard from '../assets/CARDS_HOME_reclamação 1.svg'
 import requestCard from '../assets/CARDS_HOME_solicitação 1.svg'
 import suggestionCard from '../assets/CARDS_HOME_sugestão 1.svg'
 
-import { validateUserSession } from '../utils/validateSession.utils'
+/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const Home = () => {
-    const navigate = useNavigate()
+    /* const navigate = useNavigate() */
     const [smShow, setSmShow] = useState(false);
 
     useEffect(() => {
-        validateUserSession(navigate)
+        /* validateUserSession(navigate) */
     }, [])
 
     return (

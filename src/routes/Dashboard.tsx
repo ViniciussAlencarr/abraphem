@@ -3,7 +3,7 @@ import { useNavigate,  } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc';
 import { MenuOptions } from '../components/MenuOptions'
 
-import { validateUserSession } from '../utils/validateSession.utils'
+/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 import './css/Dashboard.css';
 import './css/media-layout.css';
@@ -17,7 +17,7 @@ export const Dashboard = () => {
     const [open, setOpen] = useState(false);
     
     useEffect(() => {
-        validateUserSession(navigate)
+        /* validateUserSession(navigate) */
     }, [])
 
     return (

@@ -9,7 +9,7 @@ import './css/media-layout.css';
 
 import arrowUpIcon from '../assets/arrow-up.svg'
 
-import { validateUserSession } from '../utils/validateSession.utils'
+/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const ReplyScreenSent = () => {
     const [open, setOpen] = useState(false);
@@ -17,7 +17,7 @@ export const ReplyScreenSent = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        validateUserSession(navigate)
+        /* validateUserSession(navigate) */
     }, [])
 
     const setDivToTop = () => {

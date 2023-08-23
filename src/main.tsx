@@ -25,7 +25,8 @@ import {
   OpenManifests,
   ProgressManifests,
   ExportData,
-  RegisteredUsers
+  RegisteredUsers,
+  Signin
 } from './routes'
 
 const router = createBrowserRouter([
@@ -81,12 +82,17 @@ const router = createBrowserRouter([
         path: '/account/user',
         element: <MyUser />
       },
+      {
+        path: '/signin',
+        element: <Signin />
+      },
     ]
   },
   {
     path: '/login',
     element: <Login />
   },
+  
   {
     path: '/',
     element: <AdminScreens />,

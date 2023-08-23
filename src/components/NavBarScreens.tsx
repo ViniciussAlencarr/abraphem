@@ -2,7 +2,7 @@ import { NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-import api from '../services/api'
+/* import api from '../services/api' */
 
 import './css/NavBarScreens.css'
 import '../routes/css/media-layout.css'
@@ -11,7 +11,7 @@ import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
 
 export const NavBarScreen = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [userImg, setUserImg] = useState(defaultProfile)
 
@@ -23,7 +23,7 @@ export const NavBarScreen = () => {
         localStorage.removeItem('bearer_token');
         return navigate('/login')
     }
-    const getUser = async () => {
+    /* const getUser = async () => {
         try {
             let userId = localStorage.getItem('user_id');
             const { data } = await api.get(`user/${userId}`, { headers: {
@@ -35,16 +35,18 @@ export const NavBarScreen = () => {
             console.log(err)
             logOut()
         }
-    }
+    } */
     useEffect(() => {
+        setUsername('')
+        setUserImg(defaultProfile)
         /* let profilePictureListener = setInterval(() => {
             if (localStorage.getItem('profile-picture-url') != null) {
                 setProfileImg(JSON.stringify(localStorage.getItem('profile-picture-url')))
                 clearInterval(profilePictureListener)
             }
         }, 1000)  */       
-        getUser()
-    }, [isLoggedIn])
+        /* getUser() */
+    }, [/* isLoggedIn */])
 
     return (
         <div className='nav-screens-container'>
@@ -65,14 +67,22 @@ export const NavBarScreen = () => {
                     <Link to="/manifests">Minhas manifestações</Link>
                 </div>
             </div>
-            <div className='options'>
-                <img className='profile-picture' src={userImg} alt="" />
-                <NavDropdown title={username} id="basic-nav-dropdown" style={{fontSize: '12px'}}>
-                    <NavDropdown.Item href="/account/user">Meu usuário</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>
-                </NavDropdown>
-            </div>
+            {
+                !isLoggedIn ? <div className='register'>
+                    <Link className='register-button' to="/login">
+                        <img className='profile-picture' src={defaultProfile} alt="" />
+                        <button>Entre ou cadastre-se</button>
+                    </Link>
+                </div>
+                :  <div className='options'>
+                    <img className='profile-picture' src={userImg} alt="" />
+                    <NavDropdown title={username} id="basic-nav-dropdown" style={{fontSize: '12px'}}>
+                        <NavDropdown.Item href="/account/user">Meu usuário</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>
+                    </NavDropdown>
+                </div>
+            }
         </div>
     )
 }

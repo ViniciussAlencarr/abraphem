@@ -1,31 +1,21 @@
-import { useEffect, useState } from "react"
-import { IoIosArrowForward } from "react-icons/io"
-import { VscThreeBars } from "react-icons/vsc"
-import { RiArrowDownSFill } from "react-icons/ri"
-import { ProfilePicture } from '../contexts/ProfilePicture'
-import { MenuOptions } from "../components/MenuOptions"
-/* import { useNavigate } from "react-router-dom" */
-import { ToastContainer, toast } from "react-toastify"
+import { IoIosArrowForward } from 'react-icons/io'
+import { VscThreeBars } from 'react-icons/vsc'
+import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { RiArrowDownSFill } from 'react-icons/ri';
 
-import api from "../services/api"
+import api from '../services/api'
 
-import './css/MyUser.css'
-import './css/media-layout.css'
-
-import arrowUpIcon from '../assets/arrow-up.svg'
-import defaultProfile from './../assets/profile.svg'
+import './css/Signin.css'
 
 import { User } from '../types/User'
+import { useNavigate } from 'react-router-dom';
 
-/* import { validateUserSession } from '../utils/validateSession.utils' */
-
-export const MyUser = () => {
-    /* const navigate = useNavigate() */
-    const [userImg, setUserImg] = useState(defaultProfile)
+export const Signin = () => {
+    const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const [acceptUseOfPersonalData, setAcceptUseOfPersonalData] = useState(false);
     const [user, setUser] = useState<User>({
-        id: "",
         document: "",
         typeDocument: "",
         username: "",
@@ -42,73 +32,13 @@ export const MyUser = () => {
         typeOfCoagulopathy: "",
         severityOfCoagulopathy: "",
         callCenterLocation: "",
-        password: "",
+        password: "123456",
         pcd: false,
         typeOfDisability: "",
         email: "",
-        roleUser: "",
+        roleUser: "2",
         profilePictureURL: ""
     })
-
-    useEffect(() => {
-        /* validateUserSession(navigate) */
-        getUserById()
-    }, [])
-
-    const uploadImg = (event: any) => {
-        const upload = async () => {
-            let selectedFile = event.target.files[0]
-            const formData = new FormData()
-            formData.append('file', selectedFile)
-            const { data } = await api.post(`upload?userId=${localStorage.getItem('user_id')}`, formData)
-            setUserImg(data.file.Location)
-            return data
-        }
-        toast.promise(
-            upload,
-            {
-                pending: 'Fazendo o upload...',
-                success: {
-                    render() {
-                        window.location.reload()
-                        return 'Upload realizado com sucesso!'
-                    }
-                },
-                error: 'Ocorreu um problema ao realizar o upload'
-            }
-        )
-        
-    }
-
-    const getUserById = async () => {
-        try  {
-            const { data } = await api.get(`user/${localStorage.getItem('user_id')}`)
-            setUserImg(data.profilePictureURL)
-            setUser(data)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    const updateUser = () => {
-        if (!acceptUseOfPersonalData) return toast.error('Você deve aceitar o uso dos dados')
-        const update = async () => {
-            await api.put(`user/${user.id}`, user)
-        }
-        toast.promise(
-            update,
-            {
-                pending: 'Atualizando informações...',
-                success: {
-                    render() {
-                        window.location.reload()
-                        return 'Atualizado com sucesso!'
-                    }
-                },
-                error: 'Ocorreu um problema ao atualizar as informações'
-            }
-        )
-    }
 
     const setValuesOfInputFile = (event: any, typeFile: string) => {
         setUser({ ...user, [typeFile]: event.target.value })
@@ -123,44 +53,54 @@ export const MyUser = () => {
         }
     }
 
+    const signin = () => {
+        const sendSignin = async () => {
+            const { data } = await api.post('signup', user)
+            console.log(data)
+        }
+        if (!acceptUseOfPersonalData) return toast.error('Você deve aceitar o uso dos dados')
+        toast.promise(
+            sendSignin,
+            {
+                pending: 'Criando usuário...',
+                success: {
+                    render() {
+                        setTimeout(() => navigate('/login'), 500)
+                        return 'Usuário criado com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao criar o usuário'
+            }
+        )
+    }
+
     return (
-        <div className="my-user-container">
+        <div className='signin-container'>
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
                     <VscThreeBars size={30} />
                 </button>
-                <span className='header-info-title'>MEU USUÁRIO</span>
+                <span className='header-info-title'>Cadastro usuário</span>
             </div>
             <hr />
             <div className='navigation-context'>
-                <div className='navitation-start'>
+                <div className='navigation-start'>
                     <span>Ínicio</span>
                     <IoIosArrowForward style={{ opacity: '.2'}} />
                 </div>
-                <div className='current'>
-                    <span>Meu usuário</span>
+                <div className='navigation-start'>
+                    <span className='current'>Cadastro usuário</span>
                 </div>
             </div>
-            <div className="edit-user-info">
-                <MenuOptions open={open} />
-                <div className="header">
-                    <div className="preview-user-img">
-                        <ProfilePicture.Provider value={{ userImg }} >
-                        <img src={userImg} alt="" className="user-picture"/>
-
-                        </ProfilePicture.Provider>
-                    </div>
-                    <div className="preview-user-name">{user.username}</div>
-                    <div className="upload-user-img">
-                        <label htmlFor="user-img-file" className="user-img-label">Alterar foto</label>
-                        <input type="file" id="user-img-file" className="user-img-file" onChange={uploadImg}/>
-                    </div>
+            <div className="signin-content">
+                <div className='mandatory-info'>
+                    OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO
                 </div>
-                <div className="edit-form-info">
-                    <div className="info-advice">OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO</div>
-                    <div className="title">Informações pessoais</div>
-                    <div className="form-context-personal-information">
+                <div className="title">
+                    Informações pessoais
+                </div>
+                <div className="form-context-personal-information">
                         <div className="name_cpf_date-birth_state_city">
                             <div className="input-context name">
                                 <label htmlFor="name-value">Nome completo</label>
@@ -409,13 +349,8 @@ export const MyUser = () => {
                         </div>
                     </div>
                     <div className="save-changes">
-                        <button className="save-changes-btn" onClick={updateUser}>Salvar alterações</button>
+                        <button className="save-changes-btn" onClick={signin}>Cadastrar</button>
                     </div>
-                    <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className='back-to-top'>
-                        <span>Voltar ao topo</span>
-                        <img className='logo' src={arrowUpIcon} />
-                    </div>
-                </div>
             </div>
             <ToastContainer />
         </div>

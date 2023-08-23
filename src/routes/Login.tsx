@@ -91,7 +91,7 @@ export const Login = () => {
                         </form>
                         <div className='register-account'>
                             <div className='register-redirect'>
-                                <span>Não possui usuário? <b><Link to="">Criar conta</Link></b></span>
+                                <span>Não possui usuário? <b><Link to="/signin">Criar conta</Link></b></span>
                             </div>
                             <div className="forget-password">
                                 <Link to="">Esqueci a senha</Link>

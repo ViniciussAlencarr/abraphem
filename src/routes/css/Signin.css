@@ -1,0 +1,257 @@
+.signin-container {
+    .header-info {
+        position: relative;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        .options-btn {
+            position: absolute;
+            left: 30px;
+        }
+        .header-info-title {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    }
+    .navigation-context {
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        margin-left: 35px;
+        font-weight: 100;
+        font-size: 12px;
+        gap: 5px;
+        .navigation-start {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            .current {
+                font-weight: 600;
+            }
+        }
+    }
+    .signin-content {
+        margin: 35px;
+        margin-top: 15px;
+        display: grid;
+        gap: 15px;
+        .mandatory-info {
+            font-size: 10px;
+        }
+        .title {
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #C00405;
+            font-weight: 500;
+        }
+        .form-context-personal-information label,
+            .form-context-patient-information label {
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 14px;
+            }
+            .form-context-personal-information {
+                display: grid;
+                gap: 15px;
+                .input-context,
+                .select-context {
+                    width: 100%;
+                    display: grid;
+                    font-size: 12px;
+                    gap: 5px;
+                    .select-input {
+                        border: 1px solid #C00405;
+                        border-radius: 6px;
+                        padding: 4px 12px;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .select-input select {
+                        border: none;
+                        outline: none;
+                        background: none;
+                        -moz-appearance: none;
+                        -webkit-appearance: none;
+                        width: 100%;
+                    }
+                }
+                .input-context {
+                    width: max-content;
+                    .input-text {
+                        padding: 8px 12px;
+                        outline: none;
+                        border-radius: 6px;
+                        border: 1px solid #C00405;
+                        &::placeholder {
+                            color: #000;
+                        }
+                    }
+                }
+                .name_cpf_date-birth_state_city,
+                .gender_race_category_email,
+                .gender_race,
+                .category_email,
+                .cpf_date-birth_state_city,
+                .phone-type_phone-value,
+                .owner,
+                .phone-type_phone-value_owner-name,
+                .cpf_date-birth,
+                .state_city {
+                    display: flex;
+                    gap: 10px;
+                    width: 100%;
+                    align-items: center;
+                }
+                .name_cpf_date-birth_state_city {
+                    justify-content: center;
+                    .input-context.name {
+                        width: 100%;
+                    }
+                    .cpf_date-birth_state_city {
+                        width: 100%;
+                    }
+                }
+                .phone-type_phone-value_owner-name {
+                    .input-context {
+                        width: 100%;
+                    }
+                }
+            }
+            .form-context-patient-information {
+                display: grid;
+                gap: 15px;
+                .input-context,
+                .select-context {
+                    width: 100%;
+                    display: grid;
+                    font-size: 12px;
+                    gap: 5px;
+                    .select-input {
+                        border: 1px solid #C00405;
+                        border-radius: 6px;
+                        padding: 4px 12px;
+
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .select-input select {
+                        border: none;
+                        outline: none;
+                        background: none;
+                        -moz-appearance: none;
+                        -webkit-appearance: none;
+                        width: 100%;
+                    }
+                }
+                .input-context {
+                    width: 100%;
+                    .input-text {
+                        padding: 8px 12px;
+                        outline: none;
+                        border-radius: 6px;
+                        border: 1px solid #C00405;
+                        &::placeholder {
+                            color: #000;
+                        }
+                    }
+                }
+                .accept-use-my-data {
+                    display: flex;
+                    align-items: center;
+                }
+                .type-coagulopathy_severity-coagulopathy_location-treatment-center,
+                .pcd_which_accept-use-my-data,
+                .pcd_whick,
+                .accept-use-data {
+                    display: flex;
+                    gap: 10px;
+                    width: 100%;
+                    align-items: center;
+                }
+                .pcd_which_accept-use-my-data {
+                    .accept-use-my-data {
+                        margin-top: 25px;
+                    }
+                }
+            }
+            .save-changes {
+                display: flex;
+                margin: 35px 0;
+                justify-content: center;
+                align-items: center;
+                .save-changes-btn {
+                    text-transform: uppercase;
+                    color: #fff;
+                    background-color: #D93C3C;
+                    padding: 12px 24px;
+                    border: none;
+                    border-radius: 6px;
+                    opacity: 1;
+                    transition: ease-in .2s;
+                    font-weight: 500;
+                    &:hover {
+                        opacity: .7;
+                        transition: ease-in .2s;
+                    }
+                }
+            }
+        /* .input-context {
+            display: grid;
+            width: 100%;
+            gap: 5px;
+            .label-value {
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 500;
+            }
+            .input-text {
+                outline: none;
+                font-size: 12px;
+                border: 1px solid #C00405;
+                padding: 6px 12px;
+                border-radius: 4px;
+                &::placeholder {
+                    color: #000;
+                }
+            }
+        }
+        .select-context {
+            display: grid;
+            gap: 5px;
+            .label-value {
+                text-transform: uppercase;
+                font-size: 12px;
+                font-weight: 500;
+            }
+            .select-input {
+                border: 1px solid #C00405;
+                border-radius: 6px;
+                padding: 4px 12px;
+                font-size: 12px;
+                display: flex;
+                justify-content: space-between;
+                .select-element {
+                    border: none;
+                    outline: none;
+                    background: none;
+                    -moz-appearance: none;
+                    -webkit-appearance: none;
+                    width: -webkit-fill-available;
+                }
+            }
+        }
+
+        .fullname_cpf_date-birth_state_city {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        } */
+    }
+    .header-icons {
+
+    }
+    .signin-content {
+
+    }
+}

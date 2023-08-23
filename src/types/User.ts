@@ -1,5 +1,5 @@
 export interface User {
-    id: string;
+    id?: string;
     document: string,
     typeDocument: string,
     username: string,

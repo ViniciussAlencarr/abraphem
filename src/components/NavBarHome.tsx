@@ -7,26 +7,28 @@ import '../routes/css/media-layout.css'
 import { useEffect, useState } from 'react';
 import { NavDropdown } from 'react-bootstrap';
 
-import {  validateUserSession } from '../utils/validateSession.utils'
 
-import api from '../services/api';
+/* import api from '../services/api'; */
 
 import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
 
 export const NavBarHome = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userImg, setUserImg] = useState(defaultProfile)
     const [username, setUsername] = useState('');
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        validateUserSession(navigate)
-        getUser()
-    }, [isLoggedIn, username])
+        setIsLoggedIn(false)
+        setUserImg(defaultProfile)
+        setUsername('')
+        /* validateUserSession(navigate) */
+        /* getUser() */
+    }, [/* isLoggedIn, */ username])
 
-    const getUser = async () => {
+    /* const getUser = async () => {
         try {
             let userId = localStorage.getItem('user_id');
             const { data } = await api.get(`user/${userId}`, { headers: {
@@ -36,7 +38,7 @@ export const NavBarHome = () => {
             setUsername(data.username)
         } catch (err) {
             console.log(err)
-            /* toast(<div>
+            toast(<div>
                 Sua sessão expirou
                 <button>Entendi</button>
             </div>, {
@@ -48,11 +50,11 @@ export const NavBarHome = () => {
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
-                }); */
+                });
             setIsLoggedIn(false);
             return navigate('/login');
         }
-    }
+    } */
     const logOut = () => {
         localStorage.removeItem('bearer_token');
         navigate('/login')

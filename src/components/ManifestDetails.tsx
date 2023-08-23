@@ -131,11 +131,8 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
         setServiceEvaluationResponses({...serviceEvaluationResponses, [nameQuestion]: inputRadioElement.value })
     }
 
-    const sendAssessment = async () => {
-        try {
-            if (serviceEvaluationResponses.firstQuestion == '' || 
-            serviceEvaluationResponses.secondQuestion == '' ||
-            serviceEvaluationResponses.thirdQuestion == '') return toast.error('Você deve responder todas as perguntas antes de enviar')
+    const sendAssessment = () => {
+        const send = async () => {{
             await api.post('service-evaluation/create', {
                 ...serviceEvaluationResponses,
                 userId: localStorage.getItem('user_id'),
@@ -143,11 +140,23 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
             }, { headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
             }})
-            toast.success('Avaliação enviada com sucesso!')
-            setTimeout(() => params.setOpen(!open), 1000)
-        } catch (err) {
-            toast.error('Ocorreu um problema ao enviar a avaliação')
-        }
+        }}
+        if (serviceEvaluationResponses.firstQuestion == '' || 
+        serviceEvaluationResponses.secondQuestion == '' ||
+        serviceEvaluationResponses.thirdQuestion == '') return toast.error('Você deve responder todas as perguntas antes de enviar')
+        toast.promise(
+            send,
+            {
+                pending: 'Enviando avaliação...',
+                success: {
+                    render() {
+                        params.setOpen(!open)
+                        return 'Avaliação enviada com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao enviar a avaliação'
+            }
+        )
     }
     return (
         <div className="see-manifest-details">

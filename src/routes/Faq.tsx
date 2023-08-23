@@ -4,15 +4,15 @@ import { IoIosArrowForward } from "react-icons/io";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { VscThreeBars } from "react-icons/vsc";
 import { MenuOptions } from "../components/MenuOptions";
-import { useNavigate } from "react-router-dom";
+/* import { useNavigate } from "react-router-dom"; */
 
 import './css/Faq.css'
 import './css/media-layout.css'
 
-import { validateUserSession } from "../utils/validateSession.utils";
+/* import { validateUserSession } from "../utils/validateSession.utils"; */
 
 export const Faq = () => {
-    const navigate = useNavigate()
+    /* const navigate = useNavigate() */
     const [open, setOpen] = useState(false);
 
     const [openTheme, setOpenTheme] = useState<any>({
@@ -84,7 +84,7 @@ export const Faq = () => {
         },
     ]
     useEffect(() => {
-        validateUserSession(navigate)
+        /* validateUserSession(navigate) */
     }, [])    
     
     const setTheme = (event: any, type: string) => {
