@@ -184,6 +184,25 @@
                 }
             }
         }
+        .edit-response {
+            display: flex;
+            justify-content: right;
+            .edit-response-btn {
+                color: #fff;
+                background-color: #DE5353;
+                border-radius: 8px;
+                border: none;
+                outline: none;
+                transition: ease-in .2s;
+                font-size: 14px;
+                padding: 5px 60px;
+                text-transform: uppercase;
+                &:hover {
+                    transition: ease-in .2s;
+                    opacity: .8;
+                }
+            }
+        }
         
         .service-evaluation {
             background-color: #D93C3C;

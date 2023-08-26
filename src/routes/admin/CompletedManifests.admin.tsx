@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import TablePagination from '@mui/base/TablePagination';
-import { useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import api from '../../services/api';
 
@@ -11,11 +11,7 @@ import '../css/admin/CompletedManifests.admin.css'
 import { SeeCompletedManifest } from '../../components/admin/SeeCompletedManifest.admin';
 import { GetUserName } from '../../components/admin/GetUserName.admin'
 
-import { validateAdmSession } from '../../utils/validateSession.utils'
-
 export const CompletedManifests = () => {
-    const navigate = useNavigate();
-
     const [request, setRequest] = useState<ManifestRequest[]>([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(9);
@@ -62,10 +58,6 @@ export const CompletedManifests = () => {
     });
 
     useEffect(() => {
-        validateAdmSession(navigate)
-        setInterval(() => {
-            getConcludedManifests()
-        }, 5000)
         getConcludedManifests()
     }, [])
 
@@ -116,17 +108,15 @@ export const CompletedManifests = () => {
                     <tbody>
                         {
                             request.length != 0 ?
-                                (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map(manifest =>
-                                    <>
-                                        <tr className='table-content'>
-                                            <td>{manifest.protocol.value}</td>
-                                            <td><GetUserName userId={manifest.userId} /></td>
-                                            <td>{manifest.manifestType}</td>
-                                            <td>{manifest.lastUpdate}</td>
-                                            <td><button className='see-more' onClick={() => {setOpen(!open); setManifest(manifest)}}>Ver mais</button></td>
-                                        </tr>
-                                    </>
-                                )
+                                (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
+                                    return <tr key={index} className='table-content'>
+                                    <td>{manifest.protocol.value}</td>
+                                    <td><GetUserName userId={manifest.userId} /></td>
+                                    <td>{manifest.manifestType}</td>
+                                    <td>{manifest.lastUpdate}</td>
+                                    <td><button className='see-more' onClick={() => {setOpen(!open); setManifest(manifest)}}>Ver mais</button></td>
+                                </tr>
+                                })
                             : <tr className='table-content'>
                                 <td colSpan={4}>Nenhuma manifestação encontrada</td>
                             </tr>
@@ -163,8 +153,9 @@ export const CompletedManifests = () => {
                         </tr>
                     </tfoot>
                 </table>
-                : <SeeCompletedManifest open={open} manifest={manifest} setOpen={setOpen} />
+                : <SeeCompletedManifest getConcludedManifests={getConcludedManifests} open={open} manifest={manifest} setOpen={setOpen} />
             }
+            <ToastContainer />
         </div>
     )
 }

@@ -7,7 +7,6 @@ import api from '../../services/api';
 import '../css/admin/Dashboard.admin.css'
 import '../css/admin/media-layout.css'
 
-import { validateAdmSession } from '../../utils/validateSession.utils'
 
 export const DashboardAdmin = () => {
     const date = new Date()
@@ -35,10 +34,6 @@ export const DashboardAdmin = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        validateAdmSession(navigate)
-        setInterval(() => {
-            getNumberManifestationTypes()
-        }, 5000)
         getNumberManifestationTypes()
         setChartsDimensions()
     }, [])
@@ -67,12 +62,12 @@ export const DashboardAdmin = () => {
     
     const getTypeOfManifests = (data: any) => {
         setFirstChartInfo({
-            requests: getSizeOfManifestType(data, 'solicitação'),
-            claims: getSizeOfManifestType(data, 'reclamação'),
+            requests: getSizeOfManifestType(data, 'solicitacao'),
+            claims: getSizeOfManifestType(data, 'reclamacao'),
             complaints: getSizeOfManifestType(data, 'denuncia'),
             compliments: getSizeOfManifestType(data, 'elogio'),
-            information: getSizeOfManifestType(data, 'informação'),
-            suggestions: getSizeOfManifestType(data, 'sugestão')
+            information: getSizeOfManifestType(data, 'informacao'),
+            suggestions: getSizeOfManifestType(data, 'sugestao')
         })
     }
 

@@ -278,7 +278,7 @@ export const MyUser = () => {
                                             value={user.category.toLowerCase()} className='category-value' name="" id="category-value">
                                             <option selected style={{display: 'none'}}>Selecione</option>
                                             <option value="paciente">PACIENTE</option>
-                                            <option value="familiar/cuidador">FAMILIAR / CUIDADOR</option>
+                                            <option value="cuidador / responsável">CUIDADOR / RESPONSÁVEL</option>
                                             <option value="profissional da saúde / acadêmicos">PROFISSIONAL DA SAÚDE / ACADÊMICOS</option>
                                             <option value="outros">OUTROS</option>
                                         </select>

@@ -1,43 +1,13 @@
-
 import { Outlet } from 'react-router-dom'
-import { useEffect, useState } from 'react';
 import { NavBarHome } from './components'
 import { Table } from 'react-bootstrap';
 import { ToastContainer } from 'react-toastify';
-
-/* import api from './services/api'; */
 
 import './App.css'
 import './routes/css/media-layout.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  /* const navigate = useNavigate(); */
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  /* const checkUserToken = async () => {
-    try {
-      const token = localStorage.getItem('bearer_token');
-      await api.post('health', { token })
-      if (!token || token === 'undefined') {
-          setIsLoggedIn(false);
-          return navigate('/login');
-      }
-      setIsLoggedIn(true);
-    } catch (err) {
-      localStorage.removeItem('user_id');
-      localStorage.removeItem('bearer_token');
-      setIsLoggedIn(false);
-      return navigate('/login');
-    }
-  } */
-  
-  useEffect(() => {
-    setIsLoggedIn(false)
-    console.log(isLoggedIn)
-    /* checkUserToken(); */
-  }, [/* isLoggedIn */]);
-
   return (
     <div className='container-app'>
         <div className="nav-bar-home">
@@ -141,16 +111,6 @@ function App() {
         </div>
         <ToastContainer />
     </div>
-    /* <Container fluid>
-      <Row className="justify-content-md-center">
-          <Col className='nav-bar-container'>
-          </Col>
-      </Row>
-      <Row className="justify-content-md-center">
-          <Col className='content'>
-          </Col>
-      </Row>
-    </Container> */
   )
 }
 

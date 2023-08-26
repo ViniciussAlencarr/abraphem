@@ -63,13 +63,10 @@ export const OpenManifests = () => {
 
     useEffect(() => {
         validateAdmSession(navigate)
-        let interval = setInterval(() => {
-            getOpenManifests(interval)
-        }, 5000)
-        getOpenManifests(interval)
+        getOpenManifests()
     }, [])
 
-    const getOpenManifests = async (interval: any) => {
+    const getOpenManifests = async () => {
         try {
             const { data } = await api.get('manifests?status=open', {
                 headers: {
@@ -78,7 +75,6 @@ export const OpenManifests = () => {
             })
             setRequest(data)
         } catch (err) {
-            if (interval) clearInterval(interval)
             console.log(err)
         }
     }

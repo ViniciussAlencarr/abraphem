@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
-import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { IoIosArrowForward } from "react-icons/io"
 import { VscThreeBars } from "react-icons/vsc"
 import { ToastContainer, toast } from "react-toastify"
@@ -106,11 +105,8 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                             <div className="answer-context-header">
                                 <div className="answer-context-title">Resposta</div>
                             </div>
-                            <div className="analize-answer-info">
-                                <AiOutlineInfoCircle size={20} />
-                                <div className="text-value">
-                                    SUA MANIFESTAÇÃO FOI RECEBIDO e será RESPONDIDA EM NO MÁXIMO 28 DIAS.
-                                </div>
+                            <div className="answer-value-textarea">
+                                <textarea readOnly className="answer-value" value={params.manifest.response.value}/>
                             </div>
                         </div>
                     : params.manifest.manifestStatus.toLowerCase() == 'concluído' ? <div className="answer-context">
@@ -119,7 +115,7 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                             <div className="answer-context-answered-at">{params.manifest.response.answeredAt}</div>
                         </div>
                         <div className="answer-value-textarea">
-                            <textarea readOnly className="answer-value" placeholder="Digite a resposta" value={params.manifest.response.value}/>
+                            <textarea readOnly className="answer-value" value={params.manifest.response.value}/>
                         </div>
                     </div>: <></>
                 }
@@ -238,6 +234,11 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                             </div>
                             {checkAnswer()}
                         </div>
+                        {/* {
+                            params.manifest.manifestStatus.toLowerCase() == 'em andamento' ? 
+                                <button className="">Reenviar manifesto</button>
+                            :<></>
+                        } */}
                     </div>
                     {
                         params.manifest.manifestStatus.toLowerCase() == 'concluído' ?

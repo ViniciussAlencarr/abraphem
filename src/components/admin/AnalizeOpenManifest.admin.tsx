@@ -14,6 +14,8 @@ import { GetUserName } from './GetUserName.admin'
 import arrowIcon from '../../assets/fa-solid_check.svg'
 import { SeeDetailsOfUser } from "./SeeDetailsOfUser.admin"
 
+import { getFormatDate } from "../../utils/formatDateNow.utils"
+
 export const AnalizeOpenManifestComponent = (params: {
     manifest: ManifestRequest,
     getOpenManifests: (interval:any) => any,
@@ -82,7 +84,7 @@ export const AnalizeOpenManifestComponent = (params: {
                             answeredBy: localStorage.getItem('adm_user_id')
                         },
                     manifestStatus: "Em andamento",
-                    lastUpdate: date.toLocaleDateString(),
+                    lastUpdate: getFormatDate(),
                 }, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
@@ -95,7 +97,7 @@ export const AnalizeOpenManifestComponent = (params: {
                     pending: 'Enviando resposta...',
                     success: {
                         render() {
-                            params.setOpen(!open)
+                            params.setOpen(!params.open)
                             params.getOpenManifests(undefined)
                             return 'Resposta enviada com sucesso!'
                         }

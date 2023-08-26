@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ManifestRequest } from '../../types/Manifest';
 import TablePagination from '@mui/base/TablePagination';
-import { useNavigate } from 'react-router-dom';
 
 import api from '../../services/api';
 
@@ -10,11 +9,9 @@ import '../css/admin/ProgressManifests.admin.css'
 import { SeeProgressManifestComponent } from '../../components/admin/SeeProgressManifest.admin'
 import { GetUserName } from '../../components/admin/GetUserName.admin'
 
-import { validateAdmSession } from '../../utils/validateSession.utils'
 import { ToastContainer } from 'react-toastify';
 
 export const ProgressManifests = () => {
-    const navigate = useNavigate()
     
     const [request, setRequest] = useState<ManifestRequest[]>([])
     const [page, setPage] = useState(0);
@@ -62,10 +59,6 @@ export const ProgressManifests = () => {
     });
     
     useEffect(() => {
-        validateAdmSession(navigate)
-        setInterval(() => {
-            getInProgressManifests()
-        }, 5000)
         getInProgressManifests()
     }, [])
 
@@ -116,17 +109,15 @@ export const ProgressManifests = () => {
                         <tbody>
                             {
                                 request.length != 0 ?
-                                    (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map(manifest =>
-                                        <>
-                                            <tr className='table-content'>
-                                                <td>{manifest.protocol.value}</td>
-                                                <td><GetUserName userId={manifest.userId}/></td>
-                                                <td>{manifest.manifestType}</td>
-                                                <td>{manifest.lastUpdate}</td>
-                                                <td><button className='see-more-info-btn' onClick={() => {setOpen(!open); setManifest(manifest)}}>Ver mais</button></td>
-                                            </tr>
-                                        </>
-                                    )
+                                    (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
+                                        return <tr key={index} className='table-content'>
+                                        <td>{manifest.protocol.value}</td>
+                                        <td><GetUserName userId={manifest.userId}/></td>
+                                        <td>{manifest.manifestType}</td>
+                                        <td>{manifest.lastUpdate}</td>
+                                        <td><button className='see-more-info-btn' onClick={() => {setOpen(!open); setManifest(manifest)}}>Ver mais</button></td>
+                                    </tr>
+                                    })
                                 : <tr className='table-content'>
                                     <td colSpan={4}>Nenhuma manifestação encontrada</td>
                                 </tr>

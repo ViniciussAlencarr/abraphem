@@ -14,6 +14,7 @@ import arrowUpIcon from '../../assets/arrow-up.svg'
 
 import '../css/Manifests.css'
 import '../css/media-layout.css'
+import { ColorRing } from 'react-loader-spinner';
 
 export const Manifests = () => {/* TODO: inserir tipo correto */
     const [request, setRequest] = useState<ManifestRequest[]>([])
@@ -169,8 +170,19 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                                             }
                                             )
                                         : <tr className='table-content'>
-                                        <td colSpan={4}>Nenhuma manifestação encontrada</td>
-                                    </tr>
+                                            <td colSpan={4}>
+                                                <ColorRing
+                                                    visible={true}
+                                                    height="40"
+                                                    width="40"
+                                                    ariaLabel="blocks-loading"
+                                                    wrapperStyle={{}}
+                                                    wrapperClass="blocks-wrapper"
+                                                    colors={['#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d']}
+                                                />
+                                                Procurando novas manifestações...
+                                            </td>
+                                        </tr>
                                     }
                                     {emptyRows > 0 && (
                                         <tr style={{ height: 34 * emptyRows }}>

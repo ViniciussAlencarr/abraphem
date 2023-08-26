@@ -4,8 +4,11 @@ import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import { ManifestRequest } from '../../types/Manifest'
 import { User } from '../../types/User'
 import { ServiceEvaluation } from '../../types/Service'
+import { toast } from "react-toastify"
 
 import api from '../../services/api'
+
+import { getFormatDate } from '../../utils/formatDateNow.utils'
 
 import '../css/admin/SeeCompletedManifest.admin.css'
 
@@ -13,8 +16,16 @@ import arrowIcon from '../../assets/fa-solid_check.svg'
 import { GetUserName } from "./GetUserName.admin"
 import { SeeDetailsOfUser } from "./SeeDetailsOfUser.admin"
 
-export const SeeCompletedManifest = (params: { manifest: ManifestRequest, open: boolean, setOpen: any }) => {
+
+export const SeeCompletedManifest = (params: {
+    manifest: ManifestRequest,
+    open: boolean,
+    setOpen: any,
+    getConcludedManifests: () => any
+}) => {
+    let date = new Date();
     const [enableServiceEvaluation, setEnableServiceEvaluation] = useState(false)
+    const [response, setResponse] = useState(params.manifest.response.value)
     const [open, setOpen] = useState(false)
     const [user, setUser] = useState<User>({
         id: "",
@@ -45,6 +56,59 @@ export const SeeCompletedManifest = (params: { manifest: ManifestRequest, open: 
     useEffect(() => {
         validateServiceEvaluation()
     }, [enableServiceEvaluation])
+
+
+    const updateResponse = () => {
+        try {
+            const update = async () => {
+                const answeredAt = await getManifestById()
+                return await api.put(`manifest/${params.manifest.id}`, {
+                    response: {
+                        answeredAt,
+                        title: "SOLICITAÇÃO ANÁLISADA PELO SETOR RESPONSAVEL",
+                        state: "ANÁLISE REALIZADA",
+                        period: date.toLocaleDateString(),
+                        value: response,
+                        answeredBy: localStorage.getItem('adm_user_id')
+                    },
+                    lastUpdate: getFormatDate(),
+                }, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
+                    }
+                })
+            }
+            toast.promise(
+                update,
+                {
+                    pending: 'Atualizando resposta...',
+                    success: {
+                        render() {
+                            params.setOpen(!params.open)
+                            params.getConcludedManifests()
+                            return 'Resposta atualizada com sucesso!'
+                        }
+                    },
+                    error: 'Ocorreu um problema ao atualizar a resposta'
+                }
+            )
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const getManifestById = async () => {
+        try {
+            const { data } = await api.get(`manifest/${params.manifest.id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
+                }
+            })
+            return data.response.answeredAt
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const validateServiceEvaluation = async () => {
         try {
@@ -159,9 +223,16 @@ export const SeeCompletedManifest = (params: { manifest: ManifestRequest, open: 
                                     </div>
 
                                     <div className="answer-value-textarea">
-                                        <textarea className="answer-value" placeholder="Digite a resposta" readOnly value={params.manifest.response.value}/>
+                                        <textarea
+                                            onChange={event => setResponse(event.target.value)}
+                                            className="answer-value"
+                                            placeholder="Digite a resposta"
+                                            value={response} />
                                     </div>
                                 </div>
+                            </div>
+                            <div className="edit-response">
+                                <button className="edit-response-btn" onClick={updateResponse}>Editar resposta</button>
                             </div>
                             {
                                 enableServiceEvaluation ? 

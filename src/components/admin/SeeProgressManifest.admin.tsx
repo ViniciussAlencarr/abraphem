@@ -8,6 +8,8 @@ import { User } from '../../types/User'
 
 import '../css/admin/SeeProgressManifest.admin.css'
 
+import { getFormatDate } from '../../utils/formatDateNow.utils'
+
 import arrowIcon from '../../assets/fa-solid_check.svg'
 
 import { GetUserName } from '../../components/admin/GetUserName.admin'
@@ -69,7 +71,44 @@ export const SeeProgressManifestComponent = (params: {
             console.log(err)
         }
     }
-
+    const updateResponse = () => {
+        try {
+            const update = async () => {
+                const answeredAt = await getManifestById()
+                return await api.put(`manifest/${params.manifest.id}`, {
+                    response: {
+                        answeredAt,
+                        title: "SOLICITAÇÃO ANÁLISADA PELO SETOR RESPONSAVEL",
+                        state: "AGUARDANDO ANÁLISE",
+                        period: date.toLocaleDateString(),
+                        value: response,
+                        answeredBy: localStorage.getItem('adm_user_id')
+                    },
+                    lastUpdate: getFormatDate(),
+                }, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
+                    }
+                })
+            }
+            toast.promise(
+                update,
+                {
+                    pending: 'Atualizando resposta...',
+                    success: {
+                        render() {
+                            params.setOpen(!params.open)
+                            params.getInProgressManifests()
+                            return 'Resposta atualizada com sucesso!'
+                        }
+                    },
+                    error: 'Ocorreu um problema ao atualizar a resposta'
+                }
+            )
+        } catch (err) {
+            console.log(err)
+        }
+    }
     const sendResponse = () => {
         try {
             const send = async () => {
@@ -84,7 +123,7 @@ export const SeeProgressManifestComponent = (params: {
                             answeredBy: localStorage.getItem('adm_user_id')
                         },
                     manifestStatus: "Concluído",
-                    lastUpdate: date.toLocaleDateString(),
+                    lastUpdate: getFormatDate(),
                 }, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
@@ -97,7 +136,7 @@ export const SeeProgressManifestComponent = (params: {
                     pending: 'Enviando resposta...',
                     success: {
                         render() {
-                            params.setOpen(!open)
+                            params.setOpen(!params.open)
                             params.getInProgressManifests()
                             return 'Resposta enviada com sucesso!'
                         }
@@ -193,7 +232,8 @@ export const SeeProgressManifestComponent = (params: {
                                             <textarea className="answer-value" placeholder="Digite a resposta" value={response} onChange={event => setResponse(event.target.value)}/>
                                         </div>
                                     </div>
-                                    <div className="send-response">
+                                    <div className="action-btns">
+                                        <button className="send-response-btn" onClick={updateResponse}>Editar resposta</button>
                                         <button className="send-response-btn" onClick={sendResponse}>Enviar resposta</button>
                                     </div>
                                 </div>

@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useNavigate,  } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc';
 import { MenuOptions } from '../components/MenuOptions'
-
-/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 import './css/Dashboard.css';
 import './css/media-layout.css';
@@ -12,12 +10,14 @@ import newManifestation from '../assets/new-manifestation.svg'
 import myManifestation from '../assets/my-manifestation.svg'
 import myUser from '../assets/my-user.svg'
 
+
 export const Dashboard = () => {
     const navigate = useNavigate()
+    
     const [open, setOpen] = useState(false);
     
     useEffect(() => {
-        /* validateUserSession(navigate) */
+        /* if (search.includes('login'))  window.history.pushState({}, document.title, window.location.pathname); */
     }, [])
 
     return (

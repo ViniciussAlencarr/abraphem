@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import TablePagination from '@mui/base/TablePagination';
 
 import api from '../../services/api'
@@ -8,12 +7,9 @@ import { User } from '../../types/User'
 
 import '../css/admin/RegisteredUsers.admin.css'
 
-import { validateAdmSession } from '../../utils/validateSession.utils'
-
 import { SeeDetailsOfUser } from '../../components/admin/SeeDetailsOfUser.admin'
 
 export const RegisteredUsers = () => {
-    const navigate = useNavigate()
     const [request, setRequest] = useState<User[]>([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(9);
@@ -45,14 +41,10 @@ export const RegisteredUsers = () => {
     })
 
     useEffect(() => {
-        validateAdmSession(navigate)
-        let interval = setInterval(() => {
-            getUsers(interval)
-        }, 5000)
-        getUsers(interval)
+        getUsers()
     }, [])
 
-    const getUsers = async (interval: any) => {
+    const getUsers = async () => {
         try {
             const { data } = await api.get('users?role=2', {
                 headers: {
@@ -61,7 +53,6 @@ export const RegisteredUsers = () => {
             })
             setRequest(data)
         } catch (err) {
-            if (interval) clearInterval(interval)
             console.log(err)
         }
     }

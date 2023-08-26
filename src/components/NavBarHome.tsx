@@ -7,11 +7,11 @@ import '../routes/css/media-layout.css'
 import { useEffect, useState } from 'react';
 import { NavDropdown } from 'react-bootstrap';
 
-
-/* import api from '../services/api'; */
+import api from '../services/api';
 
 import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
+import { validateUserSession } from '../utils/validateSession.utils';
 
 export const NavBarHome = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,14 +21,15 @@ export const NavBarHome = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setIsLoggedIn(false)
         setUserImg(defaultProfile)
         setUsername('')
-        /* validateUserSession(navigate) */
-        /* getUser() */
-    }, [/* isLoggedIn, */ username])
+        validateUserSession(navigate, setIsLoggedIn)
+        if (isLoggedIn) {
+            getUser()
+        }
+    }, [isLoggedIn])
 
-    /* const getUser = async () => {
+    const getUser = async () => {
         try {
             let userId = localStorage.getItem('user_id');
             const { data } = await api.get(`user/${userId}`, { headers: {
@@ -38,24 +39,12 @@ export const NavBarHome = () => {
             setUsername(data.username)
         } catch (err) {
             console.log(err)
-            toast(<div>
-                Sua sessão expirou
-                <button>Entendi</button>
-            </div>, {
-                position: "top-left",
-                autoClose: false,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-                });
             setIsLoggedIn(false);
             return navigate('/login');
         }
-    } */
+    }
     const logOut = () => {
+        localStorage.removeItem('user_id');
         localStorage.removeItem('bearer_token');
         navigate('/login')
     }
@@ -75,7 +64,7 @@ export const NavBarHome = () => {
                     <button className="download-primer-platform-btn">Baixar cartilha da plataforma</button>
                 </div>
                 {
-                    !isLoggedIn ? <div className='register'>
+                    isLoggedIn == false ? <div className='register'>
                         <Link className='register-button' to="/login">
                             <img className='profile-picture' src={defaultProfile} alt="" />
                             <button>Entre ou cadastre-se</button>

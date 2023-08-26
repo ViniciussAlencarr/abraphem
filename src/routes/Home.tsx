@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Carousel, Modal, Table } from 'react-bootstrap';
 import { TfiHelpAlt } from "react-icons/tfi"
 import { AiOutlineClose } from "react-icons/ai"
@@ -18,14 +18,12 @@ import complaintCard from '../assets/CARDS_HOME_reclamação 1.svg'
 import requestCard from '../assets/CARDS_HOME_solicitação 1.svg'
 import suggestionCard from '../assets/CARDS_HOME_sugestão 1.svg'
 
-/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const Home = () => {
-    /* const navigate = useNavigate() */
     const [smShow, setSmShow] = useState(false);
-
+    const navigate = useNavigate()
+    
     useEffect(() => {
-        /* validateUserSession(navigate) */
     }, [])
 
     return (
@@ -107,7 +105,7 @@ export const Home = () => {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <div className='theme'>
+                                        <div className='theme' onClick={() => navigate('/manifest/new?type=reclamacao')}>
                                             <div className='theme-img'>
                                                 <img className='img' src={complaintCard} alt="" />
                                             </div>
@@ -115,7 +113,7 @@ export const Home = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='theme'>
+                                        <div className='theme' onClick={() => navigate('/manifest/new?type=solicitacao')}>
                                             <div className='theme-img'>
                                                 <img className='img' src={requestCard} alt="" />
                                             </div>
@@ -123,7 +121,7 @@ export const Home = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='theme'>
+                                        <div className='theme' onClick={() => navigate('/manifest/new?type=informacao')}>
                                             <div className='theme-img'>
                                                 <img className='img' src={infoCard} alt="" />
                                             </div>
@@ -133,7 +131,7 @@ export const Home = () => {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div className='theme'>
+                                        <div className='theme' onClick={() => navigate('/manifest/new?type=elogio')}>
                                             <div className='theme-img'>
                                                 <img className='img' src={praiseCard} alt="" />
                                             </div>
@@ -141,7 +139,7 @@ export const Home = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='theme'>
+                                        <div className='theme' onClick={() => navigate('/manifest/new?type=sugestao')}>
                                             <div className='theme-img'>
                                                 <img className='img' src={suggestionCard} alt="" />
                                             </div>
@@ -149,7 +147,7 @@ export const Home = () => {
                                         </div>
                                     </td>
                                     <td>
-                                        <div className='theme'>
+                                        <div className='theme' onClick={() => navigate('/manifest/new?type=denuncia')}>
                                             <div className='theme-img'>
                                                 <img className='img' src={reportCard} alt="" />
                                             </div>

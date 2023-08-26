@@ -2,7 +2,11 @@ import { NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-/* import api from '../services/api' */
+
+
+import { validateUserSession } from '../utils/validateSession.utils'
+
+import api from '../services/api'
 
 import './css/NavBarScreens.css'
 import '../routes/css/media-layout.css'
@@ -14,7 +18,6 @@ export const NavBarScreen = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [userImg, setUserImg] = useState(defaultProfile)
-
     const navigate = useNavigate()
     
     const logOut = () => {
@@ -23,7 +26,8 @@ export const NavBarScreen = () => {
         localStorage.removeItem('bearer_token');
         return navigate('/login')
     }
-    /* const getUser = async () => {
+
+    const getUser = async () => {
         try {
             let userId = localStorage.getItem('user_id');
             const { data } = await api.get(`user/${userId}`, { headers: {
@@ -35,18 +39,16 @@ export const NavBarScreen = () => {
             console.log(err)
             logOut()
         }
-    } */
+    }
+
     useEffect(() => {
         setUsername('')
         setUserImg(defaultProfile)
-        /* let profilePictureListener = setInterval(() => {
-            if (localStorage.getItem('profile-picture-url') != null) {
-                setProfileImg(JSON.stringify(localStorage.getItem('profile-picture-url')))
-                clearInterval(profilePictureListener)
-            }
-        }, 1000)  */       
-        /* getUser() */
-    }, [/* isLoggedIn */])
+        validateUserSession(navigate, setIsLoggedIn)
+        if (isLoggedIn) {
+            getUser()
+        }
+    }, [isLoggedIn])
 
     return (
         <div className='nav-screens-container'>

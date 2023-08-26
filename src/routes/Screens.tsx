@@ -12,6 +12,7 @@ export const Screens = () => {
     useEffect(() => {
         /* validateUserSession(navigate) */
     }, [])
+
     
     return (
         <div className='screens-container'>
