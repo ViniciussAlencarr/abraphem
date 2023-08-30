@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import api from '../services/api'
 
 import { User } from "types/User"
+import axios from "axios";
 
 export const SigninPatientContext = (params: {
     setPatientType: any,
@@ -28,7 +29,7 @@ export const SigninPatientContext = (params: {
         typeOfCoagulopathy: "",
         severityOfCoagulopathy: "",
         callCenterLocation: "",
-        password: "123456",
+        password: "",
         pcd: false,
         typeOfDisability: "",
         email: "",
@@ -42,6 +43,7 @@ export const SigninPatientContext = (params: {
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
         let value = event.target.options[event.target.selectedIndex].text
+        if (value == 'CUIDADOR / RESPONSÁVEL' || value == 'PROFISSIONAL DA SAÚDE / ACADÊMICOS') params.setPatientType(false);
         setUser({ ...user, [typeFile]: typeFile == 'pcd' ? value == 'SIM' ? true : false : value })
     }
 
@@ -71,27 +73,35 @@ export const SigninPatientContext = (params: {
             }
         )
     }
+
+    const searchCep = async (event: any) => {
+        const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
+        setUser({...user, city: data?.localidade, state: data?.uf })
+    }
+
     return (
         <div className='patient-context'>
             <form onSubmit={onSubmit}>
                 <div className="form-context-personal-information">
                     <div className="name_cpf_date-birth_state_city">
-                        <div className="input-context name">
-                            <label htmlFor="name-value">Nome completo</label>
-                            <input
-                                required
-                                onChange={event => setValuesOfInputFile(event, 'fullName')}
-                                type="text" className="input-text name-value" id="name-value" placeholder="Digite aqui" />
+                        <div className="select-context category">
+                            <label htmlFor="category">Em que categoria você se encaixa?*</label>
+                            <div className='select-input'>
+                                <select
+                                    onChange={event => setValuesOfSelectElement(event, 'category')}
+                                    className='category' name="" id="category">
+                                    <option value="paciente" selected>PACIENTE</option>
+                                    <option value="cuidador / responsável">CUIDADOR / RESPONSÁVEL</option>
+                                    <option value="profissional da saúde / acadêmicos">PROFISSIONAL DA SAÚDE / ACADÊMICOS</option>
+                                    <option value="outros">OUTROS</option>
+                                </select>
+                                <RiArrowDownSFill size={25} />
+                            </div>
                         </div>
+                        
                         <div className="cpf_date-birth_state_city">
                             <div className="cpf_date-birth">
-                                <div className="input-context cpf">
-                                    <label htmlFor="cpf-value">Cpf*</label>
-                                    <input
-                                        required
-                                        onChange={event => setValuesOfInputFile(event, 'document')}
-                                        type="text" className="input-text cpf-value" id="cpf-value" placeholder="Digite aqui" />
-                                </div>
+                                
                                 <div className="input-context date-birth">
                                     <label htmlFor="date-birth-value">Data de nascimento*</label>
                                     <input
@@ -101,15 +111,22 @@ export const SigninPatientContext = (params: {
                                 </div>
                             </div>
                             <div className="state_city">
+                                <div className="input-context cep">
+                                    <label htmlFor="cpf-value">CEP*</label>
+                                    <input
+                                        required
+                                        onChange={searchCep}
+                                        type="text" className="input-text cep-value" id="cep-value" placeholder="Digite aqui" />
+                                </div>
                                 <div className="select-context state">
                                     <label htmlFor="state-value">Estado*</label>
                                     <div className='select-input'>
                                         <select
+                                            value={user.state == '' ? undefined : user.state}
                                             onChange={event => setValuesOfSelectElement(event, 'state')}
                                             className='state-value' name="" id="state-value">
-                                            <option selected style={{display: 'none'}}>Selecione</option>
-                                            <option value="são paulo">São Paulo</option>
-                                            <option value="rio de janeiro">Rio de Janeiro</option>
+                                            <option selected style={{display: 'none'}}>Insira o cep</option>
+                                            <option value={user.state}>{user.state}</option>
                                         </select>
                                         <RiArrowDownSFill size={25} />
                                     </div>
@@ -118,34 +135,11 @@ export const SigninPatientContext = (params: {
                                     <label htmlFor="city-value">Cidade*</label>
                                     <div className='select-input'>
                                         <select
+                                            value={user.city == '' ? undefined : user.city}
                                             onChange={event => setValuesOfSelectElement(event, 'city')}
                                             className='city-value' name="" id="city-value">
-                                            <option selected style={{display: 'none'}}>Selecione</option>
-                                            <option value="alagoas">ALAGOAS</option>
-                                            <option value="amapá">AMAPÁ</option>
-                                            <option value="amazonas">AMAZONAS</option>
-                                            <option value="bahia">BAHIA</option>
-                                            <option value="ceará">CEARÁ</option>
-                                            <option value="espirito santo">ESPIRITO SANTO</option>
-                                            <option value="goiás">GOIÁS</option>
-                                            <option value="maranhão">MARANHÃO</option>
-                                            <option value="mato grosso">MATO GROSSO</option>
-                                            <option value="mato grosso do sul">MATO GROSSO DO SUL</option>
-                                            <option value="minas gerais">MINAS GERAIS</option>
-                                            <option value="pará">PARÁ</option>
-                                            <option value="paraíba">PARAÍBA</option>
-                                            <option value="paraná">PARANÁ</option>
-                                            <option value="pernambuco">PERNAMBUCO</option>
-                                            <option value="piauí">PIAUÍ</option>
-                                            <option value="rio de janeiro">RIO DE JANEIRO</option>
-                                            <option value="rio grande do norte">RIO GRANDE DO NORTE</option>
-                                            <option value="rio grande do sul">RIO GRANDE DO SUL</option>
-                                            <option value="rondônia">RONDÔNIA</option>
-                                            <option value="roraima">RORAIMA</option>
-                                            <option value="santa catarina">SANTA CATARINA</option>
-                                            <option value="são paulo">SÃO PAULO</option>
-                                            <option value="sergipe">SERGIPE</option>
-                                            <option value="tocantins">TOCANTINS</option>
+                                            <option selected style={{display: 'none'}}>Insira o cep</option>
+                                            <option value={user.city}>{user.city}</option>
                                         </select>
                                         <RiArrowDownSFill size={25} />
                                     </div>
@@ -188,7 +182,14 @@ export const SigninPatientContext = (params: {
                             </div>
                         </div>
                         <div className="category_email">
-                            <div className="select-context category">
+                            <div className="input-context name">
+                                <label htmlFor="name-value">Nome completo</label>
+                                <input
+                                    required
+                                    onChange={event => setValuesOfInputFile(event, 'fullName')}
+                                    type="text" className="input-text name-value" id="name-value" placeholder="Digite aqui" />
+                            </div>
+                            {/* <div className="select-context category">
                                 <label htmlFor="category">Em que categoria você se encaixa?*</label>
                                 <div className='select-input'>
                                     <select
@@ -201,13 +202,20 @@ export const SigninPatientContext = (params: {
                                     </select>
                                     <RiArrowDownSFill size={25} />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="input-context email">
                                 <label htmlFor="email-value">Email*</label>
                                 <input
                                     required
                                     onChange={event => setValuesOfInputFile(event, 'email')}
                                     type="email" className="input-text email-value" id="email-value" placeholder="Digite aqui" />
+                            </div>
+                            <div className="input-context email">
+                                <label htmlFor="password-value">Senha*</label>
+                                <input
+                                    required
+                                    onChange={event => setValuesOfInputFile(event, 'password')}
+                                    type="password" className="input-text password-value" id="password-value" placeholder="Digite aqui" />
                             </div>
                         </div>
                     </div>
@@ -241,6 +249,13 @@ export const SigninPatientContext = (params: {
                                     onChange={event => setValuesOfInputFile(event, 'ownerName')}
                                     type="text" className="input-text owner-name-value" id="phone-value" placeholder="Digite aqui" />
                             </div>
+                        </div>
+                        <div className="input-context cpf">
+                            <label htmlFor="cpf-value">Cpf*</label>
+                            <input
+                                required
+                                onChange={event => setValuesOfInputFile(event, 'document')}
+                                type="text" className="input-text cpf-value" id="cpf-value" placeholder="Digite aqui" />
                         </div>
                     </div>
                     <hr />

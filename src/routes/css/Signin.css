@@ -94,6 +94,9 @@
                         }
                     }
                 }
+                .category_number-of-patients_city_state {
+                    position: relative;
+                }
                 .category_number-of-patients_city_state,
                 .category_number-of-patients,
                 .city_state,
@@ -105,6 +108,17 @@
                     display: flex;
                     align-items: center;
                     gap: 15px;
+                }
+                .location-context {
+                    display: grid;
+                    gap: 10px;
+                    text-align: center;
+                    .info-text {
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        font-size: 9px;
+                        color: grey;
+                    }
                 }
             }
         }
@@ -168,6 +182,9 @@
                 gap: 10px;
                 width: 100%;
                 align-items: center;
+            }
+            .cpf_date-birth {
+                width: fit-content;
             }
             .name_cpf_date-birth_state_city {
                 justify-content: center;
