@@ -33,7 +33,21 @@ export const Login = () => {
                     theme: "light",
                 });
                 window.history.pushState({}, document.title, window.location.pathname);
+            } else if (search.includes('loginRequired')) {
+                clearInterval(interval)
+                toast.warn('Crie uma conta ou faça login para criar uma manifestação.', {
+                    position: "top-right",
+                    autoClose: false,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                window.history.pushState({}, document.title, window.location.pathname);
             }
+
         }, 100)
     }, [])    
 

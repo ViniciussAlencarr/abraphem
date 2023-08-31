@@ -11,10 +11,10 @@ import { SiginResponsibelContext } from '../components/SigninResponsibleContext'
 export const Signin = () => {
     const [open, setOpen] = useState(false);
     const [patient, setPatientType] = useState(true)
+    const [category, setCategory] = useState('')
 
     useEffect(() => {
     }, [])
-
     return (
         <div className='signin-container'>
             <hr />
@@ -44,9 +44,13 @@ export const Signin = () => {
                 {
                     !patient ?
                     <SiginResponsibelContext
+                        category={category}
+                        setCategory={setCategory}
                         setPatientType={setPatientType} 
                     /> :
                     <SigninPatientContext
+                        category={category}
+                        setCategory={setCategory}
                         setPatientType={setPatientType}
                     />
                 }

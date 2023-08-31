@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -9,13 +9,15 @@ import { User } from "types/User"
 import axios from "axios";
 
 export const SigninPatientContext = (params: {
+    category: string,
     setPatientType: any,
+    setCategory: any,
 }) => {
     const navigate = useNavigate();
     const [user, setUser] = useState<User>({
         document: "",
         typeDocument: "cpf",
-        username: "Fulano da silva",
+        username: "Perfil",
         fullName: "",
         dateOfBirth: "",
         state: "",
@@ -37,13 +39,16 @@ export const SigninPatientContext = (params: {
         profilePictureURL: ""
     })
 
+    useEffect(() => {
+    }, [])
+
     const setValuesOfInputFile = (event: any, typeFile: string) => {
         setUser({ ...user, [typeFile]: event.target.value })
     }
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
         let value = event.target.options[event.target.selectedIndex].text
-        if (value == 'CUIDADOR / RESPONSÁVEL' || value == 'PROFISSIONAL DA SAÚDE / ACADÊMICOS') params.setPatientType(false);
+        if (typeFile == 'category' && value != 'PACIENTE') params.setCategory(value), params.setPatientType(false);
         setUser({ ...user, [typeFile]: typeFile == 'pcd' ? value == 'SIM' ? true : false : value })
     }
 
@@ -125,7 +130,7 @@ export const SigninPatientContext = (params: {
                                             value={user.state == '' ? undefined : user.state}
                                             onChange={event => setValuesOfSelectElement(event, 'state')}
                                             className='state-value' name="" id="state-value">
-                                            <option selected style={{display: 'none'}}>Insira o cep</option>
+                                            <option selected style={{display: 'none'}}>--</option>
                                             <option value={user.state}>{user.state}</option>
                                         </select>
                                         <RiArrowDownSFill size={25} />
@@ -138,7 +143,7 @@ export const SigninPatientContext = (params: {
                                             value={user.city == '' ? undefined : user.city}
                                             onChange={event => setValuesOfSelectElement(event, 'city')}
                                             className='city-value' name="" id="city-value">
-                                            <option selected style={{display: 'none'}}>Insira o cep</option>
+                                            <option selected style={{display: 'none'}}>--</option>
                                             <option value={user.city}>{user.city}</option>
                                         </select>
                                         <RiArrowDownSFill size={25} />

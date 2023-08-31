@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
@@ -9,21 +9,23 @@ import api from '../services/api'
 import axios from "axios"
 
 export const SiginResponsibelContext = (params: {
+    category: string,
     setPatientType: any,
+    setCategory: any,
 }) => {
     const navigate = useNavigate();
     const [numberPatients, setNumberPatients] = useState(1)
     const [user, setUser] = useState<User>({
         document: "",
         typeDocument: "cpf",
-        username: "",
+        username: "Perfil",
         fullName: "",
         dateOfBirth: "",
         state: "",
         city: "",
         gender: "",
         race: "",
-        category: "cuidador / responsável",
+        category: params.category.toLowerCase(),
         typeOfPhone: "",
         phoneNumber: "",
         ownerName: "",
@@ -41,7 +43,7 @@ export const SiginResponsibelContext = (params: {
     const [patients, setPatients] = useState<User[]>([{
         document: "",
         typeDocument: "cpf",
-        username: "",
+        username: "Perfil",
         fullName: "",
         dateOfBirth: "",
         state: "",
@@ -63,6 +65,9 @@ export const SiginResponsibelContext = (params: {
         profilePictureURL: ""
     }])
 
+    useEffect(() => {
+    }, [])
+
     // responsible
     const setValuesOfInputFile = (event: any, typeFile: string) => {
         setUser({ ...user, [typeFile]: event.target.value })
@@ -71,7 +76,7 @@ export const SiginResponsibelContext = (params: {
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
         let value = event.target.options[event.target.selectedIndex].text
         if (value == 'PACIENTE') params.setPatientType(true)
-        setUser({ ...user, [typeFile]: value})
+        setUser({ ...user, [typeFile]: value.toLowerCase()})
     }
 
     // patient
@@ -162,10 +167,11 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="category-value">Em que categoria você se encaixa?*</label>
                                 <div className='select-input'>
                                     <select
+                                        value={user.category}
                                         onChange={event => {setValuesOfSelectElement(event, 'category'); }}
                                         className='category-value' name="" id="category-value">
                                         <option value="paciente">PACIENTE</option>
-                                        <option value="cuidador / responsável" selected>CUIDADOR / RESPONSÁVEL</option>
+                                        <option value="cuidador / responsável">CUIDADOR / RESPONSÁVEL</option>
                                         <option value="profissional da saúde / acadêmicos">PROFISSIONAL DA SAÚDE / ACADÊMICOS</option>
                                         <option value="outros">OUTROS</option>
                                     </select>
@@ -181,9 +187,6 @@ export const SiginResponsibelContext = (params: {
                             </div>
                         </div>
                         <div className="location-context">
-                            <div className="info-text">
-                                Digite o cep para buscar as informações
-                            </div>
                             <div className="city_state">
                                 <div className="input-context cep">
                                     <label htmlFor="cep">CEP*</label>
@@ -340,14 +343,6 @@ export const SiginResponsibelContext = (params: {
                                         value={patient.document}
                                         onChange={event => setValuesOfInputFilePatient(event, 'document', index)}
                                         type="text" className="input-text patient-cpf-value" id="patient-cpf-value" placeholder="Digite aqui" />
-                                </div>
-                                <div className="input-context password">
-                                    <label htmlFor="password">Senha do Paciente {index + 1}</label>
-                                    <input
-                                        required
-                                        value={patient.password}
-                                        onChange={event => setValuesOfInputFilePatient(event, 'password', index)}
-                                        type="password" className="input-text password" id="password" placeholder="Digite aqui" />
                                 </div>
                             </div>
                             <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
