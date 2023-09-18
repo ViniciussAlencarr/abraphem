@@ -1,22 +1,24 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useContext, useEffect, useState } from 'react';
+import { NavDropdown } from 'react-bootstrap';
 
 import './css/NavBarHome.css'
 import '../routes/css/media-layout.css'
 
-import { useEffect, useState } from 'react';
-import { NavDropdown } from 'react-bootstrap';
-
 import api from '../services/api';
+
+import { ThemeContext } from '../contexts/teste';
 
 import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
+
 import { validateUserSession } from '../utils/validateSession.utils';
 
 export const NavBarHome = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userImg, setUserImg] = useState(defaultProfile)
     const [username, setUsername] = useState('');
+    const { isLoggedIn, setIsLoggedIn } = useContext(ThemeContext);
 
     const navigate = useNavigate()
 
@@ -39,14 +41,14 @@ export const NavBarHome = () => {
             setUsername(data.username)
         } catch (err) {
             console.log(err)
-            setIsLoggedIn(false);
             return navigate('/login');
         }
     }
     const logOut = () => {
+        setIsLoggedIn(false)
         localStorage.removeItem('user_id');
         localStorage.removeItem('bearer_token');
-        navigate('/login')
+        return navigate('/login')
     }
     return (
         <div className='nav-container'>
@@ -64,7 +66,7 @@ export const NavBarHome = () => {
                     <button className="download-primer-platform-btn">Baixar cartilha da plataforma</button>
                 </div>
                 {
-                    isLoggedIn == false ? <div className='register'>
+                    !isLoggedIn ? <div className='register'>
                         <Link className='register-button' to="/login">
                             <img className='profile-picture' src={defaultProfile} alt="" />
                             <button>Entre ou cadastre-se</button>

@@ -1,12 +1,31 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 
+import { ThemeContext } from '../contexts/teste'
+
 import { User } from "types/User"
 
 import api from '../services/api'
+
 import axios from "axios"
+
+const cpfMask = (value: string) => {
+    return value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1')
+}
+const phoneMask = (phone: string) => {
+    return phone.replace(/\D/g, '')
+    .replace(/^(\d)/, '($1')
+    .replace(/^(\(\d{2})(\d)/, '$1) $2')
+    .replace(/(\d{4})(\d{1,5})/, '$1-$2')
+    .replace(/(-\d{5})\d+?$/, '$1');
+}
 
 export const SiginResponsibelContext = (params: {
     category: string,
@@ -15,6 +34,7 @@ export const SiginResponsibelContext = (params: {
 }) => {
     const navigate = useNavigate();
     const [numberPatients, setNumberPatients] = useState(1)
+    const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({
         document: "",
         typeDocument: "cpf",
@@ -70,7 +90,10 @@ export const SiginResponsibelContext = (params: {
 
     // responsible
     const setValuesOfInputFile = (event: any, typeFile: string) => {
-        setUser({ ...user, [typeFile]: event.target.value })
+        setUser({ ...user, [typeFile]: typeFile == 'document' ?
+        cpfMask(event.target.value)
+    : typeFile == 'phoneNumber' ?
+    phoneMask(event.target.value) : event.target.value })
     }
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
@@ -82,7 +105,10 @@ export const SiginResponsibelContext = (params: {
     // patient
     const setValuesOfInputFilePatient = (event: any, typeFile: string, index: number) => {
         let a: any = [...patients]
-        a[index][typeFile] = event.target.value
+        a[index][typeFile] = typeFile == 'document' ?
+        cpfMask(event.target.value)
+    : typeFile == 'phoneNumber' ?
+    phoneMask(event.target.value) : event.target.value
         setPatients(a)
     }
 
@@ -125,10 +151,21 @@ export const SiginResponsibelContext = (params: {
             setPatients(patients)
         }
     }
-    const onSubmit = (event: any) => {
+
+    const onSubmit = async (event: any) => {
         event.preventDefault()
         const sendSignin = async () => {
-            await api.post('signup?type=responsible', { user, patients })
+            const signIn = async () => {
+                await api.post('signup?type=responsible', { user, patients })
+            }
+            const login = async () => {
+                const { data } = await api.post('/login?role=2', { document: user.document, password: user.password })
+                api.defaults.headers.Authorization = `Bearer ${data.token}`;
+                localStorage.setItem('user_id', data.user.id)
+                localStorage.setItem('bearer_token', data.token)
+            }
+            await signIn()
+            await login()
         }
         toast.promise(
             sendSignin,
@@ -136,13 +173,7 @@ export const SiginResponsibelContext = (params: {
                 pending: 'Criando usuário...',
                 success: {
                     render() {
-                        const login = async () => {
-                            const { data } = await api.post('/login?role=2', { document: user.document, password: user.password })
-                            api.defaults.headers.Authorization = `Bearer ${data.token}`;
-                            localStorage.setItem('user_id', data.user.id)
-                            localStorage.setItem('bearer_token', data.token)
-                        }
-                        login()
+                        setIsLoggedIn(true)
                         setTimeout(() => navigate('/welcome'), 500)
                         return 'Usuário criado com sucesso!'
                     }
@@ -167,6 +198,7 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="category-value">Em que categoria você se encaixa?*</label>
                                 <div className='select-input'>
                                     <select
+                                        required
                                         value={user.category}
                                         onChange={event => {setValuesOfSelectElement(event, 'category'); }}
                                         className='category-value' name="" id="category-value">
@@ -181,6 +213,7 @@ export const SiginResponsibelContext = (params: {
                             <div className="input-context number-of-patients">
                                 <label htmlFor="number-of-patients-value">RESPONSÁVEL POR QUANTOS PACIENTES?*</label>
                                 <input
+                                    required
                                     className="input-text number-of-patients-value" id="number-of-patients-value"
                                     value={numberPatients}
                                     onChange={event => {addPatient(parseInt(event.target.value)); setNumberPatients(parseInt(event.target.value))}} type="number" min={1} max={10} name="" />
@@ -191,6 +224,7 @@ export const SiginResponsibelContext = (params: {
                                 <div className="input-context cep">
                                     <label htmlFor="cep">CEP*</label>
                                     <input
+                                        required    
                                         className="input-text cep" id="cep"
                                         placeholder="Digite aqui"
                                         onChange={searchCepToResponsibleUser} type="text" name="" />
@@ -200,6 +234,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="state-value">Estado*</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             aria-readonly
                                             value={user.state == '' ? undefined : user.state}
                                             onChange={event => setValuesOfSelectElement(event, 'state')}
@@ -214,6 +249,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="city-value">Cidade*</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={user.city == '' ? undefined : user.city}
                                             onChange={event => setValuesOfSelectElement(event, 'city')}
                                             className='city-value' name="" id="city-value">
@@ -230,7 +266,7 @@ export const SiginResponsibelContext = (params: {
                         <div className="input-context name">
                             <label htmlFor="name-value">Nome do responsável</label>
                             <input
-                                required
+                                
                                 onChange={event => setValuesOfInputFile(event, 'username')}
                                 type="text" className="input-text name-value" id="name-value" placeholder="Digite aqui" />
                         </div>
@@ -268,6 +304,8 @@ export const SiginResponsibelContext = (params: {
                             <div className="input-context phone">
                                 <label htmlFor="phone-value">Telefone*</label>
                                 <input
+                                    required
+                                    value={user.phoneNumber}
                                     onChange={event => setValuesOfInputFile(event, 'phoneNumber')}
                                     type="text" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
                             </div>
@@ -277,12 +315,14 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="cpf-value">Cpf do Responsável*</label>
                                 <input
                                     required
+                                    value={user.document}
                                     onChange={event => setValuesOfInputFile(event, 'document')}
                                     type="text" className="input-text cpf-value" id="cpf-value" placeholder="Digite aqui" />
                             </div>
                             <div className="input-context date-birth">
                                 <label htmlFor="date-birth-value">Data de nascimento*</label>
                                 <input
+                                    required
                                     type="date"
                                     onChange={event => setValuesOfInputFile(event, 'dateOfBirth')}
                                     className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
@@ -297,7 +337,7 @@ export const SiginResponsibelContext = (params: {
                             <div className="title">INFORMAÇÕES SOBRE O PACIENTE {index + 1}</div>
                             <div className="patient-fullname_patient-gender_patient-race_patient-cpf">
                                 <div className="input-context patient-fullname">
-                                    <label htmlFor="patient-fullname-value">Nome completo do paciente</label>
+                                    <label htmlFor="patient-fullname-value">Nome completo do paciente*</label>
                                     <input
                                         required
                                         value={patient.fullName}
@@ -308,6 +348,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="patient-gender-value">Sexo*</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.gender.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'gender', index)}
                                             className='patient-gender-value' name="" id="patient-gender-value">
@@ -323,6 +364,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="patient-race">Raça*</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.race.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'race', index)}
                                             className='patient-race' name="" id="patient-race">
@@ -350,7 +392,6 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
                                     <div className='select-input'>
                                         <select
-                                            required
                                             value={patient.typeOfCoagulopathy.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'typeOfCoagulopathy', index)}
                                             className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
@@ -367,7 +408,6 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
                                     <div className='select-input'>
                                         <select
-                                            required
                                             value={patient.severityOfCoagulopathy.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'severityOfCoagulopathy', index)}
                                             className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
@@ -381,9 +421,8 @@ export const SiginResponsibelContext = (params: {
                                     </div>
                                 </div>
                                 <div className="input-context location-treatment-center">
-                                    <label htmlFor="location-treatment-center-value">Localização do Centro de Tratamento</label>
+                                    <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
                                     <input
-                                        required
                                         value={patient.callCenterLocation}
                                         onChange={event => setValuesOfInputFilePatient(event, 'callCenterLocation', index)}
                                         type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" />
@@ -413,20 +452,25 @@ export const SiginResponsibelContext = (params: {
                                                 value={patient.typeOfDisability.toLowerCase()}
                                                 onChange={event => setValuesOfSelectElementPatient(event, 'typeOfDisability', index)}
                                                 className='which-value' name="" id="which-value">
-                                                <option selected style={{display: 'none'}}>Selecione</option>
-                                                <option value="pessoa sem deficiência">PESSOA SEM DEFICIÊNCIA</option>
-                                                <option value="pessoa com deficiência">PESSOA COM DEFICIÊNCIA</option>
-                                                //<option value="3">ARTROPATIA HEMOFÍLICA MEMBRO SUPERIOR E MEMBRO INFERIOR</option>
-                                                <option value="deficiencia mental">DEFICIENCIA MENTAL</option>
-                                                <option value="transtorno do espectro autismo/tdh">TRANSTORNO DO ESPECTRO AUTISMO/TDH</option>
+                                                    <option selected style={{display: 'none'}}>Selecione</option>
+                                                    {
+                                                        patient.pcd ? <>
+                                                        <option value='artropatia de membros superiores'>Artropatia de membros superiores</option>
+                                                        <option value='artropatia de membros inferiores'>Artropatia de membros inferiores</option>
+                                                        <option value='artropatia de membros inferiores e superiores'>Artropatia de membros inferiores e superiores</option>
+                                                        <option value='deficiência mental'>Deficiência mental</option>
+                                                        <option value='transtorno de espectro autista -tea'>Transtorno de Espectro Autista -TEA</option>
+                                                        <option value='transtorno de déficit de atenção e hiperatividade - tdah'>Transtorno de Déficit de Atenção e Hiperatividade - TDAH</option>
+                                                        </>
+                                                        : <option>PESSOA SEM DEFICIÊNCIA</option>
+                                                    }
                                             </select>
                                             <RiArrowDownSFill size={25} />
                                         </div>
                                     </div>
                                     <div className="input-context date-birth">
-                                        <label htmlFor="date-birth-value">Data de nascimento*</label>
+                                        <label htmlFor="date-birth-value">Data de nascimento</label>
                                         <input
-                                            required
                                             type="date"
                                             value={patient.dateOfBirth.toLowerCase()}
                                             onChange={event => setValuesOfInputFilePatient(event, 'dateOfBirth', index)}
@@ -441,10 +485,10 @@ export const SiginResponsibelContext = (params: {
                 <div className="accept-use-data">
                     <div className="input-context accept-use-my-data">
                         <input
+                            required                            
                             type="checkbox" id="accept-use-my-data-value"
-                            required
                             className="accept-use-my-data-value" />
-                        <label htmlFor="accept-use-my-data-value">ACEITO O USO DOS MEUS DADOS</label>
+                        <label htmlFor="accept-use-my-data-value">ACEITO O USO DOS MEUS DADOS*</label>
                     </div>
                 </div>
                 <div className="save-changes">

@@ -1,8 +1,7 @@
 import { NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
-
 
 import { validateUserSession } from '../utils/validateSession.utils'
 
@@ -11,14 +10,16 @@ import api from '../services/api'
 import './css/NavBarScreens.css'
 import '../routes/css/media-layout.css'
 
+import { ThemeContext } from '../contexts/teste'
+
 import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
 
 export const NavBarScreen = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
     const [userImg, setUserImg] = useState(defaultProfile)
     const navigate = useNavigate()
+    const { isLoggedIn, setIsLoggedIn } = useContext(ThemeContext);
     
     const logOut = () => {
         setIsLoggedIn(false);
@@ -45,7 +46,8 @@ export const NavBarScreen = () => {
         setUsername('')
         setUserImg(defaultProfile)
         validateUserSession(navigate, setIsLoggedIn)
-        if (isLoggedIn) {
+        let userId = localStorage.getItem('user_id');
+        if (isLoggedIn && userId) {
             getUser()
         }
     }, [isLoggedIn])

@@ -7,6 +7,7 @@ import './css/Signin.css'
 
 import { SigninPatientContext } from '../components/SigninPatientContext'
 import { SiginResponsibelContext } from '../components/SigninResponsibleContext'
+import { MenuOptions } from '../components/MenuOptions';
 
 export const Signin = () => {
     const [open, setOpen] = useState(false);
@@ -15,6 +16,7 @@ export const Signin = () => {
 
     useEffect(() => {
     }, [])
+
     return (
         <div className='signin-container'>
             <hr />
@@ -34,6 +36,7 @@ export const Signin = () => {
                     <span className='current'>Cadastro usuário</span>
                 </div>
             </div>
+            <MenuOptions open={open} />
             <div className="signin-content">
                 <div className='mandatory-info'>
                     OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO
@@ -46,7 +49,7 @@ export const Signin = () => {
                     <SiginResponsibelContext
                         category={category}
                         setCategory={setCategory}
-                        setPatientType={setPatientType} 
+                        setPatientType={setPatientType}
                     /> :
                     <SigninPatientContext
                         category={category}

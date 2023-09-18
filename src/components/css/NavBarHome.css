@@ -16,6 +16,7 @@
         justify-content: space-between;
         align-items: center;
         .search-field {
+            text-transform: uppercase;
             background: none;
             text-align: center;
             border: none;
@@ -152,6 +153,7 @@
         align-items: center;
         .search-field {
             background: none;
+            text-transform: uppercase;
             border: none;
             font-size: 12px;
             width: 100%;

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { Table } from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify'
+
 import api from '../services/api'
 
 import './css/Login.css'
@@ -10,10 +10,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import reCaptchaLogo from '../assets/reCaptchaLogo.svg'
 import logo from '../assets/logo-white.svg'
+import { ThemeContext } from '../contexts/teste'
 
 export const Login = () => {
     const [cpf, setCpf] = useState('')
     const [password, setPassword] = useState('')
+    const { setIsLoggedIn } = useContext(ThemeContext);
     
     const navigate = useNavigate()
     const { search } = useLocation()
@@ -22,6 +24,7 @@ export const Login = () => {
         let interval = setInterval(() => {
             if (search.includes('sessionExpired')) {
                 clearInterval(interval)
+                setIsLoggedIn(false)
                 toast.warn('Sua sessão expirou, faça login novamente.', {
                     position: "top-right",
                     autoClose: false,
@@ -35,19 +38,31 @@ export const Login = () => {
                 window.history.pushState({}, document.title, window.location.pathname);
             } else if (search.includes('loginRequired')) {
                 clearInterval(interval)
-                toast.warn('Crie uma conta ou faça login para criar uma manifestação.', {
-                    position: "top-right",
-                    autoClose: false,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",
-                });
+                if (search.includes('createManifest')) {
+                    toast.warn('Crie uma conta ou faça login para criar uma manifestação.', {
+                        position: "top-right",
+                        autoClose: false,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                } else if (search.includes('myUser')) {
+                    toast.warn('Crie uma conta ou faça login acessar os seus dados.', {
+                        position: "top-right",
+                        autoClose: false,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
                 window.history.pushState({}, document.title, window.location.pathname);
             }
-
         }, 100)
     }, [])    
 
@@ -72,6 +87,7 @@ export const Login = () => {
                 pending: 'Fazendo login...',
                 success: {
                     render() {
+                        setIsLoggedIn(true)
                         setTimeout(() => navigate('/'), 500)
                         return 'Login realizado com sucesso!'
                     }
@@ -108,7 +124,7 @@ export const Login = () => {
                                 <span>Não possui usuário? <b><Link to="/signin">Criar conta</Link></b></span>
                             </div>
                             <div className="forget-password">
-                                <Link to="">Esqueci a senha</Link>
+                                <Link to="/recovery-password">Esqueci a senha</Link>
                             </div>
                         </div>
                         <div className="captcha">
@@ -125,95 +141,6 @@ export const Login = () => {
                         <button className='login-button' onClick={login}>Entrar</button>
                     </div>
                 </div>
-            </div>
-            <div className='footer-bottom'>
-                <div className='tables'>
-                    <Table className="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Titulo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                    <Table className="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Titulo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                    <Table className="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Titulo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                    <Table className="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Titulo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                        </tbody>
-                    </Table>
-                </div>
-                <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS| Desenvolvido por XXXXXXXXXXX</p>
             </div>
             <ToastContainer />
         </div>

@@ -4,7 +4,6 @@ import App from './App.tsx'
 import {
   createBrowserRouter,
   RouterProvider,
-  Navigate
 } from 'react-router-dom'
 
 import {
@@ -13,7 +12,7 @@ import {
   Dashboard,
   Login,
   CreateManifest,
-  Screens,
+  RecoveryPassword,
   ReplyScreenSent,
   Manifests,
   Faq,
@@ -30,7 +29,7 @@ import {
 } from './routes'
 
 const router = createBrowserRouter([
-  {
+  /* {
     path: '/',
     element: <App />,
     errorElement: <ErrorPage />,
@@ -48,12 +47,16 @@ const router = createBrowserRouter([
         element: <Navigate to="/"/>
       },
     ]
-  },
+  }, */
   {
     path: '/',
-    element: <Screens />,
+    element: <App />,
     errorElement: <ErrorPage />,
     children: [
+      {
+        path: '/',
+        element: <Home />
+      },
       {
         path: '/welcome',
         element: <Dashboard />
@@ -86,11 +89,15 @@ const router = createBrowserRouter([
         path: '/signin',
         element: <Signin />
       },
+      {
+        path: '/login',
+        element: <Login />
+      },
+      {
+        path: '/recovery-password',
+        element: <RecoveryPassword />
+      },
     ]
-  },
-  {
-    path: '/login',
-    element: <Login />
   },
   
   {

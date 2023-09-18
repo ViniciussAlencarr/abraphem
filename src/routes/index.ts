@@ -10,6 +10,7 @@ export { MyUser } from './MyUser'
 export { ErrorPage } from './ErrorPage'
 export { Screens } from './Screens'
 export { Signin } from './Signin'
+export { RecoveryPassword } from './RecoveryPassword'
 // admin
 export { CompletedManifests } from './admin/CompletedManifests.admin'
 export { DashboardAdmin } from './admin/Dashboard.admin'

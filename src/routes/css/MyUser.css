@@ -39,7 +39,6 @@
         .option-menu {
             left: -35px;
             top: -39px;
-            bottom: -15.6px;
         }
         .header {
             display: flex;
@@ -130,6 +129,7 @@
                 .input-context {
                     width: max-content;
                     .input-text {
+                        text-transform: uppercase;
                         padding: 8px 12px;
                         outline: none;
                         border-radius: 6px;
@@ -198,6 +198,7 @@
                 .input-context {
                     width: 100%;
                     .input-text {
+                        text-transform: uppercase;
                         padding: 8px 12px;
                         outline: none;
                         border-radius: 6px;

@@ -124,6 +124,7 @@
                     padding: 8px 12px;
                     outline: none;
                     border-radius: 6px;
+                    text-transform: uppercase;
                     border: 1px solid #C00405;
                     &::placeholder {
                         color: #000;
@@ -152,6 +153,7 @@
                     margin-bottom: 10px;
                 }
                 .manifest-text-value {
+                    text-transform: uppercase;
                     border-radius: 6px;
                     border: 1px solid #D97E7E;
                     background-color: transparent;

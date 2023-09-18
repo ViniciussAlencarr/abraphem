@@ -4,7 +4,7 @@ import { VscThreeBars } from "react-icons/vsc"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { ProfilePicture } from '../contexts/ProfilePicture'
 import { MenuOptions } from "../components/MenuOptions"
-/* import { useNavigate } from "react-router-dom" */
+import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 
 import api from "../services/api"
@@ -20,7 +20,7 @@ import { User } from '../types/User'
 /* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const MyUser = () => {
-    /* const navigate = useNavigate() */
+    const navigate = useNavigate()
     const [userImg, setUserImg] = useState(defaultProfile)
     const [open, setOpen] = useState(false);
     const [acceptUseOfPersonalData, setAcceptUseOfPersonalData] = useState(false);
@@ -51,7 +51,9 @@ export const MyUser = () => {
     })
 
     useEffect(() => {
-        /* validateUserSession(navigate) */
+        if (!localStorage.getItem('bearer_token')) {
+            navigate('/login?loginRequired=true&action=myUser')
+        }
         getUserById()
     }, [])
 

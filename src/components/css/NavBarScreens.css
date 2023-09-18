@@ -33,6 +33,7 @@
         align-items: center;
         .search-field {
             background: none;
+            text-transform: uppercase;
             text-align: center;
             border: none;
             font-size: 12px;

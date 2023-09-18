@@ -1,23 +1,32 @@
-import { useEffect } from 'react';
-import { NavBarScreen } from '../components'
-import { Outlet } from 'react-router-dom'
+import {  useEffect, useState } from 'react';
+import { NavBarScreen, NavBarHome } from '../components'
+import { Outlet, useLocation } from 'react-router-dom'
 import { Table } from 'react-bootstrap';
+
+import { ThemeContext } from '../contexts/teste';
 
 import './css/Screens.css'
 
 /* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const Screens = () => {
-    /* const navigate = useNavigate(); */
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const location = useLocation();
+    
     useEffect(() => {
-        /* validateUserSession(navigate) */
     }, [])
 
-    
     return (
         <div className='screens-container'>
-            <NavBarScreen />
-            <Outlet />
+            {/* @ts-ignore */}
+            <ThemeContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+                {
+                    !location.pathname.includes('login') ?
+                    location.pathname != '/' ? <NavBarScreen /> : <NavBarHome />
+                    : <></>
+                } 
+                <Outlet />
+            </ThemeContext.Provider>
             <div className='footer-bottom'>
                 <div className='tables'>
                     <Table className="table table-borderless">

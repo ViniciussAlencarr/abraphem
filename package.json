@@ -18,10 +18,13 @@
     "igniteui-react-core": "^18.2.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
+    "react-auth-kit": "^2.12.6",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",
+    "react-input-mask": "^2.0.4",
     "react-loader-spinner": "^5.3.4",
+    "react-phone-number-input": "^3.3.6",
     "react-router-dom": "^6.12.1",
     "react-toastify": "^9.1.3"
   },

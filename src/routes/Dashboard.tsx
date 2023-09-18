@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc';
 import { MenuOptions } from '../components/MenuOptions'
 
+import { ThemeContext } from '../contexts/teste';
+
 import './css/Dashboard.css';
 import './css/media-layout.css';
 
@@ -13,15 +15,16 @@ import myUser from '../assets/my-user.svg'
 
 export const Dashboard = () => {
     const navigate = useNavigate()
-    
     const [open, setOpen] = useState(false);
     
     useEffect(() => {
-        /* if (search.includes('login'))  window.history.pushState({}, document.title, window.location.pathname); */
     }, [])
 
     return (
         <div className='dashboard-container'>
+            <ThemeContext.Consumer>
+                {(value: any) => <span>{value.theme}</span>} 
+            </ThemeContext.Consumer>
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>

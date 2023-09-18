@@ -1,19 +1,38 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import 'react-phone-number-input/style.css'
+
+import { ThemeContext } from '../contexts/teste'
 
 import api from '../services/api'
 
 import { User } from "types/User"
 import axios from "axios";
 
+const cpfMask = (value: string) => {
+    return value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1')
+}
+const phoneMask = (phone: string) => {
+    return phone.replace(/\D/g, '')
+    .replace(/^(\d)/, '($1')
+    .replace(/^(\(\d{2})(\d)/, '$1) $2')
+    .replace(/(\d{4})(\d{1,5})/, '$1-$2')
+    .replace(/(-\d{5})\d+?$/, '$1');
+}
 export const SigninPatientContext = (params: {
     category: string,
     setPatientType: any,
     setCategory: any,
 }) => {
     const navigate = useNavigate();
+    const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({
         document: "",
         typeDocument: "cpf",
@@ -33,7 +52,7 @@ export const SigninPatientContext = (params: {
         callCenterLocation: "",
         password: "",
         pcd: false,
-        typeOfDisability: "",
+        typeOfDisability: "pessoa sem deficiencia",
         email: "",
         roleUser: "2",
         profilePictureURL: ""
@@ -43,19 +62,34 @@ export const SigninPatientContext = (params: {
     }, [])
 
     const setValuesOfInputFile = (event: any, typeFile: string) => {
-        setUser({ ...user, [typeFile]: event.target.value })
+        setUser({ ...user, [typeFile]: 
+            typeFile == 'document' ?
+                cpfMask(event.target.value)
+            : typeFile == 'phoneNumber' ?
+            phoneMask(event.target.value) : event.target.value })
     }
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
-        let value = event.target.options[event.target.selectedIndex].text
+        let value = event.target.options[event.target.selectedIndex].value
         if (typeFile == 'category' && value != 'PACIENTE') params.setCategory(value), params.setPatientType(false);
-        setUser({ ...user, [typeFile]: typeFile == 'pcd' ? value == 'SIM' ? true : false : value })
+        setUser({ ...user, [typeFile]: typeFile == 'pcd' ? value == 'sim' ? true : false : value })
     }
 
-    const onSubmit = (event: any) => {
+    const onSubmit = async (event: any) => {
         event.preventDefault()
         const sendSignin = async () => {
-            await api.post('signup', user)
+            const signIn = async () => {
+                await api.post('signup', user)
+            }
+            const login = async () => {
+                const { data } = await api.post('/login?role=2', { document: user.document, password: user.password })
+                
+                api.defaults.headers.Authorization = `Bearer ${data.token}`;
+                localStorage.setItem('user_id', data.user.id)
+                localStorage.setItem('bearer_token', data.token)
+            }
+            await signIn()
+            await login()
         }
         toast.promise(
             sendSignin,
@@ -63,14 +97,8 @@ export const SigninPatientContext = (params: {
                 pending: 'Criando usuário...',
                 success: {
                     render() {
-                        const login = async () => {
-                            const { data } = await api.post('/login?role=2', { document: user.document, password: user.password })
-                            api.defaults.headers.Authorization = `Bearer ${data.token}`;
-                            localStorage.setItem('user_id', data.user.id)
-                            localStorage.setItem('bearer_token', data.token)
-                        }
-                        login()
-                        setTimeout(() => navigate('/welcome?login=true'), 500)
+                        setIsLoggedIn(true)
+                        setTimeout(() => navigate('/welcome'), 500)
                         return 'Usuário criado com sucesso!'
                     }
                 },
@@ -83,7 +111,7 @@ export const SigninPatientContext = (params: {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
         setUser({...user, city: data?.localidade, state: data?.uf })
     }
-
+    
     return (
         <div className='patient-context'>
             <form onSubmit={onSubmit}>
@@ -93,6 +121,7 @@ export const SigninPatientContext = (params: {
                             <label htmlFor="category">Em que categoria você se encaixa?*</label>
                             <div className='select-input'>
                                 <select
+                                    required
                                     onChange={event => setValuesOfSelectElement(event, 'category')}
                                     className='category' name="" id="category">
                                     <option value="paciente" selected>PACIENTE</option>
@@ -124,7 +153,7 @@ export const SigninPatientContext = (params: {
                                         type="text" className="input-text cep-value" id="cep-value" placeholder="Digite aqui" />
                                 </div>
                                 <div className="select-context state">
-                                    <label htmlFor="state-value">Estado*</label>
+                                    <label htmlFor="state-value">Estado</label>
                                     <div className='select-input'>
                                         <select
                                             value={user.state == '' ? undefined : user.state}
@@ -137,7 +166,7 @@ export const SigninPatientContext = (params: {
                                     </div>
                                 </div>
                                 <div className="select-context city">
-                                    <label htmlFor="city-value">Cidade*</label>
+                                    <label htmlFor="city-value">Cidade</label>
                                     <div className='select-input'>
                                         <select
                                             value={user.city == '' ? undefined : user.city}
@@ -173,6 +202,7 @@ export const SigninPatientContext = (params: {
                                 <label htmlFor="race-value">Raça*</label>
                                 <div className='select-input'>
                                     <select
+                                        required
                                         onChange={event => setValuesOfSelectElement(event, 'race')}
                                         className='race-value' name="" id="race-value">
                                         <option selected style={{display: 'none'}}>Selecione</option>
@@ -188,7 +218,7 @@ export const SigninPatientContext = (params: {
                         </div>
                         <div className="category_email">
                             <div className="input-context name">
-                                <label htmlFor="name-value">Nome completo</label>
+                                <label htmlFor="name-value">Nome completo*</label>
                                 <input
                                     required
                                     onChange={event => setValuesOfInputFile(event, 'fullName')}
@@ -243,13 +273,15 @@ export const SigninPatientContext = (params: {
                             <div className="input-context phone">
                                 <label htmlFor="phone-value">Telefone*</label>
                                 <input
+                                    required
+                                    value={user.phoneNumber}
                                     onChange={event => setValuesOfInputFile(event, 'phoneNumber')}
                                     type="text" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
                             </div>
                         </div>
                         <div className="owner">
                             <div className="input-context owner-name">
-                                <label htmlFor="owner-name-value">Nome do responsável*</label>
+                                <label htmlFor="owner-name-value">Nome do responsável</label>
                                 <input
                                     onChange={event => setValuesOfInputFile(event, 'ownerName')}
                                     type="text" className="input-text owner-name-value" id="phone-value" placeholder="Digite aqui" />
@@ -258,7 +290,8 @@ export const SigninPatientContext = (params: {
                         <div className="input-context cpf">
                             <label htmlFor="cpf-value">Cpf*</label>
                             <input
-                                required
+                                required    
+                                value={user.document}
                                 onChange={event => setValuesOfInputFile(event, 'document')}
                                 type="text" className="input-text cpf-value" id="cpf-value" placeholder="Digite aqui" />
                         </div>
@@ -272,7 +305,6 @@ export const SigninPatientContext = (params: {
                             <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
                             <div className='select-input'>
                                 <select
-                                    required
                                     onChange={event => setValuesOfSelectElement(event, 'typeOfCoagulopathy')}
                                     className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
                                     <option selected style={{display: 'none'}}>Selecione</option>
@@ -288,7 +320,6 @@ export const SigninPatientContext = (params: {
                             <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
                             <div className='select-input'>
                                 <select
-                                    required
                                     onChange={event => setValuesOfSelectElement(event, 'severityOfCoagulopathy')}
                                     className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
                                     <option selected style={{display: 'none'}}>Selecione</option>
@@ -301,9 +332,8 @@ export const SigninPatientContext = (params: {
                             </div>
                         </div>
                         <div className="input-context location-treatment-center">
-                            <label htmlFor="location-treatment-center-value">Localização do Centro de Tratamento</label>
+                            <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
                             <input
-                                required
                                 onChange={event => setValuesOfInputFile(event, 'callCenterLocation')}
                                 type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" />
                         </div>
@@ -314,6 +344,7 @@ export const SigninPatientContext = (params: {
                                 <label htmlFor="pcd-value">PESSOA COM DEFICIENCIA (PCD)?</label>
                                 <div className='select-input'>
                                     <select
+                                        value={user.pcd ? 'sim' : 'não'}
                                         onChange={event => setValuesOfSelectElement(event, 'pcd')}
                                         className='pcd-value' name="" id="pcd-value">
                                         <option selected style={{display: 'none'}}>Selecione</option>
@@ -327,14 +358,21 @@ export const SigninPatientContext = (params: {
                                 <label htmlFor="which-value">SE SIM, QUAL?</label>
                                 <div className='select-input'>
                                     <select
+                                        value={user.typeOfDisability}
                                         onChange={event => setValuesOfSelectElement(event, 'typeOfDisability')}
                                         className='which-value' name="" id="which-value">
-                                        <option selected style={{display: 'none'}}>Selecione</option>
-                                        <option value="pessoa sem deficiência">PESSOA SEM DEFICIÊNCIA</option>
-                                        <option value="pessoa com deficiência">PESSOA COM DEFICIÊNCIA</option>
-                                        //<option value="3">ARTROPATIA HEMOFÍLICA MEMBRO SUPERIOR E MEMBRO INFERIOR</option>
-                                        <option value="deficiencia mental">DEFICIENCIA MENTAL</option>
-                                        <option value="transtorno do espectro autismo/tdh">TRANSTORNO DO ESPECTRO AUTISMO/TDH</option>
+                                        {
+                                            user.pcd ? <>
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value='artropatia de membros superiores'>Artropatia de membros superiores</option>
+                                                <option value='artropatia de membros inferiores'>Artropatia de membros inferiores</option>
+                                                <option value='artropatia de membros inferiores e superiores'>Artropatia de membros inferiores e superiores</option>
+                                                <option value='deficiência mental'>Deficiência mental</option>
+                                                <option value='transtorno de espectro autista -tea'>Transtorno de Espectro Autista -TEA</option>
+                                                <option value='transtorno de déficit de atenção e hiperatividade - tdah'>Transtorno de Déficit de Atenção e Hiperatividade - TDAH</option>
+                                            </>
+                                            : <option className="pessoa sem deficiencia" selected>PESSOA SEM DEFICIÊNCIA</option>
+                                        }
                                     </select>
                                     <RiArrowDownSFill size={25} />
                                 </div>
@@ -344,9 +382,9 @@ export const SigninPatientContext = (params: {
                     <div className="accept-use-data">
                         <div className="input-context accept-use-my-data">
                             <input type="checkbox" id="accept-use-my-data-value"
-                                required
+                                required    
                                 className="accept-use-my-data-value" />
-                            <label htmlFor="accept-use-my-data-value">ACEITO O USO DOS MEUS DADOS</label>
+                            <label htmlFor="accept-use-my-data-value">ACEITO O USO DOS MEUS DADOS*</label>
                         </div>
                     </div>
                     <div className="save-changes">
