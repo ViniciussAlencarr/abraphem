@@ -94,6 +94,7 @@ export const Faq = () => {
 
     return (
         <div className="faq-container">
+            <MenuOptions open={open} />
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
@@ -112,7 +113,7 @@ export const Faq = () => {
                 </div>
             </div>
             <div className="faq-themes">
-                <MenuOptions open={open} />
+                
                 {
                     content.map(data => 
                         <div className="faq-theme">

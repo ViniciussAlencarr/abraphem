@@ -8,6 +8,8 @@ import { ThemeContext } from '../contexts/teste'
 
 import api from '../services/api'
 
+import listOfBloodCenters from '../utils/getListOfBloodCenters'
+
 import { User } from "types/User"
 import axios from "axios";
 
@@ -132,10 +134,8 @@ export const SigninPatientContext = (params: {
                                 <RiArrowDownSFill size={25} />
                             </div>
                         </div>
-                        
                         <div className="cpf_date-birth_state_city">
                             <div className="cpf_date-birth">
-                                
                                 <div className="input-context date-birth">
                                     <label htmlFor="date-birth-value">Data de nascimento*</label>
                                     <input
@@ -333,9 +333,26 @@ export const SigninPatientContext = (params: {
                         </div>
                         <div className="input-context location-treatment-center">
                             <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
-                            <input
+                            <div className='select-input'>
+                                <select
+                                    onChange={event => setValuesOfSelectElement(event, 'callCenterLocation')}
+                                    className='location-treatment-center-value' name="" id="location-treatment-center-value">
+                                    <option selected style={{display: 'none'}}>Selecione</option>
+                                    {
+                                        listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
+                                            {location}
+                                        </option>)
+                                    }
+                                    {/* <option value="1">ACRE (RIO GRANDE)</option>
+                                    <option value="2">ALAGOAS (MACEIO)</option>
+                                    <option value="3">AMAPÁ</option>
+                                    <option value="4">NÃO DIAGNOSTICADO</option> */}
+                                </select>
+                                <RiArrowDownSFill size={25} />
+                            </div>
+                            {/* <input
                                 onChange={event => setValuesOfInputFile(event, 'callCenterLocation')}
-                                type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" />
+                                type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" /> */}
                         </div>
                     </div>
                     <div className="pcd_which_accept-use-my-data">

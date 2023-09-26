@@ -1,7 +1,4 @@
 .see-manifest-details {
-    .option-menu {
-        top: 172px;
-    }
     .see-progress-manifests-header {
         display: flex;
         align-items: center;
@@ -120,7 +117,7 @@
             font-size: 12px;
             text-transform: uppercase;
             .answer-manifest-header {
-                gap: 35px;
+                gap: 80px;
                 display: flex;
                 width: 100%;
                 padding: 15px 20px;

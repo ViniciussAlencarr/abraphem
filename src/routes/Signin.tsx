@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import './css/Signin.css'
+import './css/media-layout.css'
 
 import { SigninPatientContext } from '../components/SigninPatientContext'
 import { SiginResponsibelContext } from '../components/SigninResponsibleContext'
@@ -19,6 +20,7 @@ export const Signin = () => {
 
     return (
         <div className='signin-container'>
+            <MenuOptions open={open} />
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
@@ -36,7 +38,7 @@ export const Signin = () => {
                     <span className='current'>Cadastro usuário</span>
                 </div>
             </div>
-            <MenuOptions open={open} />
+            
             <div className="signin-content">
                 <div className='mandatory-info'>
                     OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO

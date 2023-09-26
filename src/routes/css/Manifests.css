@@ -33,10 +33,7 @@
         position: relative;
         margin: 35px;
         margin-top: 0;
-        .option-menu {
-            top: -24.9px;
-            left: -35px;
-        }
+        
         .title {
             padding: 15px 0;
             text-transform: uppercase;
@@ -45,6 +42,7 @@
             font-size: 16px;
         }
         .manifest-table-container {
+            overflow: auto;
             .manifest-table {
                 width: 100%;
                 .table-thead {

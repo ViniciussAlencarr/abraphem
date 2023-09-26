@@ -78,13 +78,15 @@ export const NavBarScreen = () => {
                         <button>Entre ou cadastre-se</button>
                     </Link>
                 </div>
-                :  <div className='options'>
-                    <img className='profile-picture' src={userImg} alt="" />
-                    <NavDropdown title={username} id="basic-nav-dropdown" style={{fontSize: '12px'}}>
-                        <NavDropdown.Item href="/account/user">Meu usuário</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>
-                    </NavDropdown>
+                :  <div className='options-container'>
+                    <div className='options'>
+                        <img className='profile-picture' src={userImg} alt="" />
+                        <NavDropdown title={username} id="basic-nav-dropdown" style={{fontSize: '12px'}}>
+                            <NavDropdown.Item href="/account/user">Meu usuário</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>
+                        </NavDropdown>
+                    </div>
                 </div>
             }
         </div>

@@ -36,10 +36,7 @@
     .edit-user-info {
         position: relative;
         margin: 0 35px;
-        .option-menu {
-            left: -35px;
-            top: -39px;
-        }
+        
         .header {
             display: flex;
             align-items: center;

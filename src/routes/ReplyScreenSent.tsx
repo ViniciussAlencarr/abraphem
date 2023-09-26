@@ -9,7 +9,6 @@ import './css/media-layout.css';
 
 import arrowUpIcon from '../assets/arrow-up.svg'
 
-/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const ReplyScreenSent = () => {
     const [open, setOpen] = useState(false);
@@ -17,7 +16,6 @@ export const ReplyScreenSent = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        /* validateUserSession(navigate) */
     }, [])
 
     const setDivToTop = () => {
@@ -25,6 +23,7 @@ export const ReplyScreenSent = () => {
     }
     return (
         <div className='request-screen-container'>
+            <MenuOptions open={open} />
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
@@ -33,8 +32,7 @@ export const ReplyScreenSent = () => {
                 <span className='header-info-title'>MANIFESTAÇÃO ENVIADA COM SUCESSO</span>
             </div>
             <hr />
-            <div className='navigation-context'>
-                <MenuOptions open={open} />
+            <div id='reply-response-container' className='navigation-context'>
                 <div className='navitation-start'>
                     <span>Ínicio</span>
                     <IoIosArrowForward style={{ opacity: '.2'}} />

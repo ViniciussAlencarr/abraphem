@@ -1,9 +1,11 @@
 .option-menu {
     z-index: 1000;
     position: absolute;
-    top: -32px;
+    /* top: 23.3%;
+    height: 76.7%; */
+    top: 22%;
+    height: 78%;
     left: 0;
-    height: 100%;
     transition: all .2s;
     .collapse {
         height: 100%;

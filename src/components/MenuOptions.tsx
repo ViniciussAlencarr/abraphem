@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import logo from '../assets/minimal-logo.svg'
 
 import './css/MenuOptions.css'
+import '../routes/css/media-layout.css'
 
 export const MenuOptions = (params: { open: boolean }) => {
     const [userTabOpen, setUserTabOpen] = useState(false);
@@ -25,7 +26,7 @@ export const MenuOptions = (params: { open: boolean }) => {
     }
 
     return (
-        <div className='option-menu' style={{ minHeight: '150px' }}>
+        <div className='option-menu'>
             <Collapse in={params.open} dimension="width">
                 <div>
                     <Card body style={{ width: '400px' }}>

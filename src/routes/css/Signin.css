@@ -34,9 +34,7 @@ option {
             }
         }
     }
-    .option-menu {
-        top: 170px;
-    }
+    
     .signin-content {
         margin: 35px;
         margin-top: 15px;
@@ -138,6 +136,18 @@ option {
             text-transform: uppercase;
             font-weight: 600;
             font-size: 14px;
+        }
+        .accept-use-data {
+            .accept-use-my-data label {
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 14px;
+            }
+            .accept-use-my-data {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
         }
         .form-context-personal-information {
             display: grid;

@@ -100,7 +100,7 @@ export const Login = () => {
         <div className='login-container'>
             <div className='login-header'>
                 <div className="logo-container">
-                    <Link to="">
+                    <Link to="/">
                         <img className='logo' src={logo} alt="" />
                     </Link>
                 </div>

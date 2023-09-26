@@ -14,6 +14,7 @@ import arrowUpIcon from '../../assets/arrow-up.svg'
 
 import '../css/Manifests.css'
 import '../css/media-layout.css'
+
 import { ColorRing } from 'react-loader-spinner';
 
 export const Manifests = () => {/* TODO: inserir tipo correto */
@@ -110,6 +111,7 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
 
     return (
         <div className='requests-container'>
+            <MenuOptions open={open} />
             {
                 !manifestDetailsModalState ? <>
                     <hr />
@@ -130,11 +132,10 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                         </div>
                     </div>
                     <div className="manifests-table-content">
-                        <MenuOptions open={open} />
                         <div className="title">
                             Todas as manifestações
                         </div>
-                        <div className='manifest-table-container'>
+                        <div id='manifest-table-container' className='manifest-table-container'>
                             <table className='manifest-table'>
                                 <thead className='table-thead'>
                                     <tr className='table-titles'>

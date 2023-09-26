@@ -58,7 +58,6 @@
     .table-info-content {
         display: flex;
         margin: 30px 0;
-        position: relative;
         margin-bottom: 55px;
         justify-content: center;
         .info-content {

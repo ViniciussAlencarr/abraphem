@@ -135,6 +135,7 @@ export const CreateManifest = () => {
 
     return (
         <div className='request-screen-container'>
+            <MenuOptions open={open} />
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
@@ -153,7 +154,7 @@ export const CreateManifest = () => {
                 </div>
             </div>
             <div className="new-request-container">
-                <MenuOptions open={open} />
+                
                 <div className="info-advice">OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO</div>
                 <div className="title">Identificação</div>
                 <div className="form-context">

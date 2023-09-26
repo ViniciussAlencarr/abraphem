@@ -113,7 +113,7 @@ export const SeeDetailsOfUser = (params: {
                         <input value={params.user.severityOfCoagulopathy} readOnly type="text" className="input-value severity-of-coagulopathy" id="severity-of-coagulopathy" />
                     </div>
                     <div className="info-block-content treatment-center-location">
-                        <label className="label-value" htmlFor="treatment-center-location">Localização do Centro de Tratamento</label>
+                        <label className="label-value" htmlFor="treatment-center-location">Centro de Tratamento</label>
                         <input value={params.user.callCenterLocation} readOnly type="text" className="input-value treatment-center-location" id="treatment-center-location" />
                     </div>
                 </div>

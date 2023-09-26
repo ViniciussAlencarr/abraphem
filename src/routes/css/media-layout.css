@@ -46,6 +46,21 @@
                 left: 37% !important;
             }
         }
+        .signin-container {
+            .signin-content {
+                .patient-context {
+                    .form-context-personal-information {
+                        .phone-type_phone-value_owner-name {
+                            display: grid !important;
+                        }
+                        .name_cpf_date-birth_state_city {
+                            display: grid !important;
+                            justify-content: unset !important;
+                        }
+                    }
+                }
+            }
+        }
                 
     }
 
@@ -122,13 +137,29 @@
         }
     }
 }
-@media (max-width: 1020px) {
+@media (max-width: 1028px) {
     .screens-container {
         .request-screen-container {
             .new-request-container {
                 .form-context {
                     .type-coagulopathy_severity-coagulopathy_location-treatment-center {
                         display: grid !important;
+                    }
+                }
+            }
+        }
+        .signin-container {
+            .signin-content {
+                .not-patient-context {
+                    .responsible-context {
+                        .category_number-of-patients_city_state {
+                            display: grid !important;
+                        }
+                    }
+                    .form-context-patient-information {
+                        .patient-fullname_patient-gender_patient-race_patient-cpf {
+                            display: grid !important;
+                        }
                     }
                 }
             }
@@ -170,6 +201,22 @@
                             }
                             .td-status-color {
                                 display: none !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .signin-container {
+            .signin-content {
+                .patient-context {
+                    .form-context-personal-information {
+                        .gender_race_category_email {
+                            display: grid !important;
+                            .category_email {
+                                .input-context.name {
+                                    width: 100% !important;
+                                }
                             }
                         }
                     }
@@ -228,13 +275,17 @@
 }
 @media (max-width: 850px) {
     .screens-container {
+        .option-menu {
+            top: 28% !important;
+            height: 72% !important;
+        }
         .nav-screens-container {
             position: relative !important;
             height: 180px !important;
             .logo-redirect {
                 top: 10px !important;
                 position: absolute !important;
-                left: 0 !important;
+                left: 35px !important;
             }
             .redirect-links {
                 position: absolute !important;
@@ -250,7 +301,8 @@
                 .request-redirect {
                 }
             }
-            .options {
+            .options-container,
+            .register {
                 top: 30px !important;
                 position: absolute !important;
                 right: 30px !important;
@@ -296,7 +348,17 @@
                 }
             }
         }
-                
+        .signin-container {
+            .signin-content {
+                .not-patient-context {
+                    .responsible-context {
+                        .phone-type_phone-number_cpf_date-birth {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }    
     }
     .request-screen-container {
         .request-container {
@@ -354,6 +416,27 @@
                 }
             }
         }
+        .requests-container {
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    display: grid !important;
+                    gap: 35px;
+                    justify-content: unset !important;
+                }
+            }
+        }
+        .signin-container {
+            .signin-content {
+                .not-patient-context {
+                    .form-context-patient-information {
+                        .type-coagulopathy_severity-coagulopathy_location-treatment-center,
+                        .pcd_which_accept-use-my-data .pcd_whick {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 740px) {
@@ -382,7 +465,11 @@
         }
     }
     .screens-container {
-        .first-screen-container {
+        .option-menu {
+            top: 12% !important;
+            height: 88% !important;
+        }
+        .dashboard-container {
             .table-info-content {
                 .info-content {
                     display: grid !important;
@@ -459,6 +546,35 @@
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+        .signin-container {
+            .signin-content {
+                .patient-context {
+                    .form-context-personal-information {
+                        .gender_race_category_email {
+                            .category_email{
+                                display: grid !important;
+                                .input-context {
+                                    width:  100% !important;
+                                }
+                            }
+                        }
+                    }
+                    .form-context-patient-information {
+                        .type-coagulopathy_severity-coagulopathy_location-treatment-center {
+                            display: grid !important;
+                        }
+                    }
+                }
+                .not-patient-context {
+                    .responsible-context {
+                        .category_number-of-patients_city_state .location-context .city_state,
+                        .name_email {
+                            display: grid !important;
                         }
                     }
                 }
@@ -557,12 +673,48 @@
                             font-size: 10px;
                         }
                     }
+                    .accept-use-data {
+                        .input-context.accept-use-my-data {
+                            gap: 5px !important;
+                        }
+                    }
                 }
             }
         }
     }
 }
-
+@media (max-width: 676px) {
+    .screens-container {
+        .option-menu {
+            top: 13% !important;
+            height: 87% !important;
+        }
+        .signin-container {
+            .signin-content {
+                .not-patient-context {
+                    .responsible-context {
+                        .category_number-of-patients_city_state .category_number-of-patients {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 610px) {
+    .screens-container {
+        .requests-container {
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    .manifest-type {
+                        gap: 20px !important;
+                    }
+                }
+            }
+        }
+    }
+}
 @media (max-width: 580px) {
     .screens-container {
         .new-request-container {
@@ -576,6 +728,29 @@
 }
 @media (max-width: 560px) {
     .screens-container {
+        .option-menu {
+            top: 18.4% !important;
+            height: 81.6% !important;
+        }
+        .nav-screens-container {
+            height: 300px !important;
+            .logo-redirect {
+                display: flex;
+                justify-content: center;
+                left: unset !important;
+                width: 100%;
+                /* left: 150px !important; */
+            }
+            .options-container,
+            .register {
+                top: 110px !important;
+                display: flex !important;
+                width: 100%;
+                justify-content: center;
+                right: unset !important;
+                /* right: 165px !important; */
+            }
+        }
         .request-screen-container {
         .request-container {
                 margin: 5px !important;
@@ -660,6 +835,13 @@
                     }
                 }
             }
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    .manifest-type {
+                        gap: 10px !important;
+                    }
+                }
+            }
         }
         .my-user-container {
             .edit-user-info {
@@ -693,6 +875,32 @@
                 }
             }
         }
+        .signin-container {
+            .signin-content {
+                .patient-context {
+                    .form-context-personal-information {
+                        .name_cpf_date-birth_state_city {
+                            .cpf_date-birth_state_city { 
+                                display: grid !important;
+                                .cpf_date-birth {
+                                    width: 100% !important;
+                                    .input-context {
+                                        width:  100% !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .form-context-patient-information {
+                        .pcd_which_accept-use-my-data {
+                            .pcd_whick {
+                                display: grid !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 508px) {
@@ -706,6 +914,15 @@
                     }
                     .form-request  {
                         display: flow-root !important;
+                    }
+                }
+            }
+        }
+        .requests-container {
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    .manifest-type {
+                        gap: 0 !important;
                     }
                 }
             }
@@ -795,6 +1012,51 @@
                 }
             }
         }
+        .requests-container {
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    .manifest-type {
+                        .line-marker {
+                            width: 50px !important;
+                        }
+                    }
+                }
+                .manifest-content {
+                    .protocol_manifest {
+                        font-size: 10px !important;
+                        gap: 20px !important;
+                    }
+                    .answer-manifest {
+                        .answer-manifest-header {
+                            font-size: 10px !important;
+                            gap: 20px !important;
+                        }
+                    }
+                }
+            }
+        }
+        .signin-container {
+            .signin-content {
+                .not-patient-context {
+                    .responsible-context {
+                        .category_number-of-patients_city_state .category_number-of-patients {
+                            display: grid !important;
+                        }
+                        label {
+                            font-size: 12px !important;
+
+                        }
+                        .select-context label {
+                            font-size: 12px !important;
+                        }
+                        .select-context,
+                        .input-context {
+                            font-size: 12px !important;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 425px) {
@@ -828,7 +1090,7 @@
                 position: absolute !important;
                 left: 5px !important;
                 .navbar-brand .logo {
-                    width: 135px !important;
+                    width: 200px !important;
                 }
             }
             .redirect-links {
@@ -841,17 +1103,15 @@
                 }
             }
             .options {
-                top: 20px !important;
-                padding: 5px !important;
-                position: absolute !important;
-                right: 20px !important;
+                .register-button,
                 .nav-item a {
                     font-size: 9px !important;
-
                 }
             }
-            .options svg {
+            .options svg
+            {
                 width: 30px !important;
+                height: 30px !important;
             }
         }
         .request-screen-container {
@@ -931,12 +1191,23 @@
                 display: none !important;
             }
             .manifests-table-content {
+                .title {
+                    font-size: 12px !important;
+                }
                 .subtitle-status {
                     display: grid !important;
                     font-size: 8px !important;
                 }
                 .manifest-table-container {
                     .manifest-table {
+                        .table-thead {
+                            font-size: 12px !important;
+                        }
+                        .table-tbody {
+                            .table-tr-content td {
+                                font-size: 12px !important;
+                            }
+                        }
                         .status-new-bottom-context {
                             .new-status-context {
                                 .status-context {
@@ -993,6 +1264,51 @@
                                     display: grid !important;
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        }
+        .signin-container {
+            .signin-content {
+                .patient-context {
+                    .form-context-personal-information {
+                        .name_cpf_date-birth_state_city {
+                            .cpf_date-birth_state_city {
+                                .state_city {
+                                    display: grid !important;
+                                    .input-context {
+                                        width: 100% !important;
+                                    }
+                                }
+                            }
+                        }
+                        .phone-type_phone-value_owner-name {
+                            .phone-type_phone-value {
+                                display: grid !important;
+                            }
+                        }
+                    }
+                }
+                .not-patient-context {
+                    .responsible-context label {
+                        font-size: 12px !important;
+                        
+                    }
+                    .responsible-context {
+                        .phone-type_phone-number_cpf_date-birth .phone-type_phone-number,
+                        .phone-type_phone-number_cpf_date-birth .cpf_date-birth {
+                            display: grid !important;
+
+                        }
+                    }
+                    .accept-use-data {
+                        .accept-use-my-data {
+                            display: flex;
+                            gap: 10px;
+                        }
+                        .accept-use-my-data label {
+                            font-size: 10px !important;
                         }
                     }
                 }
@@ -1231,11 +1547,12 @@
                 justify-content: center !important;
                 .register-button {
                     gap: 0 !important;
-                    padding: 0px 5px !important;
+                    padding: 5px !important;
 
                 }
-                .register-button svg {
-                    width: 20px !important;
+                .register-button img {
+                    width: 30px !important;
+                    height: 30px !important;
                 }
                 .register-button button {
                     font-size: 9px !important;
@@ -1244,7 +1561,7 @@
         }
     }
 }
-@media (max-width: 370px) {
+@media (max-width: 374px) {
     .screens-container {
         .my-user-container {
             .edit-user-info {
@@ -1253,6 +1570,35 @@
                         .phone-type_phone-value_owner-name {
                             .phone-type_phone-value {
                                 display: grid !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .requests-container {
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    .back-btn-context {
+                        .back-btn {
+                            font-size: 12px !important;
+                        }
+                    }
+                    .back-btn-context svg {
+                        width: 20px !important;
+                    }
+                    .manifest-type {
+                        gap: 0 !important;
+                        .manifest-type-context {
+                            .icon-imgs svg {
+                                width: 25px !important;
+
+                            }
+                            .icon-imgs .arrow-icon {
+                                width: 15px !important;
+                            }
+                            .type-label {
+                                font-size: 10px !important;
                             }
                         }
                     }
@@ -1273,4 +1619,19 @@
         }
     }
     
+}
+@media (max-width: 357px) {
+    .screens-container {
+        .requests-container {
+            .see-manifest-details {
+                .see-progress-manifests-header {
+                    .manifest-type {
+                        .line-marker {
+                            width: 34px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

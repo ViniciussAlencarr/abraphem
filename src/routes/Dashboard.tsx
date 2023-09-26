@@ -22,6 +22,7 @@ export const Dashboard = () => {
 
     return (
         <div className='dashboard-container'>
+            <MenuOptions open={open} />
             <ThemeContext.Consumer>
                 {(value: any) => <span>{value.theme}</span>} 
             </ThemeContext.Consumer>
@@ -33,8 +34,7 @@ export const Dashboard = () => {
                 <span className='header-info-title'>BEM VINDO À PLATAFORMA DE OUVIDORIA DA ABRAPHEM</span>
             </div>
             <hr />
-            <div className='table-info-content'>
-                <MenuOptions open={open} />
+            <div id='table-info-content' className='table-info-content'>
                 <div className="info-content">
                     <div className='header-img-context new-request'>
                         <div className='new-request-img'>

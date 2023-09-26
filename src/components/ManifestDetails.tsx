@@ -10,6 +10,7 @@ import { ServiceEvaluation } from '../types/Service'
 import api from '../services/api'
 
 import './css/ManifestDetails.css'
+/* import '../routes/css/media-layout.css' */
 
 import arrowIcon from '../assets/fa-solid_check.svg'
 
@@ -234,11 +235,6 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                             </div>
                             {checkAnswer()}
                         </div>
-                        {/* {
-                            params.manifest.manifestStatus.toLowerCase() == 'em andamento' ? 
-                                <button className="">Reenviar manifesto</button>
-                            :<></>
-                        } */}
                     </div>
                     {
                         params.manifest.manifestStatus.toLowerCase() == 'concluído' ?

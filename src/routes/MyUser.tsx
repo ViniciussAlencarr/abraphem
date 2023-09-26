@@ -17,6 +17,8 @@ import defaultProfile from './../assets/profile.svg'
 
 import { User } from '../types/User'
 
+import listOfBloodCenters from '../utils/getListOfBloodCenters'
+
 /* import { validateUserSession } from '../utils/validateSession.utils' */
 
 export const MyUser = () => {
@@ -94,7 +96,8 @@ export const MyUser = () => {
 
     const updateUser = () => {
         if (!acceptUseOfPersonalData) return toast.error('Você deve aceitar o uso dos dados')
-        const update = async () => {
+        console.log(user)
+        /* const update = async () => {
             await api.put(`user/${user.id}`, user)
         }
         toast.promise(
@@ -109,7 +112,7 @@ export const MyUser = () => {
                 },
                 error: 'Ocorreu um problema ao atualizar as informações'
             }
-        )
+        ) */
     }
 
     const setValuesOfInputFile = (event: any, typeFile: string) => {
@@ -127,6 +130,7 @@ export const MyUser = () => {
 
     return (
         <div className="my-user-container">
+            <MenuOptions open={open} />
             <hr />
             <div className='header-info'>
                 <button className="options-btn" onClick={() => setOpen(!open)}>
@@ -145,7 +149,7 @@ export const MyUser = () => {
                 </div>
             </div>
             <div className="edit-user-info">
-                <MenuOptions open={open} />
+                
                 <div className="header">
                     <div className="preview-user-img">
                         <ProfilePicture.Provider value={{ userImg }} >
@@ -363,10 +367,20 @@ export const MyUser = () => {
                                 </div>
                             </div>
                             <div className="input-context location-treatment-center">
-                                <label htmlFor="location-treatment-center-value">Localização do Centro de Tratamento</label>
-                                <input
-                                    onChange={event => setValuesOfInputFile(event, 'callCenterLocation')}
-                                    value={user.callCenterLocation} type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" />
+                                <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
+                                <div className='select-input'>
+                                    <select
+                                        onChange={event => setValuesOfSelectElement(event, 'callCenterLocation')}
+                                        value={user.callCenterLocation.toLowerCase()} className='location-treatment-center-value' name="" id="location-treatment-center-value">
+                                        <option selected style={{display: 'none'}}>Selecione</option>
+                                        {
+                                            listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
+                                                {location}
+                                            </option>)
+                                        }
+                                    </select>
+                                    <RiArrowDownSFill size={25} />
+                                </div>
                             </div>
                         </div>
                         <div className="pcd_which_accept-use-my-data">

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom"
 
 import { ThemeContext } from '../contexts/teste'
 
+import listOfBloodCenters from '../utils/getListOfBloodCenters'
+
 import { User } from "types/User"
 
 import api from '../services/api'
@@ -422,12 +424,21 @@ export const SiginResponsibelContext = (params: {
                                 </div>
                                 <div className="input-context location-treatment-center">
                                     <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
-                                    <input
-                                        value={patient.callCenterLocation}
-                                        onChange={event => setValuesOfInputFilePatient(event, 'callCenterLocation', index)}
-                                        type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" />
+                                    <div className='select-input'>
+                                        <select
+                                            value={patient.callCenterLocation.toLowerCase()}
+                                            onChange={event => setValuesOfSelectElementPatient(event, 'callCenterLocation', index)}
+                                            className='location-treatment-center-value' name="" id="location-treatment-center-value">
+                                            <option selected style={{display: 'none'}}>Selecione</option>
+                                            {
+                                                listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
+                                                    {location}
+                                                </option>)
+                                            }
+                                        </select>
+                                        <RiArrowDownSFill size={25} />
+                                    </div>
                                 </div>
-                                
                             </div>
                             <div className="pcd_which_accept-use-my-data">
                                 <div className="pcd_whick">

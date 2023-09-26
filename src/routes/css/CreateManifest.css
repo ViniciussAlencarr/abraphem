@@ -41,10 +41,6 @@
     }
     .new-request-container {
         position: relative;
-        .option-menu  {
-            left: -35px;
-            top: -39px;
-        }
         margin: 0 35px;
         .info-advice {
             margin: 15px 0;
@@ -61,6 +57,10 @@
             &.second {
                 margin: 0;
             }
+        }
+        .form-context form {
+            display: grid;
+            gap: 10px;
         }
         .form-context {
             display: grid;
