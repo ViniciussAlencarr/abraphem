@@ -77,8 +77,25 @@ export const SigninPatientContext = (params: {
         setUser({ ...user, [typeFile]: typeFile == 'pcd' ? value == 'sim' ? true : false : value })
     }
 
+    const validatePhoneNumber = () => {
+        if (user.phoneNumber.length != 15) {
+            window.scroll(250, 400);
+            document.getElementById('phone-value')?.focus()
+            throw toast.error('Verifique se o número de telefone tem todos os números')
+        }
+    }
+
+    const validateCpfValue = () => {
+        if (user.document.length != 14) {
+            window.scroll(250, 400);
+            document.getElementById('cpf-value')?.focus()
+            throw toast.error('Verifique se o CPF contém todos os números')
+        }
+    }
     const onSubmit = async (event: any) => {
         event.preventDefault()
+        validatePhoneNumber()
+        validateCpfValue()
         const sendSignin = async () => {
             const signIn = async () => {
                 await api.post('signup', user)
@@ -276,7 +293,7 @@ export const SigninPatientContext = (params: {
                                     required
                                     value={user.phoneNumber}
                                     onChange={event => setValuesOfInputFile(event, 'phoneNumber')}
-                                    type="text" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
+                                    type="tel" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
                             </div>
                         </div>
                         <div className="owner">

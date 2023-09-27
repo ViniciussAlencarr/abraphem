@@ -153,9 +153,28 @@ export const SiginResponsibelContext = (params: {
             setPatients(patients)
         }
     }
+    const validatePhoneNumber = () => {
+        if (user.phoneNumber.length != 15) {
+            document.getElementById('phone-value')?.focus()
+            throw toast.error('Verifique se o número de telefone tem todos os números')
+        }
+    }
 
+    const validateCpfValue = () => {
+        if (user.document.length != 14) {
+            document.getElementById('cpf-value')?.focus()
+            throw toast.error('Verifique se o CPF contém todos os números')
+        }
+        let patientIndex = patients.findIndex(patient => patient.document.length != 14)
+        if (patientIndex != -1) {
+            document.getElementById(`patient-cpf-value-${patientIndex}`)?.focus()
+            throw toast.error('Verifique se o CPF contém todos os números')
+        }
+    }
     const onSubmit = async (event: any) => {
         event.preventDefault()
+        validatePhoneNumber()
+        validateCpfValue()
         const sendSignin = async () => {
             const signIn = async () => {
                 await api.post('signup?type=responsible', { user, patients })
@@ -381,12 +400,12 @@ export const SiginResponsibelContext = (params: {
                                     </div>
                                 </div>
                                 <div className="input-context patient-cpf">
-                                    <label htmlFor="patient-cpf-value">Cpf*</label>
+                                    <label htmlFor={`patient-cpf-value-${index}`}>Cpf*</label>
                                     <input
                                         required
                                         value={patient.document}
                                         onChange={event => setValuesOfInputFilePatient(event, 'document', index)}
-                                        type="text" className="input-text patient-cpf-value" id="patient-cpf-value" placeholder="Digite aqui" />
+                                        type="text" className="input-text patient-cpf-value" id={`patient-cpf-value-${index}`} placeholder="Digite aqui" />
                                 </div>
                             </div>
                             <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
