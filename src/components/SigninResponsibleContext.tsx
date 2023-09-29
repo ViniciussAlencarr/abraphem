@@ -35,7 +35,7 @@ export const SiginResponsibelContext = (params: {
     setCategory: any,
 }) => {
     const navigate = useNavigate();
-    const [numberPatients, setNumberPatients] = useState(1)
+    const [numberPatients, setNumberPatients] = useState(0)
     const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({
         document: "",
@@ -360,7 +360,6 @@ export const SiginResponsibelContext = (params: {
                                 <div className="input-context patient-fullname">
                                     <label htmlFor="patient-fullname-value">Nome completo do paciente*</label>
                                     <input
-                                        required
                                         value={patient.fullName}
                                         onChange={event => setValuesOfInputFilePatient(event, 'fullName', index)}
                                         type="text" className="input-text patient-fullname-value" id="patient-fullname-value" placeholder="Digite aqui" />
@@ -369,7 +368,6 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="patient-gender-value">Sexo*</label>
                                     <div className='select-input'>
                                         <select
-                                            required
                                             value={patient.gender.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'gender', index)}
                                             className='patient-gender-value' name="" id="patient-gender-value">
@@ -385,7 +383,6 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="patient-race">Raça*</label>
                                     <div className='select-input'>
                                         <select
-                                            required
                                             value={patient.race.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'race', index)}
                                             className='patient-race' name="" id="patient-race">
@@ -402,7 +399,6 @@ export const SiginResponsibelContext = (params: {
                                 <div className="input-context patient-cpf">
                                     <label htmlFor={`patient-cpf-value-${index}`}>Cpf*</label>
                                     <input
-                                        required
                                         value={patient.document}
                                         onChange={event => setValuesOfInputFilePatient(event, 'document', index)}
                                         type="text" className="input-text patient-cpf-value" id={`patient-cpf-value-${index}`} placeholder="Digite aqui" />

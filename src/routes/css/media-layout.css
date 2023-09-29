@@ -901,6 +901,30 @@
                 }
             }
         }
+        .recovery-password-container {
+            .title {
+                font-size: 17px !important;
+            }
+            .recovery-password-context {
+                .form-data {
+                    .message-info {
+                        font-size: 14px !important;
+                    }
+                    .input-context label {
+                        font-size: 12px !important;
+                    }
+                    .input-context input {
+                        font-size: 12px !important;
+                        padding: 6px 8px !important;
+                        width: 350px !important;
+                    }
+                    .submit-button {
+                        font-size: 14px !important;
+                        padding: 6px 12px !important;
+                    }
+                }
+            }
+        }
     }
 }
 @media (max-width: 508px) {
@@ -1310,6 +1334,15 @@
                         .accept-use-my-data label {
                             font-size: 10px !important;
                         }
+                    }
+                }
+            }
+        }
+        .recovery-password-container {
+            .recovery-password-context {
+                .form-data {
+                    .input-context input {
+                        width: 250px !important;
                     }
                 }
             }
