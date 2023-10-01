@@ -96,63 +96,65 @@ export const CompletedManifests = () => {
             <div className="title">Manifestações concluidas</div>
             {
                 !open ? 
-                <table className='open-manifests-table'>
-                    <thead className='thead-table'>
-                        <tr className='table-titles'>
-                            <th>Protocolo</th>
-                            <th>Nome do usuário</th>
-                            <th>Tipo de manifestação</th>
-                            <th>Ultima atualização</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            request.length != 0 ?
-                                (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
-                                    return <tr key={index} className='table-content'>
-                                    <td>{manifest.protocol.value}</td>
-                                    <td><GetUserName userId={manifest.userId} /></td>
-                                    <td>{manifest.manifestType}</td>
-                                    <td>{manifest.lastUpdate}</td>
-                                    <td><button className='see-more' onClick={() => {setOpen(!open); setManifest(manifest)}}>Ver mais</button></td>
+                <div style={{ overflow: 'auto' }}>
+                    <table className='completed-manifests-table'>
+                        <thead className='thead-table'>
+                            <tr className='table-titles'>
+                                <th>Protocolo</th>
+                                <th>Nome do usuário</th>
+                                <th>Tipo de manifestação</th>
+                                <th>Ultima atualização</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                request.length != 0 ?
+                                    (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
+                                        return <tr key={index} className='table-content'>
+                                        <td>{manifest.protocol.value}</td>
+                                        <td><GetUserName userId={manifest.userId} /></td>
+                                        <td>{manifest.manifestType}</td>
+                                        <td>{manifest.lastUpdate}</td>
+                                        <td><button className='see-more' onClick={() => {setOpen(!open); setManifest(manifest)}}>Ver mais</button></td>
+                                    </tr>
+                                    })
+                                : <tr className='table-content'>
+                                    <td colSpan={4}>Nenhuma manifestação encontrada</td>
                                 </tr>
-                                })
-                            : <tr className='table-content'>
-                                <td colSpan={4}>Nenhuma manifestação encontrada</td>
+                            }
+                            {emptyRows > 0 && (
+                                <tr style={{ height: 34 * emptyRows }}>
+                                <td colSpan={3} />
+                                </tr>
+                            )}    
+                        </tbody>
+                        <tfoot className='footer-table'>
+                            <tr>
+                                <td className='pagination-info'>
+                                    Exibindo <b>{rowsPerPage}</b> de <b>{request.length}</b> | Página {page}
+                                </td>
+                                <TablePagination
+                                    rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
+                                    colSpan={6}
+                                    count={request.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    slotProps={{
+                                        select: {
+                                            "aria-label": "rows per page"
+                                        },
+                                        actions: {
+                                        showFirstButton: false,
+                                        showLastButton: false
+                                        }
+                                    }}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
                             </tr>
-                        }
-                        {emptyRows > 0 && (
-                            <tr style={{ height: 34 * emptyRows }}>
-                            <td colSpan={3} />
-                            </tr>
-                        )}    
-                    </tbody>
-                    <tfoot className='footer-table'>
-                        <tr>
-                            <td className='pagination-info'>
-                                Exibindo <b>{rowsPerPage}</b> de <b>{request.length}</b> | Página {page}
-                            </td>
-                            <TablePagination
-                                rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
-                                colSpan={6}
-                                count={request.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                slotProps={{
-                                    select: {
-                                        "aria-label": "rows per page"
-                                    },
-                                    actions: {
-                                    showFirstButton: false,
-                                    showLastButton: false
-                                    }
-                                }}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
-                        </tr>
-                    </tfoot>
-                </table>
+                        </tfoot>
+                    </table>
+                </div>
                 : <SeeCompletedManifest getConcludedManifests={getConcludedManifests} open={open} manifest={manifest} setOpen={setOpen} />
             }
             <ToastContainer />

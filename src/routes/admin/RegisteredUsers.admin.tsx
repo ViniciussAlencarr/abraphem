@@ -6,6 +6,7 @@ import api from '../../services/api'
 import { User } from '../../types/User'
 
 import '../css/admin/RegisteredUsers.admin.css'
+import '../css/admin/media-layout.css'
 
 import { SeeDetailsOfUser } from '../../components/admin/SeeDetailsOfUser.admin'
 
@@ -76,7 +77,7 @@ export const RegisteredUsers = () => {
     return (
         <div className="registered-users-admin">
             {
-                !open ? <>
+                !open ? <div style={{ overflow: 'auto' }}>
                     <div className="title">Usuários Cadastrados</div>
                     <table className='registered-users-table'>
                         <thead className='thead-table'>
@@ -147,7 +148,7 @@ export const RegisteredUsers = () => {
                             </tr>
                         </tfoot>
                     </table>
-                </>
+                </div>
                 : <SeeDetailsOfUser user={user} setOpen={setOpen} open={open} />
             }
         </div>

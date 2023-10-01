@@ -9,7 +9,8 @@
         font-weight: 600;
         font-size: 14px;
     }
-    .open-manifests-table {
+    .completed-manifests-table {
+        width: 100%;
         .thead-table {
             border-bottom: 1px solid #C00405;
             .table-titles th {

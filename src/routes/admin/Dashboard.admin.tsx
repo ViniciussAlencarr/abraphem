@@ -116,12 +116,13 @@ export const DashboardAdmin = () => {
             if (window.innerWidth <= 1002 && window.innerWidth >= 760) {
                 setChartWidth(450)
             }
-            if (window.innerWidth <= 760 && window.innerWidth >= 550) {
+            if (window.innerWidth <= 760 && window.innerWidth >= 592) {
                 setChartWidth(350)
             }
-            if (window.innerWidth <= 550) {
+            if (window.innerWidth <= 592) {
                 setChartWidth(300)
             }
+            console.log(window.innerWidth)
         }, 100)
     }
 

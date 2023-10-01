@@ -97,6 +97,7 @@ export const ProgressManifests = () => {
             <div className="title">Manifestações em andamento</div>
             {
                 !open ? 
+                <div style={{ overflow: 'auto' }}>
                     <table className='in-progress-manifests-table'>
                         <thead className='thead-table'>
                             <tr className='table-titles'>
@@ -154,6 +155,7 @@ export const ProgressManifests = () => {
                             </tr>
                         </tfoot>
                     </table>
+                </div>
                 : <SeeProgressManifestComponent getInProgressManifests={getInProgressManifests} manifest={manifest} open={open} setOpen={setOpen}/>
             }
             <ToastContainer />

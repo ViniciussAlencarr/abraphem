@@ -7,6 +7,7 @@ import api from '../../services/api';
 import { ManifestRequest } from '../../types/Manifest'
 
 import '../css/admin/OpenManifests.admin.css'
+import '../css/admin/media-layout.css'
 
 import { AnalizeOpenManifestComponent } from '../../components/admin/AnalizeOpenManifest.admin'
 import { GetUserName } from '../../components/admin/GetUserName.admin'
@@ -101,71 +102,73 @@ export const OpenManifests = () => {
             <div className="title">Manifestações em aberto</div>
             {
                 !open ? 
-                <table className='open-manifests-table'>
-                    <thead className='thead-table'>
-                        <tr className='table-titles'>
-                            <th>Protocolo</th>
-                            <th>Nome do usuário</th>
-                            <th>Tipo de manifestação</th>
-                            <th>Ultima atualização</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            request.length != 0 ?
-                                (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
-                                    /* getClientName(manifest.userId) */
-                                    return <tr key={index} className='table-content'>
-                                        <td style={{ display: 'flex', justifyContent: 'center', gap: '10px'}}>
-                                            <input type="checkbox" name="" id={manifest.id} />
-                                            <label htmlFor={manifest.id}>{manifest.protocol.value}</label>
-                                        </td>
-                                        <td><GetUserName userId={manifest.userId} /></td>
-                                        <td>{manifest.manifestType}</td>
-                                        <td>{manifest.lastUpdate}</td>
-                                        <td><button className='analize-btn'
-                                            onClick={() => {setOpen(!open); setManifest(manifest)}}>
-                                                Analizar
-                                            </button>
-                                        </td>
-                                    </tr>
-                                })
-                            : <tr className='table-content'>
-                                <td colSpan={4}>Nenhuma manifestação encontrada</td>
+                <div style={{ overflow: 'auto' }}>
+                    <table className='open-manifests-table'>
+                        <thead className='thead-table'>
+                            <tr className='table-titles'>
+                                <th>Protocolo</th>
+                                <th>Nome do usuário</th>
+                                <th>Tipo de manifestação</th>
+                                <th>Ultima atualização</th>
                             </tr>
-                        }
-                        {emptyRows > 0 && (
-                            <tr style={{ height: 34 * emptyRows }}>
-                            <td colSpan={3} />
+                        </thead>
+                        <tbody>
+                            {
+                                request.length != 0 ?
+                                    (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
+                                        /* getClientName(manifest.userId) */
+                                        return <tr key={index} className='table-content'>
+                                            <td style={{ display: 'flex', justifyContent: 'center', gap: '10px'}}>
+                                                <input type="checkbox" name="" id={manifest.id} />
+                                                <label htmlFor={manifest.id}>{manifest.protocol.value}</label>
+                                            </td>
+                                            <td><GetUserName userId={manifest.userId} /></td>
+                                            <td>{manifest.manifestType}</td>
+                                            <td>{manifest.lastUpdate}</td>
+                                            <td><button className='analize-btn'
+                                                onClick={() => {setOpen(!open); setManifest(manifest)}}>
+                                                    Analizar
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    })
+                                : <tr className='table-content'>
+                                    <td colSpan={4}>Nenhuma manifestação encontrada</td>
+                                </tr>
+                            }
+                            {emptyRows > 0 && (
+                                <tr style={{ height: 34 * emptyRows }}>
+                                <td colSpan={3} />
+                                </tr>
+                            )}    
+                        </tbody>
+                        <tfoot className='footer-table'>
+                            <tr>
+                                <td className='pagination-info'>
+                                    Exibindo <b>{rowsPerPage}</b> de <b>{request.length}</b> | Página {page}
+                                </td>
+                                <TablePagination
+                                    rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
+                                    colSpan={6}
+                                    count={request.length}
+                                    rowsPerPage={rowsPerPage}
+                                    page={page}
+                                    slotProps={{
+                                        select: {
+                                            "aria-label": "rows per page"
+                                        },
+                                        actions: {
+                                        showFirstButton: false,
+                                        showLastButton: false
+                                        }
+                                    }}
+                                    onPageChange={handleChangePage}
+                                    onRowsPerPageChange={handleChangeRowsPerPage}
+                                />
                             </tr>
-                        )}    
-                    </tbody>
-                    <tfoot className='footer-table'>
-                        <tr>
-                            <td className='pagination-info'>
-                                Exibindo <b>{rowsPerPage}</b> de <b>{request.length}</b> | Página {page}
-                            </td>
-                            <TablePagination
-                                rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
-                                colSpan={6}
-                                count={request.length}
-                                rowsPerPage={rowsPerPage}
-                                page={page}
-                                slotProps={{
-                                    select: {
-                                        "aria-label": "rows per page"
-                                    },
-                                    actions: {
-                                    showFirstButton: false,
-                                    showLastButton: false
-                                    }
-                                }}
-                                onPageChange={handleChangePage}
-                                onRowsPerPageChange={handleChangeRowsPerPage}
-                            />
-                        </tr>
-                    </tfoot>
-                </table>
+                        </tfoot>
+                    </table>
+                </div>
                 : <AnalizeOpenManifestComponent getOpenManifests={getOpenManifests} open={open} manifest={manifest} setOpen={setOpen} />
             }
             <ToastContainer />

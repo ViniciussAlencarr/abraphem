@@ -2,7 +2,21 @@
     .admin-screens-container {
         .menu-context {
             height: 278vh !important;
-
+        }
+        .screens-context {
+            .registered-users-admin,
+            .analize-open-manifests,
+            .see-progress-manifest,
+            .see-completed-manifest {
+                .see-details {
+                    .user-info {
+                        .full-name_cpf_birth-date_state_city,
+                        .gender_race_category_email {
+                            display: grid !important; 
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -46,6 +60,116 @@
         }
     }
 }
+@media (max-width: 1020px) {
+    .admin-screens-container {
+        .screens-context {
+            .open-manifests-admin,
+            .in-progress-manifests-admin,
+            .completed-manifests-admin {
+                .analize-open-manifests,
+                .see-progress-manifest .see-progress-manifests-header,
+                .see-completed-manifest .see-completed-manifests-header {
+                    .manifest-type {
+                        /* gap: 10px !important; */
+                    }
+                }
+            }
+            .registered-users-admin,
+            .analize-open-manifests,
+            .see-progress-manifest,
+            .see-completed-manifest {
+                .see-details {
+                    .user-info {
+                        .type-of-coagulopathy_severity-of-coagulopathy_treatment-center-location {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 900px) {
+    .admin-screens-container {
+        .screens-context {
+            .open-manifests-admin,
+            .in-progress-manifests-admin,
+            .completed-manifests-admin {
+                .analize-open-manifests,
+                .see-progress-manifest,
+                .see-completed-manifest {
+                    .analize-open-manifests-header,
+                    .see-progress-manifests-header,
+                    .see-completed-manifests-header {
+                        display: grid !important;
+                        justify-content: unset !important;
+                        gap: 25px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 870px) {
+    .admin-screens-container {
+        .open-manifests-admin,
+        .in-progress-manifests-admin,
+        .completed-manifests-admin,
+        .registered-users-admin {
+            .open-manifests-table,
+            .in-progress-manifests-table,
+            .completed-manifests-table,
+            .registered-users-table {
+                .thead-table {
+                    .table-titles th {
+                        font-size: 12px !important;
+                        padding: 10px !important;
+                    }
+                }
+                .table-content td {
+                    font-size: 12px !important;
+                    padding: 10px !important;
+                    .analize-btn {
+                        padding: 4px 20px !important;
+                    }
+                }
+            }
+        }
+        .in-progress-manifests-admin {
+            .see-progress-manifest {
+                .manifest-content {
+                    .answer-manifest {
+                        .action-btns button {
+                            font-size: 12px !important;
+                            padding: 5px 30px !important;
+                        }
+                    }
+                }
+            }
+        }
+        .screens-context {
+            .registered-users-admin,
+            .analize-open-manifests,
+            .see-progress-manifest,
+            .see-completed-manifest {
+                .see-details {
+                    .user-info {
+                        .gender_race_category_email {
+                            .gender_race_category {
+                                display: grid !important;
+                            }
+                        }
+
+                        .type-phone_phone-number_owner-name {
+                            display: grid !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media (max-width: 800px) {
     .admin-screens-container {
         .menu-context {
@@ -97,6 +221,23 @@
                     }
                 }
             }
+            .registered-users-admin,
+            .analize-open-manifests,
+            .see-progress-manifest,
+            .see-completed-manifest {
+                .see-details {
+                    .user-info {
+                        .full-name_cpf_birth-date_state_city {
+                            .birth-date_state_city {
+                                display: grid !important;
+                            }
+                        }
+                        .person-with-disability_which {
+                            display: grid !important; 
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -104,6 +245,54 @@
     .admin-screens-container {
         .menu-context {
             height: 461.8vh !important;
+        }
+        .screens-context {
+            .open-manifests-admin,
+            .in-progress-manifests-admin,
+            .completed-manifests-admin {
+                .analize-open-manifests,
+                .see-progress-manifest,
+                .see-completed-manifest {
+                    .manifest-type {
+                        .line-marker {
+                            width: 70px !important;
+                        }
+                    }
+                    .back-btn-context {
+                        .back-btn {
+                            font-size: 12px !important;
+                        }
+                    }
+                    .back-btn-context svg {
+                        width: 20px !important;
+                        height: 20px !important;
+                    }
+                    .manifest-content {
+                        .answer-manifest {
+                            .answer-context {
+                                gap: 90px !important;
+                            }
+                        }
+                        .requester-name {
+                            .name {
+                                font-size: 12px !important;
+                            }
+                        }
+                        .more-info-about-user {
+                            .more-info-btn {
+                                font-size: 12px !important;
+                            }
+                        }
+                        .answer-manifest {
+                            .send-response {
+                                .send-response-btn {
+                                    font-size: 12px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -159,6 +348,64 @@
                         }
                         .my-user-btn svg {
                             width: 25px !important;
+                        }
+                    }
+                }
+            }
+            .open-manifests-admin,
+            .in-progress-manifests-admin,
+            .completed-manifests-admin {
+                .analize-open-manifests,
+                .see-progress-manifest,
+                .see-completed-manifest {
+                    .manifest-type {
+                        gap: 0 !important;
+                        .line-marker {
+                            width: 50px !important;
+                        }
+                        .manifest-type-context {
+                            .icon-imgs svg {
+                                width: 25px !important;
+                                height: 25px !important;
+                            }
+                            .icon-imgs .img-icon {
+                                width: 15px !important;
+                            }
+                            .type-label {
+                                font-size: 11px !important;
+                            }
+                        }
+                    }
+                    .manifest-content {
+                        .answer-manifest {
+                            .answer-context {
+                                gap: 65px !important;
+                            }
+                            .action-btns {
+                                display: grid !important;
+                                gap: 10px !important;
+                            }
+                        }
+                    }
+                }
+            }
+            .registered-users-admin,
+            .analize-open-manifests,
+            .see-progress-manifest,
+            .see-completed-manifest {
+                .see-details {
+                    .header {
+                        display: grid !important;
+                        gap: 25px !important;
+                    }
+                    .user-info {
+                        .user-picture_username {
+                            display: grid !important;
+                            justify-content: center !important;
+                            .user-picture {
+                                display: flex !important;
+                                justify-content: center;
+                            }
                         }
                     }
                 }
