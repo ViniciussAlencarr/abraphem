@@ -122,9 +122,9 @@ export const SiginResponsibelContext = (params: {
     }
 
     const addPatient = (currentPatientSize: number) => {
-        let currentSize = patients.length
-        if (currentSize < currentPatientSize) {
-            setPatients(patients => patients.concat({
+        let allPatients = []
+        for (let i = 0; i < currentPatientSize; i++) {
+            allPatients.push({
                 document: "",
                 typeDocument: "cpf",
                 username: "",
@@ -147,11 +147,9 @@ export const SiginResponsibelContext = (params: {
                 email: "-",
                 roleUser: "2",
                 profilePictureURL: ""
-            }))
-        } else {
-            patients.pop()
-            setPatients(patients)
+            })
         }
+        setPatients(allPatients)
     }
     const validatePhoneNumber = () => {
         if (user.phoneNumber.length != 15) {
@@ -237,7 +235,7 @@ export const SiginResponsibelContext = (params: {
                                     required
                                     className="input-text number-of-patients-value" id="number-of-patients-value"
                                     value={numberPatients}
-                                    onChange={event => {addPatient(parseInt(event.target.value)); setNumberPatients(parseInt(event.target.value))}} type="number" min={1} max={10} name="" />
+                                    onChange={event => {addPatient(parseInt(event.target.value)); console.log(patients); console.log(event.target.value); setNumberPatients(parseInt(event.target.value))}} type="number" min={1} max={10} name="" />
                             </div>
                         </div>
                         <div className="location-context">
