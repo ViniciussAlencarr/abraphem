@@ -100,6 +100,12 @@ export const SeeDetailsOfUser = (params: {
                             <input value={params.user.ownerName} type="text" className="input-value owner-name" readOnly id="owner-name"/>
                         </div>
                     </div>
+                    <div className="info-block-content username">
+                        <div className="owner-name">
+                            <label className="label-value" htmlFor="owner-name">Nome de usuário</label>
+                            <input value={params.user.username} type="text" className="input-value owner-name" readOnly id="owner-name"/>
+                        </div>
+                    </div>
                 </div>
                 <hr />
                 <div className="title-user-info">Informações sobre o paciente</div>

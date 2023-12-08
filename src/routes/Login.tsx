@@ -20,6 +20,15 @@ export const Login = () => {
     const navigate = useNavigate()
     const { search } = useLocation()
 
+    const cpfMask = (value: string) => {
+        return value
+        .replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+        .replace(/(-\d{2})\d+?$/, '$1')
+    }
+
     useEffect(() => {
         let interval = setInterval(() => {
             if (search.includes('sessionExpired')) {
@@ -112,7 +121,7 @@ export const Login = () => {
                             <p className='title'>LOGIN OUVIDORIA DA ABRAPHEM</p>
                             <div className='form-field cpf'>
                                 <label htmlFor="cpf">CPF</label>
-                                <input id="cpf" type="text" value={cpf} onChange={event => setCpf(event.target.value)}/>
+                                <input id="cpf" type="text" value={cpf} onChange={event => setCpf(cpfMask(event.target.value))}/>
                             </div>
                             <div className='form-field password'>
                                 <label htmlFor="password">Senha</label>

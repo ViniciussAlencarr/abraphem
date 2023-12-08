@@ -282,11 +282,18 @@ export const SiginResponsibelContext = (params: {
                         </div>
                     </div>
                     <div className="name_email">
+                        <div className="input-context username">
+                            <label htmlFor="username-value">Nome de usuário</label>
+                            <input
+                                
+                                onChange={event => setValuesOfInputFile(event, 'username')}
+                                type="text" className="input-text username-value" id="username-value" placeholder="Digite aqui" />
+                        </div>
                         <div className="input-context name">
                             <label htmlFor="name-value">Nome do responsável</label>
                             <input
                                 
-                                onChange={event => setValuesOfInputFile(event, 'username')}
+                                onChange={event => setValuesOfInputFile(event, 'ownerName')}
                                 type="text" className="input-text name-value" id="name-value" placeholder="Digite aqui" />
                         </div>
                         <div className="input-context email">

@@ -5,6 +5,8 @@ import api from '../../services/api'
 
 import { User } from '../../types/User'
 
+import { FaRegTrashAlt } from "react-icons/fa";
+
 import '../css/admin/RegisteredUsers.admin.css'
 import '../css/admin/media-layout.css'
 
@@ -74,6 +76,16 @@ export const RegisteredUsers = () => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const deleteUserById = async (userId: string | undefined) => {
+        try {
+            await api.delete(`user/${userId}`)
+            await getUsers()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <div className="registered-users-admin">
             {
@@ -88,6 +100,7 @@ export const RegisteredUsers = () => {
                                 <th>Estado</th>
                                 <th>Cidade</th>
                                 <th>Tipo de solicitante</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -109,6 +122,9 @@ export const RegisteredUsers = () => {
                                                 onClick={() => {setOpen(!open); setUser(user)}}>
                                                     Ver mais informações
                                                 </button>
+                                            </td>
+                                            <td>
+                                                <button className='delete-user' onClick={async () => await deleteUserById(user.id)}><FaRegTrashAlt size={20} className='icon' /></button>
                                             </td>
                                         </tr>
                                     })

@@ -234,6 +234,13 @@ export const SigninPatientContext = (params: {
                             </div>
                         </div>
                         <div className="category_email">
+                            <div className="input-context username">
+                                <label htmlFor="username-value">Nome de usuário*</label>
+                                <input
+                                    required
+                                    onChange={event => setValuesOfInputFile(event, 'username')}
+                                    type="text" className="input-text username-value" id="username-value" placeholder="Digite aqui" />
+                            </div>
                             <div className="input-context name">
                                 <label htmlFor="name-value">Nome completo*</label>
                                 <input
