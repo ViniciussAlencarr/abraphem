@@ -7,6 +7,8 @@ import api from '../../services/api';
 import '../css/admin/Dashboard.admin.css'
 import '../css/admin/media-layout.css'
 
+var thisMonth = [0,0,0,0,0,0,0]
+var lastMonth = [0,0,0,0,0,0,0]
 
 export const DashboardAdmin = () => {
     const date = new Date()
@@ -16,13 +18,38 @@ export const DashboardAdmin = () => {
     const [chartWidth, setChartWidth] = useState(500)
     const [manifestNumber, setManifestNumber] = useState(0)
 
+    const [usersAges, setUsersAges] = useState({
+        smaller19: 0,
+        bigger60: 0,
+        between20And39: 0,
+        between40And49: 0,
+    })
+
     const [firstChartInfo, setFirstChartInfo] = useState({
-        requests: 0,
-        claims: 0,
-        complaints: 0,
-        compliments: 0,
-        information: 0,
-        suggestions: 0,
+        requests: {
+            amount: 0,
+            percent: 0
+        },
+        claims: {
+            amount: 0,
+            percent: 0
+        },
+        complaints: {
+            amount: 0,
+            percent: 0
+        },
+        compliments: {
+            amount: 0,
+            percent: 0
+        },
+        information: {
+            amount: 0,
+            percent: 0
+        },
+        suggestions: {
+            amount: 0,
+            percent: 0
+        },
     })
 
     const [thirdChartInfo, setThirdChartInfo] = useState({
@@ -45,13 +72,14 @@ export const DashboardAdmin = () => {
                     Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
                 }
             })
+            calculateDateOfManifests(data)
             setManifestNumber(data.length)
-
             getTypeOfManifests(data)
             /* TODO: descomentar */
             /* getManifestsRequest(data) */
-            getTypeOfManifestsGenderNumber(data)
-
+            await getTypeOfManifestsGenderNumber()
+            await calculateUsersAges()
+            
             setOpenManifests(data.filter((manifest: any) => manifest.manifestStatus.toLowerCase() == 'em aberto').length)
             setProgressManifests(data.filter((manifest: any) => manifest.manifestStatus.toLowerCase() == 'em andamento').length)
             setConcludedManifests(data.filter((manifest: any) => manifest.manifestStatus.toLowerCase() == 'concluído').length)
@@ -59,15 +87,63 @@ export const DashboardAdmin = () => {
             console.log(err)
         }
     }
+
+    const calculateDateOfManifests = (data: any) => {
+        data.forEach((value: any) => {
+            let currentDate = new Date()
+            let itsFromThisMonth = currentDate.getUTCMonth() + 1 == new Date(value.created_at).getUTCMonth() + 1
+            
+            let manifestCreatedDay = new Date(value.created_at).getUTCDate()
+            if (manifestCreatedDay >= 1 && manifestCreatedDay <= 4) {
+                itsFromThisMonth ? thisMonth[0]++ : lastMonth[0]++
+            }
+            if (manifestCreatedDay >= 5 && manifestCreatedDay <= 9) {
+                itsFromThisMonth ? thisMonth[1]++ : lastMonth[1]++
+            }
+            if (manifestCreatedDay >= 10 && manifestCreatedDay <= 14) {
+                itsFromThisMonth ? thisMonth[2]++ : lastMonth[2]++
+            }
+            if (manifestCreatedDay >= 15 && manifestCreatedDay <= 19) {
+                itsFromThisMonth ? thisMonth[3]++ : lastMonth[3]++
+            }
+            if (manifestCreatedDay >= 20 && manifestCreatedDay <= 24) {
+                itsFromThisMonth ? thisMonth[4]++ : lastMonth[4]++
+            }
+            if (manifestCreatedDay >= 25 && manifestCreatedDay <= 29) {
+                itsFromThisMonth ? thisMonth[5]++ : lastMonth[5]++
+            }
+            return value
+        })
+    }
+
+    const percentage = (partialValue: number, totalValue: number) => Math.round((partialValue / totalValue) * 100)
     
     const getTypeOfManifests = (data: any) => {
         setFirstChartInfo({
-            requests: getSizeOfManifestType(data, 'solicitacao'),
-            claims: getSizeOfManifestType(data, 'reclamacao'),
-            complaints: getSizeOfManifestType(data, 'denuncia'),
-            compliments: getSizeOfManifestType(data, 'elogio'),
-            information: getSizeOfManifestType(data, 'informacao'),
-            suggestions: getSizeOfManifestType(data, 'sugestao')
+            requests: {
+                amount: getSizeOfManifestType(data, 'solicitacao'),
+                percent: getSizeOfManifestType(data, 'solicitacao')
+            },
+            claims: {
+                amount: getSizeOfManifestType(data, 'reclamacao'),
+                percent: getSizeOfManifestType(data, 'reclamacao')
+            },
+            complaints: {
+                amount: getSizeOfManifestType(data, 'denuncia'),
+                percent: getSizeOfManifestType(data, 'denuncia')
+            },
+            compliments: {
+                amount: getSizeOfManifestType(data, 'elogio'),
+                percent: getSizeOfManifestType(data, 'elogio')
+            },
+            information: {
+                amount: getSizeOfManifestType(data, 'informacao'),
+                percent: getSizeOfManifestType(data, 'informacao')
+            },                        
+            suggestions: {
+                amount: getSizeOfManifestType(data, 'sugestao'),
+                percent: getSizeOfManifestType(data, 'sugestao')
+            }
         })
     }
 
@@ -86,12 +162,51 @@ export const DashboardAdmin = () => {
         let previousMonthRequestsNumber = data.filter((manifest: any) => manifest.created_at.includes(previousMonthDate + 1)).length
     } */
 
-    const getTypeOfManifestsGenderNumber = (data: any) => {
+    const getTypeOfManifestsGenderNumber = async () => {
+        const { data } = await getUsers()
         setThirdChartInfo({
-            masculine: data.filter((manifest: any) => manifest.gender.toLowerCase() == 'masculino').length,
-            feminine: data.filter((manifest: any) => manifest.gender.toLowerCase() == 'feminino').length,
-            dontIdentify: data.filter((manifest: any) => manifest.gender.toLowerCase() == 'não me identifico').length
+            masculine: data.filter((user: any) => user.gender?.toLowerCase() == 'masculino').length,
+            feminine: data.filter((user: any) => user.gender?.toLowerCase() == 'feminino').length,
+            dontIdentify: data.filter((user: any) => user.gender?.toLowerCase() == 'não me identifico').length
         })
+    }
+
+    const getUsers = async () => {
+        try {
+            return await api.get('users', {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('adm_bearer_token')
+                }
+            })
+        } catch (err) {
+            throw err
+        }
+    }
+
+    const calculateUsersAges = async () => {
+        const { data } = await getUsers()
+        let result = data.reduce((acc: any[], user: any) => {
+            user.age = getAge(user.dateOfBirth)
+            acc.push(user)
+            return acc
+        }, [])
+        setUsersAges({
+            smaller19: result.filter((user: any) => user.age <= 19).length,
+            bigger60: result.filter((user: any) => user.age > 60).length,
+            between20And39: result.filter((user: any) => user.age >= 20 && user.age <= 39).length,
+            between40And49: result.filter((user: any) => user.age >= 40 && user.age <= 49).length
+        })
+    }
+
+    function getAge(dateString: string | number | Date) {
+        var today = new Date();
+        var birthDate = new Date(dateString);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
     }
 
     const getSizeOfManifestType = (manifests: any, type: string) => {
@@ -122,7 +237,6 @@ export const DashboardAdmin = () => {
             if (window.innerWidth <= 592) {
                 setChartWidth(300)
             }
-            console.log(window.innerWidth)
         }, 100)
     }
 
@@ -162,12 +276,12 @@ export const DashboardAdmin = () => {
             {
                 name: "Quantidade",
                 data: [
-                    firstChartInfo.requests,
-                    firstChartInfo.claims,
-                    firstChartInfo.complaints,
-                    firstChartInfo.compliments,
-                    firstChartInfo.information,
-                    firstChartInfo.suggestions,
+                    firstChartInfo.requests.amount,
+                    firstChartInfo.claims.amount,
+                    firstChartInfo.complaints.amount,
+                    firstChartInfo.compliments.amount,
+                    firstChartInfo.information.amount,
+                    firstChartInfo.suggestions.amount,
                 ]
             }
         ]
@@ -198,11 +312,11 @@ export const DashboardAdmin = () => {
         series: [
             {
                 name: "Este mês",
-                data: [2,5,7,2,9,10,1,8]
+                data: thisMonth
             },
             {
                 name: "Mês anterior",
-                data: [0,0,0,0,0,0,0 ]
+                data: lastMonth
             }
         ]
     }
@@ -235,7 +349,12 @@ export const DashboardAdmin = () => {
     }
     const d = {
         series: [{
-            data: [60, 20, 25, 16]
+            data: [
+                usersAges.smaller19,
+                usersAges.bigger60,
+                usersAges.between20And39,
+                usersAges.between40And49
+            ]
         }],
         options: {
             chart: {
@@ -339,33 +458,33 @@ export const DashboardAdmin = () => {
                 <div className="funil-context-container">
                     <div className="funil-content first">
                         <div className="type-title">Solicitação</div>
-                        <div className="amount">{firstChartInfo.requests}</div>
-                        <div className="percent-value">33,33%</div>
+                        <div className="amount">{firstChartInfo.requests.amount}</div>
+                        <div className="percent-value">{percentage(firstChartInfo.requests.percent, manifestNumber)}%</div>
                     </div>
                     <div className="funil-content">
                         <div className="type-title">Reclamação</div>
-                        <div className="amount">{firstChartInfo.claims}</div>
-                        <div className="percent-value">04,16%</div>
+                        <div className="amount">{firstChartInfo.claims.amount}</div>
+                        <div className="percent-value">{percentage(firstChartInfo.claims.percent, manifestNumber)}%</div>
                     </div>
                     <div className="funil-content">
                         <div className="type-title">Denúncia</div>
-                        <div className="amount">{firstChartInfo.complaints}</div>
-                        <div className="percent-value">16,66%</div>
+                        <div className="amount">{firstChartInfo.complaints.amount}</div>
+                        <div className="percent-value">{percentage(firstChartInfo.complaints.percent, manifestNumber)}%</div>
                     </div>
                     <div className="funil-content">
                         <div className="type-title">Elogio</div>
-                        <div className="amount">{firstChartInfo.compliments}</div>
-                        <div className="percent-value">16,66%</div>
+                        <div className="amount">{firstChartInfo.compliments.amount}</div>
+                        <div className="percent-value">{percentage(firstChartInfo.compliments.percent, manifestNumber)}%</div>
                     </div>
                     <div className="funil-content">
                         <div className="type-title">Informação</div>
-                        <div className="amount">{firstChartInfo.information}</div>
-                        <div className="percent-value">16,66%</div>
+                        <div className="amount">{firstChartInfo.information.amount}</div>
+                        <div className="percent-value">{percentage(firstChartInfo.information.percent, manifestNumber)}%</div>
                     </div>
                     <div className="funil-content">
                         <div className="type-title">Sugestão</div>
-                        <div className="amount">{firstChartInfo.suggestions}</div>
-                        <div className="percent-value">12,50%</div>
+                        <div className="amount">{firstChartInfo.suggestions.amount}</div>
+                        <div className="percent-value">{percentage(firstChartInfo.suggestions.percent, manifestNumber)}%</div>
                     </div>
                     <div className="funil-content">
                         <div className="type-title">Total</div>
