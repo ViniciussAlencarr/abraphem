@@ -1,7 +1,9 @@
 .login-admin {
     display: grid;
     min-width: 300px;
+    height: 100%;
     .login-header {
+        display: grid;
         text-align: center;
         .logo-container {
             background: #fff;

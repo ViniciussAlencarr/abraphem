@@ -115,7 +115,7 @@ export const Screens = () => {
                         </tbody>
                     </Table>
                 </div>
-                <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS| Desenvolvido por XXXXXXXXXXX</p>
+                <p className='copyright-info'>© 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS | Desenvolvido por XXXXXXXXXXX</p>
             </div>
         </div>
     )
