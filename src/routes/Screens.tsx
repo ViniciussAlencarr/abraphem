@@ -101,7 +101,7 @@ export const Screens = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a className='link-rodape'  href='../../public/REGIMENTO INTERNO.pdf' download>Regimento interno</a></td>
+                                <td><a className='link-rodape'  href='../../public/REGIMENTO INTERNO.pdf' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
                             </tr>
                             <tr>
                                 <td><a className='link-rodape'  href='../../public/TERMO DE USO.docx.pdf' download>Termo de Uso e Política de Privacidade</a></td>
