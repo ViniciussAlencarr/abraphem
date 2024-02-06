@@ -37,16 +37,16 @@ export const Screens = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
+                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' target='_blank' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
                             </tr>
                             <tr>
-                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' download>Termo de Uso e Política de Privacidade</a></td>
+                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' target='_blank' download='TERMO DE USO.docx.pdf'>Termo de Uso e Política de Privacidade</a></td>
                             </tr>
                             <tr>
                                 <td>Perguntas e Respostas</td>
                             </tr>
                             <tr>
-                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' download>Termo de consentimento</a></td>
+                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' target='_blank' download='DECLARACAO DE CONSENTIMENTO.docx.pdf'>Termo de consentimento</a></td>
                             </tr>
                         </tbody>
                     </Table>
@@ -101,16 +101,16 @@ export const Screens = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
+                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' target='_blank' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
                             </tr>
                             <tr>
-                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' download>Termo de Uso e Política de Privacidade</a></td>
+                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' target='_blank' download='TERMO DE USO.docx.pdf'>Termo de Uso e Política de Privacidade</a></td>
                             </tr>
                             <tr>
                                 <td>Perguntas e Respostas</td>
                             </tr>
                             <tr>
-                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' download>Termo de consentimento</a></td>
+                                <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' target='_blank' download='DECLARACAO DE CONSENTIMENTO.docx.pdf'>Termo de consentimento</a></td>
                             </tr>
                         </tbody>
                     </Table>
