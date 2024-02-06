@@ -31,6 +31,7 @@ export const OpenManifests = () => {
         patientFullName: '',
         cpf: '',
         dateBirth: '',
+        files: '',
         state: '',
         city: '',
         gender: '',

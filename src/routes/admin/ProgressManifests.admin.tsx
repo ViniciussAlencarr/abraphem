@@ -30,6 +30,7 @@ export const ProgressManifests = () => {
         state: '',
         city: '',
         gender: '',
+        files: '',
         race: '',
         email: '',
         phoneType: '',

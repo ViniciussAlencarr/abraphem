@@ -45,7 +45,7 @@ export const SiginResponsibelContext = (params: {
     setCategory: any,
 }) => {
     const navigate = useNavigate();
-    const [declarationConsent, enableDeclarationConsent] = useState(false)
+    const [_, enableDeclarationConsent] = useState(false)
     const [numberPatients, setNumberPatients] = useState(0)
     const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({

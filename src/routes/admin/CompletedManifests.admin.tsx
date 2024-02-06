@@ -32,6 +32,7 @@ export const CompletedManifests = () => {
         race: '',
         email: '',
         phoneType: '',
+        files: '',
         phoneNumber: '',
         ownerName: '',
         typeCoagulopathy: '',
