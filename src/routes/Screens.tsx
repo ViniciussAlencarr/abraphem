@@ -37,16 +37,16 @@ export const Screens = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Informação</td>
+                                <td><a className='link-rodape'  href='../../public/REGIMENTO INTERNO.pdf' download>Regimento interno</a></td>
                             </tr>
                             <tr>
-                                <td>Informação</td>
+                                <td><a className='link-rodape'  href='../../public/TERMO DE USO.docx.pdf' download>Termo de Uso e Política de Privacidade</a></td>
                             </tr>
                             <tr>
-                                <td>Informação</td>
+                                <td>Perguntas e Respostas</td>
                             </tr>
                             <tr>
-                                <td>Informação</td>
+                                <td><a className='link-rodape'  href='../../public/DECLARAÇÃO DE CONSENTIMENTO.docx.pdf' download>Termo de consentimento</a></td>
                             </tr>
                         </tbody>
                     </Table>
@@ -101,16 +101,16 @@ export const Screens = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Informação</td>
+                                <td><a className='link-rodape'  href='../../public/REGIMENTO INTERNO.pdf' download>Regimento interno</a></td>
                             </tr>
                             <tr>
-                                <td>Informação</td>
+                                <td><a className='link-rodape'  href='../../public/TERMO DE USO.docx.pdf' download>Termo de Uso e Política de Privacidade</a></td>
                             </tr>
                             <tr>
-                                <td>Informação</td>
+                                <td>Perguntas e Respostas</td>
                             </tr>
                             <tr>
-                                <td>Informação</td>
+                                <td><a className='link-rodape'  href='../../public/DECLARAÇÃO DE CONSENTIMENTO.docx.pdf' download>Termo de consentimento</a></td>
                             </tr>
                         </tbody>
                     </Table>

@@ -128,9 +128,7 @@ option {
                 }
             }
         }
-        .patient-context {
-
-        }
+        .patient-context { }
         .form-context-personal-information label,
         .form-context-patient-information label {
             text-transform: uppercase;
@@ -142,6 +140,10 @@ option {
                 text-transform: uppercase;
                 font-weight: 600;
                 font-size: 14px;
+            }
+            .accept-use-my-data-value-label { cursor: pointer }
+            .accept-use-my-data-value-label:hover {
+                text-decoration: underline;
             }
             .accept-use-my-data {
                 display: flex;
@@ -274,6 +276,12 @@ option {
                 gap: 10px;
                 width: 100%;
                 align-items: center;
+                .accept-use-my-data {
+                    .accept-use-my-data-value-label { cursor: pointer }
+                    .accept-use-my-data-value-label:hover {
+                        text-decoration: underline;
+                    }
+                }
             }
             .pcd_which_accept-use-my-data {
                 .accept-use-my-data {

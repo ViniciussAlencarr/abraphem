@@ -19,6 +19,15 @@ export interface ManifestInterface {
     }
 }
 
+export interface AttachmentFileInterface {
+    ETag: string,
+    ServerSideEncryption: string,
+    Location: string,
+    key: string,
+    Key: string,
+    Bucket:string
+}
+
 export interface ManifestRequest {
     id: string,
     title: string,
@@ -44,6 +53,7 @@ export interface ManifestRequest {
     typeOfDisability: string,
     manifestValue: string,
     manifestStatus: string,
+    files: string,
     lastUpdate: string,
     userId: string,
     protocol: {

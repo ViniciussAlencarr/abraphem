@@ -13,6 +13,8 @@ import api from '../services/api'
 
 import axios from "axios"
 
+import acceptUsePdfData from '../../public/TERMO DE USO.docx.pdf'
+
 const cpfMask = (value: string) => {
     return value
     .replace(/\D/g, '')
@@ -29,12 +31,21 @@ const phoneMask = (phone: string) => {
     .replace(/(-\d{5})\d+?$/, '$1');
 }
 
+const phoneMaskPhoneLandline = (phone: string) => {
+    return phone.replace(/\D/g, '')
+    .replace(/^(\d)/, '($1')
+    .replace(/^(\(\d{2})(\d)/, '$1) $2')
+    .replace(/(\d{4})(\d{1,5})/, '$1-$2')
+    .replace(/(-\d{4})\d+?$/, '$1');
+}
+
 export const SiginResponsibelContext = (params: {
     category: string,
     setPatientType: any,
     setCategory: any,
 }) => {
     const navigate = useNavigate();
+    const [declarationConsent, enableDeclarationConsent] = useState(false)
     const [numberPatients, setNumberPatients] = useState(0)
     const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({
@@ -95,7 +106,7 @@ export const SiginResponsibelContext = (params: {
         setUser({ ...user, [typeFile]: typeFile == 'document' ?
         cpfMask(event.target.value)
     : typeFile == 'phoneNumber' ?
-    phoneMask(event.target.value) : event.target.value })
+    user.typeOfPhone == 'celular' ? phoneMask(event.target.value) : phoneMaskPhoneLandline(event.target.value) : event.target.value })
     }
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
@@ -110,7 +121,7 @@ export const SiginResponsibelContext = (params: {
         a[index][typeFile] = typeFile == 'document' ?
         cpfMask(event.target.value)
     : typeFile == 'phoneNumber' ?
-    phoneMask(event.target.value) : event.target.value
+    user.typeOfPhone == 'celular' ? phoneMask(event.target.value) : phoneMaskPhoneLandline(event.target.value) : event.target.value
         setPatients(a)
     }
 
@@ -207,6 +218,22 @@ export const SiginResponsibelContext = (params: {
         setUser({...user, city: data?.localidade, state: data?.uf })
     }
 
+    const downloadThermsAndServicesPdf = () => {
+        var link = document.createElement('a');
+        link.href = acceptUsePdfData;
+        link.download = 'TERMO DE USO';
+        link.dispatchEvent(new MouseEvent('click'));
+    }
+
+    const calculateAge = (event: any) => {
+        let currentDate = new Date(event.target.value)
+        var diff_ms = Date.now() - currentDate.getTime();
+        var age_dt = new Date(diff_ms); 
+    
+        let result = Math.abs(age_dt.getUTCFullYear() - 1970)
+        enableDeclarationConsent(result < 18 ? true: false)
+    }
+
     return (
         <div className='not-patient-context'>
             <form onSubmit={onSubmit}>
@@ -233,6 +260,7 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="number-of-patients-value">RESPONSÁVEL POR QUANTOS PACIENTES?*</label>
                                 <input
                                     required
+                                    autoComplete="off"
                                     className="input-text number-of-patients-value" id="number-of-patients-value"
                                     value={numberPatients}
                                     onChange={event => {addPatient(parseInt(event.target.value)); console.log(patients); console.log(event.target.value); setNumberPatients(parseInt(event.target.value))}} type="number" min={1} max={10} name="" />
@@ -243,6 +271,7 @@ export const SiginResponsibelContext = (params: {
                                 <div className="input-context cep">
                                     <label htmlFor="cep">CEP*</label>
                                     <input
+                                        autoComplete="off"
                                         required    
                                         className="input-text cep" id="cep"
                                         placeholder="Digite aqui"
@@ -285,14 +314,16 @@ export const SiginResponsibelContext = (params: {
                         <div className="input-context username">
                             <label htmlFor="username-value">Nome de usuário</label>
                             <input
-                                
+                                required
+                                autoComplete="off"
                                 onChange={event => setValuesOfInputFile(event, 'username')}
                                 type="text" className="input-text username-value" id="username-value" placeholder="Digite aqui" />
                         </div>
                         <div className="input-context name">
                             <label htmlFor="name-value">Nome do responsável</label>
                             <input
-                                
+                                required
+                                autoComplete="off"
                                 onChange={event => setValuesOfInputFile(event, 'ownerName')}
                                 type="text" className="input-text name-value" id="name-value" placeholder="Digite aqui" />
                         </div>
@@ -300,6 +331,7 @@ export const SiginResponsibelContext = (params: {
                             <label htmlFor="email-value">Email*</label>
                             <input
                                 required
+                                autoComplete="off"
                                 onChange={event => setValuesOfInputFile(event, 'email')}
                                 type="email" className="input-text email-value" id="email-value" placeholder="Digite aqui" />
                         </div>
@@ -307,6 +339,7 @@ export const SiginResponsibelContext = (params: {
                             <label htmlFor="password-value">Senha do Responsável*</label>
                             <input
                                 required
+                                autoComplete="off"
                                 onChange={event => setValuesOfInputFile(event, 'password')}
                                 type="password" className="input-text password-value" id="password-value" placeholder="Digite aqui" />
                         </div>
@@ -317,6 +350,7 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="phone-type-value">Tipo de telefone</label>
                                 <div className='select-input'>
                                     <select
+                                        required
                                         onChange={event => setValuesOfSelectElement(event, 'typeOfPhone')}
                                         className='phone-type-value' name="" id="phone-type-value">
                                         <option selected style={{display: 'none'}}>Selecione</option>
@@ -330,6 +364,7 @@ export const SiginResponsibelContext = (params: {
                             <div className="input-context phone">
                                 <label htmlFor="phone-value">Telefone*</label>
                                 <input
+                                    autoComplete="off"
                                     required
                                     value={user.phoneNumber}
                                     onChange={event => setValuesOfInputFile(event, 'phoneNumber')}
@@ -341,6 +376,7 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="cpf-value">Cpf do Responsável*</label>
                                 <input
                                     required
+                                    autoComplete="off"
                                     value={user.document}
                                     onChange={event => setValuesOfInputFile(event, 'document')}
                                     type="text" className="input-text cpf-value" id="cpf-value" placeholder="Digite aqui" />
@@ -349,6 +385,7 @@ export const SiginResponsibelContext = (params: {
                                 <label htmlFor="date-birth-value">Data de nascimento*</label>
                                 <input
                                     required
+                                    autoComplete="off"
                                     type="date"
                                     onChange={event => setValuesOfInputFile(event, 'dateOfBirth')}
                                     className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
@@ -365,6 +402,8 @@ export const SiginResponsibelContext = (params: {
                                 <div className="input-context patient-fullname">
                                     <label htmlFor="patient-fullname-value">Nome completo do paciente*</label>
                                     <input
+                                        autoComplete="off"
+                                        required
                                         value={patient.fullName}
                                         onChange={event => setValuesOfInputFilePatient(event, 'fullName', index)}
                                         type="text" className="input-text patient-fullname-value" id="patient-fullname-value" placeholder="Digite aqui" />
@@ -373,6 +412,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="patient-gender-value">Sexo*</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.gender.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'gender', index)}
                                             className='patient-gender-value' name="" id="patient-gender-value">
@@ -388,6 +428,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="patient-race">Raça*</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.race.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'race', index)}
                                             className='patient-race' name="" id="patient-race">
@@ -404,6 +445,8 @@ export const SiginResponsibelContext = (params: {
                                 <div className="input-context patient-cpf">
                                     <label htmlFor={`patient-cpf-value-${index}`}>Cpf*</label>
                                     <input
+                                        required
+                                        autoComplete="off"
                                         value={patient.document}
                                         onChange={event => setValuesOfInputFilePatient(event, 'document', index)}
                                         type="text" className="input-text patient-cpf-value" id={`patient-cpf-value-${index}`} placeholder="Digite aqui" />
@@ -414,6 +457,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.typeOfCoagulopathy.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'typeOfCoagulopathy', index)}
                                             className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
@@ -430,6 +474,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.severityOfCoagulopathy.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'severityOfCoagulopathy', index)}
                                             className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
@@ -437,7 +482,11 @@ export const SiginResponsibelContext = (params: {
                                             <option value="leve">LEVE</option>
                                             <option value="moderado">MODERADO</option>
                                             <option value="grave">GRAVE</option>
+                                            <option value="dvw tipo 1">DVW TIPO 1</option>
+                                            <option value="dvw tipo 2">DVW TIPO 2</option>
+                                            <option value="dvw tipo 3">DVW TIPO 3</option>
                                             <option value="não diagnosticado">NÃO DIAGNOSTICADO</option>
+                                            
                                         </select>
                                         <RiArrowDownSFill size={25} />
                                     </div>
@@ -446,6 +495,7 @@ export const SiginResponsibelContext = (params: {
                                     <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
                                     <div className='select-input'>
                                         <select
+                                            required
                                             value={patient.callCenterLocation.toLowerCase()}
                                             onChange={event => setValuesOfSelectElementPatient(event, 'callCenterLocation', index)}
                                             className='location-treatment-center-value' name="" id="location-treatment-center-value">
@@ -466,6 +516,7 @@ export const SiginResponsibelContext = (params: {
                                         <label htmlFor="pcd-value">PESSOA COM DEFICIENCIA (PCD)?</label>
                                         <div className='select-input'>
                                             <select
+                                                required
                                                 value={patient.pcd ? 'sim' : 'não'}
                                                 onChange={event => setValuesOfSelectElementPatient(event, 'pcd', index)}
                                                 className='pcd-value' name="" id="pcd-value">
@@ -480,6 +531,7 @@ export const SiginResponsibelContext = (params: {
                                         <label htmlFor="which-value">SE SIM, QUAL?</label>
                                         <div className='select-input'>
                                             <select
+                                                required
                                                 value={patient.typeOfDisability.toLowerCase()}
                                                 onChange={event => setValuesOfSelectElementPatient(event, 'typeOfDisability', index)}
                                                 className='which-value' name="" id="which-value">
@@ -489,7 +541,7 @@ export const SiginResponsibelContext = (params: {
                                                         <option value='artropatia de membros superiores'>Artropatia de membros superiores</option>
                                                         <option value='artropatia de membros inferiores'>Artropatia de membros inferiores</option>
                                                         <option value='artropatia de membros inferiores e superiores'>Artropatia de membros inferiores e superiores</option>
-                                                        <option value='deficiência mental'>Deficiência mental</option>
+                                                        <option value='deficiência intelectual'>Deficiência intelectual</option>
                                                         <option value='transtorno de espectro autista -tea'>Transtorno de Espectro Autista -TEA</option>
                                                         <option value='transtorno de déficit de atenção e hiperatividade - tdah'>Transtorno de Déficit de Atenção e Hiperatividade - TDAH</option>
                                                         </>
@@ -503,8 +555,10 @@ export const SiginResponsibelContext = (params: {
                                         <label htmlFor="date-birth-value">Data de nascimento</label>
                                         <input
                                             type="date"
+                                            required
+                                            autoComplete="off"
                                             value={patient.dateOfBirth.toLowerCase()}
-                                            onChange={event => setValuesOfInputFilePatient(event, 'dateOfBirth', index)}
+                                            onChange={event => {setValuesOfInputFilePatient(event, 'dateOfBirth', index); calculateAge(event)}}
                                             className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
                                     </div>
                                 </div>
@@ -519,7 +573,7 @@ export const SiginResponsibelContext = (params: {
                             required                            
                             type="checkbox" id="accept-use-my-data-value"
                             className="accept-use-my-data-value" />
-                        <label htmlFor="accept-use-my-data-value">ACEITO O USO DOS MEUS DADOS*</label>
+                        <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={downloadThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
                     </div>
                 </div>
                 <div className="save-changes">

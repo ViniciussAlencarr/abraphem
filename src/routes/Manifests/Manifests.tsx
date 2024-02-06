@@ -6,7 +6,7 @@ import TablePagination from '@mui/base/TablePagination';
 
 import api from '../../services/api';
 
-import { ManifestRequest } from '../../types/Manifest'
+import { AttachmentFileInterface, ManifestRequest } from '../../types/Manifest'
 
 import { ManifestDetails } from '../../components/ManifestDetails'
 
@@ -17,16 +17,21 @@ import '../css/media-layout.css'
 
 import { ColorRing } from 'react-loader-spinner';
 
+import { AttachmentsModal } from '../../components/AttatchmentsModal'
+
 export const Manifests = () => {/* TODO: inserir tipo correto */
     const [request, setRequest] = useState<ManifestRequest[]>([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(3);
     const [open, setOpen] = useState(false);
+    const [attachmentModal, setAttachmentModal] = useState(false);
+    const [selectedAttachments, setSelectedAttachments] = useState<AttachmentFileInterface[]>([])
     const [manifestDetailsModalState, setManifestDetailsModalState] = useState(false);
     const [manifest, setManifest] = useState<ManifestRequest>({
         id: '',
         title: '',
         description: '',
+        files: '',
         manifestType: '',
         whoIsOpenManifest: '',
         entryChannel: '',
@@ -111,6 +116,12 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
 
     return (
         <div className='requests-container'>
+            <AttachmentsModal
+                files={selectedAttachments}
+                show={attachmentModal}
+                handleClose={() => setAttachmentModal(false)}
+                handleShow={() => setAttachmentModal(true)}
+                />
             <MenuOptions open={open} />
             {
                 !manifestDetailsModalState ? <>
@@ -143,6 +154,7 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                                         <th className='status'>Status</th>
                                         <th>Tipo de manifestação</th>
                                         <th>Última atualização</th>
+                                        <th>Anexos</th>
                                     </tr>
                                 </thead>
                                 <tbody className='table-tbody'>
@@ -161,6 +173,12 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                                                     </td>
                                                     <td>{manifest.manifestType}</td>
                                                     <td>{manifest.lastUpdate}</td>
+                                                    <td>
+                                                        {manifest.files && JSON.parse(manifest.files).length != 0 ?
+                                                            <button className='see-more-details-btn' onClick={() => {setSelectedAttachments(JSON.parse(manifest.files)); setAttachmentModal(true)}}>Ver todos</button>
+                                                            : 'Nenhum anexo encontrado'
+                                                        }
+                                                    </td>
                                                     <td>
                                                         <button className='see-more-details-btn' onClick={() => {
                                                             setManifestDetailsModalState(!manifestDetailsModalState);
@@ -198,7 +216,7 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                                         </td>
                                         <TablePagination
                                             rowsPerPageOptions={[request.length, { label: "Todos", value: request.length }]}
-                                            colSpan={3}
+                                            colSpan={4}
                                             count={request.length}
                                             rowsPerPage={rowsPerPage}
                                             page={page}

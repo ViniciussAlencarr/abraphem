@@ -1,0 +1,29 @@
+.size-files {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.close-btn {
+    background-color: #DD0301;
+    color: #fff;
+    padding: 5px 10px;
+    outline: none;
+    border-radius: 4px;
+    border: none;
+    transition: all .2s;
+    &:hover{
+        transition: all .2s;
+        opacity: .7;
+    }
+}
+
+.download-btn {
+    background: none;
+    border: none;
+    outline: none;
+    .download-icon:hover {
+        color: #DD0301;
+    }
+}

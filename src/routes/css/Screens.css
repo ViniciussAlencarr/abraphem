@@ -4,3 +4,10 @@
     height: 100%;
     display: grid;
 }
+.link-rodape {
+    text-decoration: none;
+    color: black;
+    &:hover {
+        text-decoration: underline;
+    }
+}

@@ -31,7 +31,7 @@ export const RecoveryPassword = () => {
         event.preventDefault()
         const sendEmail = async () => {
             await searchUserByEmail()
-            await api.post('/sendEmail', {
+            await api.post('/recoveryPassword', {
                 from: 'Acme <onboarding@resend.dev>',
                 to: [email],
                 subject: 'Hello World',

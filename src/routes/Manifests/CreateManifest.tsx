@@ -14,10 +14,16 @@ import './../css/media-layout.css';
 
 import arrowUpIcon from '../../assets/arrow-up.svg'
 
+import acceptUsePdfData from '../../../public/TERMO DE USO.docx.pdf'
+
 import { getFormatDate } from '../../utils/formatDateNow.utils'
+
+import { AttachmentFileInterface } from 'types/Manifest';
 
 export const CreateManifest = () => {
     const [open, setOpen] = useState(false);
+    const [uploadedFiles, setUploadedFiles] = useState<AttachmentFileInterface[]>([])
+    const [user, setUser] = useState<any>()
     const [request, setRequest] = useState({
         title: 'Titulo da Manifestação',
         description: 'DESCRIÇÃO DA MANIFESTAÇÃO Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean orci orci, tristique vitae dapibus non, dapibus in erat. Fusce commodo est nec malesuada hendrerit. Etiam mauris urna, rhoncus et neque ac, venenatis convallis erat. Donec sit amet diam fringilla, tempor quam eu, vulputate mauris. Aliquam et rutrum dui. Integer et nunc sit amet erat fringilla aliquet. Sed condimentum condimentum tempor. Nunc viverra, magna ac iaculis pulvinar, nisi tortor accumsan nisl, non tempus erat ipsum nec est. Ut fringilla bibendum diam quis rutrum. Phasellus non rutrum sem, ut sagittis sapien. Quisque quis aliquam urna, id semper arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;',
@@ -41,6 +47,7 @@ export const CreateManifest = () => {
         disabledPerson: '',
         typeOfDisability: '',
         manifestValue: '',
+        files: '',
         manifestStatus: 'Em aberto',
         lastUpdate: getFormatDate(),
         userId: localStorage.getItem('user_id') ? localStorage.getItem('user_id') : '', 
@@ -61,22 +68,52 @@ export const CreateManifest = () => {
     const navigate = useNavigate();
     const { search } = useLocation()
     useEffect(() => {
-        if (!localStorage.getItem('bearer_token')) {
-            navigate('/login?loginRequired=true&action=createManifest')
-        }
-
-        if (search.includes('type')) {
-            setRequest({...request, manifestType: search.split('=')[1]})
-        }
+        if (!localStorage.getItem('bearer_token')) navigate('/login?loginRequired=true&action=createManifest')
+        if (search.includes('type')) setRequest({...request, manifestType: search.split('=')[1]})
+        getUser()
     }, [])
 
     const setDivToTop = () => {
         window.scrollTo(0, 0);
     }
+
+    const getUser = async () => {
+        try {
+            const { data } = await api.get(`user/${localStorage.getItem('user_id')}`, { headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('bearer_token'),
+                'Content-Type': 'application/json'
+            }})
+            setUser(data)
+        } catch (err) {
+            throw err
+        }
+    }
     
     const onSubmit = (event: any) => {
+        
+        
+        const sendEmail = async () => {
+            try {
+                await api.post('sendEmail', {
+                    /* TODO:  colocar o email da abraphem */
+                    from: "cme <onboarding@resend.dev>",
+                    name: user.fullName,
+                    protocol: request.protocol.value,
+                    /* TODO: colocar o email do usuário */
+                    to: ["viniciussalencargithub@gmail.com"],
+                    subject: "ello World",
+                    html: "<strong>It works!</strong>"
+                }, { headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('bearer_token'),
+                    'Content-Type': 'application/json'
+                }})
+            } catch (err) {
+                throw err
+            }
+        }
         const sendManifest = async () => {
             try {
+                request.files = JSON.stringify(uploadedFiles)
                 return await api.post('manifest/create', request, { headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('bearer_token'),
                     'Content-Type': 'application/json'
@@ -100,6 +137,7 @@ export const CreateManifest = () => {
                 error: 'Ocorreu um problema ao realizar a manifestação'
             }
         )
+        setTimeout(() => sendEmail(), 200)
     }
 
     const setInputValues = (event: any, typeOfValue: string) => {
@@ -131,6 +169,41 @@ export const CreateManifest = () => {
             }
         } else 
         setRequest({ ...request, [typeOfValue]: value })
+    }
+
+    const downloadThermsAndServicesPdf = () => {
+        var link = document.createElement('a');
+        link.href = acceptUsePdfData;
+        link.download = 'TERMO DE USO';
+        link.dispatchEvent(new MouseEvent('click'));
+    }
+
+    const getAttachmentFile = (event: any) => {
+        const uploadAttachment = async () => {
+            try {
+                const selectedFile = event.target.files[0]
+                const formData = new FormData();
+                formData.append('file', selectedFile)
+                const { data } = await api.post('uploadAttachment', formData, { headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
+                }})
+                setUploadedFiles([...uploadedFiles, data])
+            } catch (err) {
+                throw err
+            }
+        }
+        toast.promise(
+            uploadAttachment,
+            {
+                pending: 'Adicionando anexo...',
+                success: {
+                    render() {
+                        return 'Anexo adicionado com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao adicionar o anexo'
+            }
+        )
     }
 
     return (
@@ -212,13 +285,21 @@ export const CreateManifest = () => {
                                 <button className="action-btn attach-file-btn">
                                     <ImAttachment className="icon" size={15}/>
                                 </button>
-                                <label htmlFor="" className='action-label'>Anexar arquivos</label>
+                                <input onChange={getAttachmentFile} style={{ display: 'none' }} type="file" name="" id="attachment-file" />
+                                <label htmlFor="attachment-file" className='action-label'>Anexar arquivos</label>
                             </div>
                         </div>
+                        {/* <div className='uploadedFiles'>
+                            <div className='uploadedFile'>
+                                <div>Arquivo.png</div>
+                                <div className='remove-file'>x</div>
+                            </div>
+                            <button onClick={() => console.log(uploadedFiles)}>ss</button>
+                        </div> */}
                         <div className="accept-use-data">
                             <div className="input-context accept-use-my-data">
                                 <input required type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value" />
-                                <label htmlFor="accept-use-my-data-value">ACEITO O USO DOS MEUS DADOS</label>
+                                <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={downloadThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
                             </div>
                         </div>
                         <div className="forward-back-btns">

@@ -1,4 +1,5 @@
 export default [
+    "NENHUMA DAS OPÇÕES",
     "ACRE (RIO GRANDE)",
     "ALAGOAS (MACEIO)",
     "AMAPÁ",
@@ -101,5 +102,5 @@ export default [
     "SÃO PAULO (JAÚ)",
     "SERGIPE (ARACAJÚ)",
     "TOCANTINS (PALMAS)",
-    "TOCANTINS (ARAGUAÍNA)",
+    "TOCANTINS (ARAGUAÍNA)"
 ]

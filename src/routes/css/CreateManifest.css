@@ -82,6 +82,10 @@
                 width: 100%;
                 gap: 15px;
                 align-items: center;
+                .accept-use-my-data-value-label { cursor: pointer }
+                .accept-use-my-data-value-label:hover {
+                    text-decoration: underline;
+                }
             }
             
             .select-context {
@@ -191,6 +195,21 @@
                     }
                     &:hover {
                         opacity: .6;
+                    }
+                }
+            }
+            .uploadedFiles {
+                display: flex;
+                justify-content: right;
+                .uploadedFile {
+                    display: flex;
+                    gap: 10px;
+                    .remove-file {
+                        font-weight: 900;
+                        cursor: pointer;
+                    }
+                    .remove-file:hover {
+                        color: #C00405
                     }
                 }
             }

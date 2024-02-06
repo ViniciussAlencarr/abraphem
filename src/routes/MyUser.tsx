@@ -19,7 +19,33 @@ import { User } from '../types/User'
 
 import listOfBloodCenters from '../utils/getListOfBloodCenters'
 
+import acceptUsePdfData from '../../public/TERMO DE USO.docx.pdf'
+import axios from "axios"
 /* import { validateUserSession } from '../utils/validateSession.utils' */
+
+const cpfMask = (value: string) => {
+    return value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+    .replace(/(-\d{2})\d+?$/, '$1')
+}
+const phoneMask = (phone: string) => {
+    return phone.replace(/\D/g, '')
+    .replace(/^(\d)/, '($1')
+    .replace(/^(\(\d{2})(\d)/, '$1) $2')
+    .replace(/(\d{4})(\d{1,5})/, '$1-$2')
+    .replace(/(-\d{5})\d+?$/, '$1');
+}
+
+const phoneMaskPhoneLandline = (phone: string) => {
+    return phone.replace(/\D/g, '')
+    .replace(/^(\d)/, '($1')
+    .replace(/^(\(\d{2})(\d)/, '$1) $2')
+    .replace(/(\d{4})(\d{1,5})/, '$1-$2')
+    .replace(/(-\d{4})\d+?$/, '$1');
+}
 
 export const MyUser = () => {
     const navigate = useNavigate()
@@ -53,6 +79,7 @@ export const MyUser = () => {
     })
 
     useEffect(() => {
+        console.log(user)
         if (!localStorage.getItem('bearer_token')) {
             navigate('/login?loginRequired=true&action=myUser')
         }
@@ -84,6 +111,11 @@ export const MyUser = () => {
         
     }
 
+    const searchCepToResponsibleUser = async (event: any) => {
+        const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
+        setUser({...user, city: data?.localidade, state: data?.uf })
+    }
+
     const getUserById = async () => {
         try  {
             const { data } = await api.get(`user/${localStorage.getItem('user_id')}`)
@@ -96,8 +128,7 @@ export const MyUser = () => {
 
     const updateUser = () => {
         if (!acceptUseOfPersonalData) return toast.error('Você deve aceitar o uso dos dados')
-        console.log(user)
-        /* const update = async () => {
+        const update = async () => {
             await api.put(`user/${user.id}`, user)
         }
         toast.promise(
@@ -112,11 +143,14 @@ export const MyUser = () => {
                 },
                 error: 'Ocorreu um problema ao atualizar as informações'
             }
-        ) */
+        )
     }
 
     const setValuesOfInputFile = (event: any, typeFile: string) => {
-        setUser({ ...user, [typeFile]: event.target.value })
+        setUser({ ...user, [typeFile]: typeFile == 'document' ? 
+            cpfMask(event.target.value) :
+            typeFile == 'phoneNumber' ?
+        user.typeOfPhone.toLowerCase() == 'celular' ? phoneMask(event.target.value) : phoneMaskPhoneLandline(event.target.value) : event.target.value })
     }
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
@@ -126,6 +160,13 @@ export const MyUser = () => {
         } else {
             setUser({ ...user, [typeFile]: event.target.options[event.target.selectedIndex].text })
         }
+    }
+
+    const downloadThermsAndServicesPdf = () => {
+        var link = document.createElement('a');
+        link.href = acceptUsePdfData;
+        link.download = 'TERMO DE USO';
+        link.dispatchEvent(new MouseEvent('click'));
     }
 
     return (
@@ -190,15 +231,23 @@ export const MyUser = () => {
                                     </div>
                                 </div>
                                 <div className="state_city">
+                                    {user.category.toLowerCase() != 'outros' && <div className="input-context cep">
+                                        <label htmlFor="cep">CEP*</label>
+                                        <input
+                                            autoComplete="off"
+                                            required    
+                                            className="input-text cep" id="cep"
+                                            placeholder="Digite aqui"
+                                            onChange={searchCepToResponsibleUser} type="text" name="" />
+                                    </div>}
                                     <div className="select-context state">
                                         <label htmlFor="state-value">Estado*</label>
                                         <div className='select-input'>
                                             <select
                                                 onChange={event => setValuesOfSelectElement(event, 'state')}
-                                                value={user.state.toLowerCase()} className='state-value' name="" id="state-value">
+                                                value={user.state == '' ? undefined : user.state} className='state-value' name="" id="state-value">
                                                 <option selected style={{display: 'none'}}>Selecione</option>
-                                                <option value="são paulo">São Paulo</option>
-                                                <option value="rio de janeiro">Rio de Janeiro</option>
+                                                <option value={user.state}>{user.state}</option>
                                             </select>
                                             <RiArrowDownSFill size={25} />
                                         </div>
@@ -208,33 +257,9 @@ export const MyUser = () => {
                                         <div className='select-input'>
                                             <select
                                                 onChange={event => setValuesOfSelectElement(event, 'city')}
-                                                value={user.city.toLowerCase()} className='city-value' name="" id="city-value">
+                                                value={user.city == '' ? undefined : user.city} className='city-value' name="" id="city-value">
                                                 <option selected style={{display: 'none'}}>Selecione</option>
-                                                <option value="alagoas">ALAGOAS</option>
-                                                <option value="amapá">AMAPÁ</option>
-                                                <option value="amazonas">AMAZONAS</option>
-                                                <option value="bahia">BAHIA</option>
-                                                <option value="ceará">CEARÁ</option>
-                                                <option value="espirito santo">ESPIRITO SANTO</option>
-                                                <option value="goiás">GOIÁS</option>
-                                                <option value="maranhão">MARANHÃO</option>
-                                                <option value="mato grosso">MATO GROSSO</option>
-                                                <option value="mato grosso do sul">MATO GROSSO DO SUL</option>
-                                                <option value="minas gerais">MINAS GERAIS</option>
-                                                <option value="pará">PARÁ</option>
-                                                <option value="paraíba">PARAÍBA</option>
-                                                <option value="paraná">PARANÁ</option>
-                                                <option value="pernambuco">PERNAMBUCO</option>
-                                                <option value="piauí">PIAUÍ</option>
-                                                <option value="rio de janeiro">RIO DE JANEIRO</option>
-                                                <option value="rio grande do norte">RIO GRANDE DO NORTE</option>
-                                                <option value="rio grande do sul">RIO GRANDE DO SUL</option>
-                                                <option value="rondônia">RONDÔNIA</option>
-                                                <option value="roraima">RORAIMA</option>
-                                                <option value="santa catarina">SANTA CATARINA</option>
-                                                <option value="são paulo">SÃO PAULO</option>
-                                                <option value="sergipe">SERGIPE</option>
-                                                <option value="tocantins">TOCANTINS</option>
+                                                <option value={user.city}>{user.city}</option>
                                             </select>
                                             <RiArrowDownSFill size={25} />
                                         </div>
@@ -258,7 +283,7 @@ export const MyUser = () => {
                                         <RiArrowDownSFill size={25} />
                                     </div>
                                 </div>
-                                <div className="select-context race">
+                                {user.category.toLowerCase() == 'paciente' && <div className="select-context race">
                                     <label htmlFor="race-value">Raça*</label>
                                     <div className='select-input'>
                                         <select
@@ -273,7 +298,7 @@ export const MyUser = () => {
                                         </select>
                                         <RiArrowDownSFill size={25} />
                                     </div>
-                                </div>
+                                </div>}
                             </div>
                             <div className="category_email">
                                 <div className="select-context category">
@@ -361,6 +386,9 @@ export const MyUser = () => {
                                         <option value="leve">LEVE</option>
                                         <option value="moderado">MODERADO</option>
                                         <option value="grave">GRAVE</option>
+                                        <option value="dvw tipo 1">DVW TIPO 1</option>
+                                        <option value="dvw tipo 2">DVW TIPO 2</option>
+                                        <option value="dvw tipo 3">DVW TIPO 3</option>
                                         <option value="não diagnosticado">NÃO DIAGNOSTICADO</option>
                                     </select>
                                     <RiArrowDownSFill size={25} />
@@ -408,7 +436,7 @@ export const MyUser = () => {
                                             <option value="pessoa sem deficiência">PESSOA SEM DEFICIÊNCIA</option>
                                             <option value="pessoa com deficiência">PESSOA COM DEFICIÊNCIA</option>
                                             {/* <option value="3">ARTROPATIA HEMOFÍLICA MEMBRO SUPERIOR E MEMBRO INFERIOR</option> */}
-                                            <option value="deficiencia mental">DEFICIENCIA MENTAL</option>
+                                            <option value="deficiencia intelectual">DEFICIENCIA INTELECTUAL</option>
                                             <option value="transtorno do espectro autismo/tdh">TRANSTORNO DO ESPECTRO AUTISMO/TDH</option>
                                         </select>
                                         <RiArrowDownSFill size={25} />
@@ -419,7 +447,7 @@ export const MyUser = () => {
                                 <div className="input-context accept-use-my-data">
                                     <input type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value"
                                         onChange={event => setAcceptUseOfPersonalData(event.target.checked)}/>
-                                    <label htmlFor="accept-use-my-data-value" >ACEITO O USO DOS MEUS DADOS</label>
+                                    <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={downloadThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
                                 </div>
                             </div>
                         </div>
