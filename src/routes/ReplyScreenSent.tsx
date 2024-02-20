@@ -32,7 +32,7 @@ export const ReplyScreenSent = () => {
                 <span className='header-info-title'>MANIFESTAÇÃO ENVIADA COM SUCESSO</span>
             </div>
             <hr />
-            <div id='reply-response-container' className='navigation-context'>
+            {/* <div id='reply-response-container' className='navigation-context'>
                 <div className='navitation-start'>
                     <span>Ínicio</span>
                     <IoIosArrowForward style={{ opacity: '.2'}} />
@@ -48,14 +48,14 @@ export const ReplyScreenSent = () => {
                 <div className='current'>
                     <span>Manifestação enviada</span>
                 </div>
-            </div>
+            </div> */}
             <div className='reply-response-container'>
                 <div className="reply-response">
                     <div className="title">
                         <p>RESPONDEREMOS SUA SOLICITAÇÃO EM BREVE</p>
                     </div>
                     <div className="advice-message">
-                        <p>Por favor, saiba que estamos sempre aqui para você. Se houver algo mais em que possamos ajudar, não hesite em nos contatar. Estamos comprometidos em oferecer um serviço excepcional e continuar a superar suas expectativas.</p>
+                        <p>Saiba que estamos sempre aqui para ouvir você. Se houver algo mais em que possamos ajudar, não hesite em nos contatar. Estamos comprometidos em oferecer um serviço excepcional e continuar a superar suas expectativas.</p>
                         <div className='advice-info'>
                             <p>
                                 Sua manifestação será respondida o mais rápido possível.

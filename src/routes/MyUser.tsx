@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react"
+import axios from "axios"
 import { IoIosArrowForward } from "react-icons/io"
 import { VscThreeBars } from "react-icons/vsc"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { ProfilePicture } from '../contexts/ProfilePicture'
-import { MenuOptions } from "../components/MenuOptions"
 import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
+import InputMask from "react-input-mask";
+
+import { MenuOptions } from "../components/MenuOptions"
+import { SelectDeficiencies, SelectDeficienciesToMultiUser } from "../components/SelectDeficiencies"
+
 
 import api from "../services/api"
 
@@ -16,11 +21,13 @@ import arrowUpIcon from '../assets/arrow-up.svg'
 import defaultProfile from './../assets/profile.svg'
 
 import { User } from '../types/User'
+import { Patient } from "../types/Patient"
 
 import listOfBloodCenters from '../utils/getListOfBloodCenters'
+import { allDeficiencies } from "../utils/getAllDeficiencies"
 
 import acceptUsePdfData from '../../public/TERMO DE USO.docx.pdf'
-import axios from "axios"
+
 /* import { validateUserSession } from '../utils/validateSession.utils' */
 
 const cpfMask = (value: string) => {
@@ -52,6 +59,8 @@ export const MyUser = () => {
     const [userImg, setUserImg] = useState(defaultProfile)
     const [open, setOpen] = useState(false);
     const [acceptUseOfPersonalData, setAcceptUseOfPersonalData] = useState(false);
+    const [isMobile, setIsMobile] = useState(false)
+    const [patients, setPatients] = useState<Patient[]>([])
     const [user, setUser] = useState<User>({
         id: "",
         document: "",
@@ -77,13 +86,25 @@ export const MyUser = () => {
         roleUser: "",
         profilePictureURL: ""
     })
+    const [deficiencies, setDeficiencies] = useState(allDeficiencies)
 
     useEffect(() => {
-        console.log(user)
+        if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
         if (!localStorage.getItem('bearer_token')) {
             navigate('/login?loginRequired=true&action=myUser')
         }
         getUserById()
+        getAllPatients()
     }, [])
 
     const uploadImg = (event: any) => {
@@ -113,14 +134,27 @@ export const MyUser = () => {
 
     const searchCepToResponsibleUser = async (event: any) => {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
-        setUser({...user, city: data?.localidade, state: data?.uf })
+        setUser({...user, race: data.race == 'pardo' ? 'parda' : data.race, city: data?.localidade, state: data?.uf })
     }
 
     const getUserById = async () => {
         try  {
             const { data } = await api.get(`user/${localStorage.getItem('user_id')}`)
             setUserImg(data.profilePictureURL)
-            setUser(data)
+            setUser({
+                ...data,
+                race: data.race == 'pardo' ? 'parda' : data.race
+            })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const getAllPatients = async () => {
+        try  {
+            const { data } = await api.get(`users/get-patients/${localStorage.getItem('user_id')}`)
+            console.log(data)
+            setPatients(data)
         } catch (err) {
             console.log(err)
         }
@@ -128,6 +162,8 @@ export const MyUser = () => {
 
     const updateUser = () => {
         if (!acceptUseOfPersonalData) return toast.error('Você deve aceitar o uso dos dados')
+        user.username = user.fullName
+        user.typeOfDisability = deficiencies.filter(deficiency => deficiency.checked).map(deficiency => deficiency.text).toString()
         const update = async () => {
             await api.put(`user/${user.id}`, user)
         }
@@ -153,6 +189,20 @@ export const MyUser = () => {
         user.typeOfPhone.toLowerCase() == 'celular' ? phoneMask(event.target.value) : phoneMaskPhoneLandline(event.target.value) : event.target.value })
     }
 
+    const setValuesOfPatientInputFile = (event: any, index: number, typeFile: string) => {
+        let existentPatients = [...patients]
+        existentPatients[index] = {
+            ...existentPatients[index],
+            [typeFile]:
+                typeFile == 'document' ? 
+                    cpfMask(event.target.value) :
+                typeFile == 'phoneNumber' ?
+                    phoneMask(event.target.value) :
+                event.target.value
+        }
+        setPatients(existentPatients)
+    }
+
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
         if (typeFile == 'pcd') {
             let selectedOptionText = event.target.options[event.target.selectedIndex].text.toLowerCase()
@@ -162,11 +212,81 @@ export const MyUser = () => {
         }
     }
 
-    const downloadThermsAndServicesPdf = () => {
+    const setValuesOfPatientSelectElement = (event: any, index: number, typeFile: string) => {
+        let existentPatients = [...patients]
+        let selectedOptionText = event.target.options[event.target.selectedIndex].text
+        existentPatients[index] = {
+            ...existentPatients[index],
+            [typeFile]:
+                typeFile == 'pcd' ? 
+                    selectedOptionText.toLowerCase() == 'sim' ? true : false :
+                selectedOptionText
+        }
+        setPatients(existentPatients)
+        /* if (typeFile == 'pcd') {
+            let selectedOptionText = event.target.options[event.target.selectedIndex].text.toLowerCase()
+            setUser({ ...user, [typeFile]: selectedOptionText == 'sim' ? true : false })
+        } else {
+            setUser({ ...user, [typeFile]: event.target.options[event.target.selectedIndex].text })
+        } */
+    }
+
+    const openThermsAndServicesPdf = () => {
         var link = document.createElement('a');
         link.href = acceptUsePdfData;
-        link.download = 'TERMO DE USO';
+        link.target = '_blank';
         link.dispatchEvent(new MouseEvent('click'));
+    }
+
+    const formatMobileExistentDate = (value: any) => {
+        const [year, month, day] = value.split('-')
+        return day + month + year
+    }
+
+    const updatePatient = (event: any) => {
+        event.preventDefault()
+        const patientIndex = event.target.getAttribute('data-patient-index')
+        const patient = patients[patientIndex]
+
+        patient.username = patient.fullName
+
+        const update = async () => {
+            await api.put(`user/${patient.id}`, patient)
+        }
+        toast.promise(
+            update,
+            {
+                pending: 'Atualizando paciente...',
+                success: {
+                    render() {
+                        setInterval(() => window.location.reload(), 500)
+                        return 'Atualizado com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao atualizar as informações do paciente'
+            }
+        )
+    }
+
+    const updatePersonalInformation = (event: any) => {
+        event.preventDefault()
+        user.username = user.fullName
+        const update = async () => {
+            await api.put(`user/${user.id}`, user)
+        }
+        toast.promise(
+            update,
+            {
+                pending: 'Atualizando informações...',
+                success: {
+                    render() {
+                        setInterval(() => window.location.reload(), 500)
+                        return 'Atualizado com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao atualizar as informações'
+            }
+        )
     }
 
     return (
@@ -207,7 +327,7 @@ export const MyUser = () => {
                 <div className="edit-form-info">
                     <div className="info-advice">OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO</div>
                     <div className="title">Informações pessoais</div>
-                    <div className="form-context-personal-information">
+                    <form onSubmit={updatePersonalInformation}  className="form-context-personal-information">
                         <div className="name_cpf_date-birth_state_city">
                             <div className="input-context name">
                                 <label htmlFor="name-value">Nome completo</label>
@@ -223,19 +343,27 @@ export const MyUser = () => {
                                             onChange={event => setValuesOfInputFile(event, 'document')}
                                             value={user.document} type="text" className="input-text cpf-value" id="cpf-value" placeholder="Digite aqui" />
                                     </div>
+                                    {isMobile ? 
+                                    <div className="input-context date-birth">
+                                        <label htmlFor="date-birth-value">Data de nascimento*</label>
+                                        <InputMask
+                                            mask="99/99/9999" 
+                                            onChange={event => setValuesOfInputFile(event, 'dateOfBirth')}
+                                            value={formatMobileExistentDate(user.dateOfBirth)} type="text" className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
+                                    </div>
+                                    :
                                     <div className="input-context date-birth">
                                         <label htmlFor="date-birth-value">Data de nascimento*</label>
                                         <input
                                             onChange={event => setValuesOfInputFile(event, 'dateOfBirth')}
                                             value={user.dateOfBirth} type="date" className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
-                                    </div>
+                                    </div>}
                                 </div>
                                 <div className="state_city">
                                     {user.category.toLowerCase() != 'outros' && <div className="input-context cep">
                                         <label htmlFor="cep">CEP*</label>
                                         <input
                                             autoComplete="off"
-                                            required    
                                             className="input-text cep" id="cep"
                                             placeholder="Digite aqui"
                                             onChange={searchCepToResponsibleUser} type="text" name="" />
@@ -291,7 +419,7 @@ export const MyUser = () => {
                                             value={user.race.toLowerCase()} className='race-value' name="" id="race-value">
                                             <option selected style={{display: 'none'}}>Selecione</option>
                                             <option value="branca">BRANCA</option>
-                                            <option value="pardo">PARDA</option>
+                                            <option value="parda">PARDA</option>
                                             <option value="preta">PRETA</option>
                                             <option value="amarela">AMARELA</option>
                                             <option value="indígena">INDÍGENA</option>
@@ -347,115 +475,298 @@ export const MyUser = () => {
                                         value={user.phoneNumber} type="text" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
                                 </div>
                             </div>
-                            <div className="owner">
+                            {user.category != 'cuidador / responsável' &&  <div className="owner">
                                 <div className="input-context owner-name">
                                     <label htmlFor="owner-name-value">Nome do responsável*</label>
                                     <input
                                         onChange={event => setValuesOfInputFile(event, 'ownerName')}
                                         value={user.ownerName} type="text" className="input-text owner-name-value" id="phone-value" placeholder="Digite aqui" />
                                 </div>
-                            </div>
+                            </div>}
                         </div>
+                        {user.category == 'cuidador / responsável' && <div className="flex justify-end">
+                            <button type="submit" className="bg-[#D93C3C] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Salvar</button>
+                        </div>}
                         <hr />
-                    </div>
-                    <div className="form-context-patient-information">
-                        <div className="title">INFORMAÇÕES SOBRE O PACIENTE</div>
-                        <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
-                            <div className="select-context type-coagulopathy">
-                                <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
-                                <div className='select-input'>
-                                    <select
-                                        onChange={event => setValuesOfSelectElement(event, 'typeOfCoagulopathy')}
-                                        value={user.typeOfCoagulopathy.toLowerCase()} className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
-                                        <option selected style={{display: 'none'}}>Selecione</option>
-                                        <option value="hemofilia a">HEMOFILIA A</option>
-                                        <option value="hemofilia b">HEMOFILIA B</option>
-                                        <option value="doença de von willebrand">DOENÇA DE VON WILLEBRAND</option>
-                                        <option value="outras coagulopatias">OUTRAS COAGULOPATIAS</option>
-                                    </select>
-                                    <RiArrowDownSFill size={25} />
-                                </div>
-                            </div>
-                            <div className="select-context severity-coagulopathy">
-                                <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
-                                <div className='select-input'>
-                                    <select
-                                        onChange={event => setValuesOfSelectElement(event, 'severityOfCoagulopathy')}
-                                        value={user.severityOfCoagulopathy.toLowerCase()} className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
-                                        <option selected style={{display: 'none'}}>Selecione</option>
-                                        <option value="leve">LEVE</option>
-                                        <option value="moderado">MODERADO</option>
-                                        <option value="grave">GRAVE</option>
-                                        <option value="dvw tipo 1">DVW TIPO 1</option>
-                                        <option value="dvw tipo 2">DVW TIPO 2</option>
-                                        <option value="dvw tipo 3">DVW TIPO 3</option>
-                                        <option value="não diagnosticado">NÃO DIAGNOSTICADO</option>
-                                    </select>
-                                    <RiArrowDownSFill size={25} />
-                                </div>
-                            </div>
-                            <div className="input-context location-treatment-center">
-                                <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
-                                <div className='select-input'>
-                                    <select
-                                        onChange={event => setValuesOfSelectElement(event, 'callCenterLocation')}
-                                        value={user.callCenterLocation.toLowerCase()} className='location-treatment-center-value' name="" id="location-treatment-center-value">
-                                        <option selected style={{display: 'none'}}>Selecione</option>
-                                        {
-                                            listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
-                                                {location}
-                                            </option>)
-                                        }
-                                    </select>
-                                    <RiArrowDownSFill size={25} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="pcd_which_accept-use-my-data">
-                            <div className="pcd_whick">
-                                <div className="select-context pcd">
-                                    <label htmlFor="pcd-value">PESSOA COM DEFICIENCIA (PCD)?</label>
-                                    <div className='select-input'>
-                                        <select
-                                            onChange={event => setValuesOfSelectElement(event, 'pcd')}
-                                            value={user.pcd ? 'sim' : 'não'} className='pcd-value' name="" id="pcd-value">
-                                            <option selected style={{display: 'none'}}>Selecione</option>
-                                            <option value="sim">SIM</option>
-                                            <option value="não">NÃO</option>
-                                        </select>
-                                        <RiArrowDownSFill size={25} />
+                    </form>
+                    {user.category == 'cuidador / responsável' ? <div>
+                        {patients.map((patient, index) => <form data-patient-index={index} onSubmit={updatePatient}>
+                            <div className="form-context-patient-information">
+                                <div className="title">INFORMAÇÕES SOBRE O PACIENTE {index + 1}</div>
+                                <div className="grid sm:!grid lg:!flex gap-2">
+                                    <div className="input-context patient-fullname">
+                                        <label htmlFor="patient-fullname-value">Nome completo*</label>
+                                        <input
+                                            onChange={event => setValuesOfPatientInputFile(event, index, 'fullName')}
+                                            autoComplete="off"
+                                            required
+                                            value={patient.fullName}
+                                            type="text" className="input-text patient-fullname-value" id="patient-fullname-value" placeholder="Digite aqui" />
+                                    </div>
+                                    <div className="select-context patient-gender">
+                                        <label htmlFor="patient-gender-value">Sexo*</label>
+                                        <div className='select-input'>
+                                            <select
+                                                onChange={event => setValuesOfPatientSelectElement(event, index, 'gender')}
+                                                value={patient.gender.toLowerCase()}
+                                                required
+                                                className='patient-gender-value' name="" id="patient-gender-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="feminino">FEMININO</option>
+                                                <option value="masculino">MASCULINO</option>
+                                                <option value="não me identifico">NÃO ME IDENTIFICO</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="flex gap-2 w-full">
+                                        <div className="select-context patient-race">
+                                            <label htmlFor="patient-race">Raça*</label>
+                                            <div className='select-input'>
+                                                <select
+                                                    value={patient.race.toLowerCase()}
+                                                    onChange={event => setValuesOfPatientSelectElement(event, index, 'race')}
+                                                    required
+                                                    className='patient-race' name="" id="patient-race">
+                                                    <option selected style={{display: 'none'}}>Selecione</option>
+                                                    <option value="branca">BRANCA</option>
+                                                    <option value="parda">PARDA</option>
+                                                    <option value="preta">PRETA</option>
+                                                    <option value="amarela">AMARELA</option>
+                                                    <option value="indígena">INDÍGENA</option>
+                                                </select>
+                                                <RiArrowDownSFill size={25} />
+                                            </div>
+                                        </div>
+                                        <div className="input-context patient-cpf">
+                                            <label htmlFor={`patient-cpf-value-`}>Cpf*</label>
+                                            <input
+                                                required
+                                                onChange={event => setValuesOfPatientInputFile(event, index, 'document')}
+                                                value={patient.document}
+                                                autoComplete="off"
+                                                type="text" className="input-text patient-cpf-value" id={`patient-cpf-value`} placeholder="Digite aqui" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="select-context which">
-                                    <label htmlFor="which-value">SE SIM, QUAL?</label>
-                                    <div className='select-input'>
-                                        <select
-                                            onChange={event => setValuesOfSelectElement(event, 'typeOfDisability')}
-                                            value={user.typeOfDisability.toLowerCase()} className='which-value' name="" id="which-value">
-                                            <option selected style={{display: 'none'}}>Selecione</option>
-                                            <option value="pessoa sem deficiência">PESSOA SEM DEFICIÊNCIA</option>
-                                            <option value="pessoa com deficiência">PESSOA COM DEFICIÊNCIA</option>
-                                            {/* <option value="3">ARTROPATIA HEMOFÍLICA MEMBRO SUPERIOR E MEMBRO INFERIOR</option> */}
-                                            <option value="deficiencia intelectual">DEFICIENCIA INTELECTUAL</option>
-                                            <option value="transtorno do espectro autismo/tdh">TRANSTORNO DO ESPECTRO AUTISMO/TDH</option>
-                                        </select>
-                                        <RiArrowDownSFill size={25} />
+                                <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
+                                    <div className="select-context type-coagulopathy">
+                                        <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
+                                        <div className='select-input'>
+                                            <select
+                                                onChange={event => setValuesOfPatientSelectElement(event, index, 'typeOfCoagulopathy')}
+                                                required
+                                                value={patient.typeOfCoagulopathy.toLowerCase()}
+                                                className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="hemofilia a">HEMOFILIA A</option>
+                                                <option value="hemofilia b">HEMOFILIA B</option>
+                                                <option value="doença de von willebrand">DOENÇA DE VON WILLEBRAND</option>
+                                                <option value="outras coagulopatias">OUTRAS COAGULOPATIAS</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="select-context severity-coagulopathy">
+                                        <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
+                                        <div className='select-input'>
+                                            <select
+                                                onChange={event => setValuesOfPatientSelectElement(event, index, 'severityOfCoagulopathy')}
+                                                required
+                                                value={patient.severityOfCoagulopathy.toLowerCase()}
+                                                className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="leve">LEVE</option>
+                                                <option value="moderado">MODERADO</option>
+                                                <option value="grave">GRAVE</option>
+                                                <option value="dvw tipo 1">DVW TIPO 1</option>
+                                                <option value="dvw tipo 2">DVW TIPO 2</option>
+                                                <option value="dvw tipo 3">DVW TIPO 3</option>
+                                                <option value="não diagnosticado">NÃO DIAGNOSTICADO</option>
+                                                
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="input-context location-treatment-center">
+                                        <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
+                                        <div className='select-input'>
+                                            <select
+                                                required
+                                                onChange={event => setValuesOfPatientSelectElement(event, index, 'callCenterLocation')}
+                                                value={patient.callCenterLocation.toLowerCase()}
+                                                className='location-treatment-center-value' name="" id="location-treatment-center-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                {
+                                                    listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
+                                                        {location}
+                                                    </option>)
+                                                }
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="accept-use-data">
+                                <div className="pcd_which_accept-use-my-data">
+                                    <div className="pcd_whick">
+                                        <div className="select-context pcd">
+                                            <label htmlFor="pcd-value">PESSOA COM DEFICIENCIA (PCD)?</label>
+                                            <div className='select-input'>
+                                                <select
+                                                    onChange={event => setValuesOfPatientSelectElement(event, index, 'pcd')}
+                                                    value={patient.pcd ? 'sim' : 'não'}
+                                                    required
+                                                    className='pcd-value' name="" id="pcd-value">
+                                                    <option selected style={{display: 'none'}}>Selecione</option>
+                                                    <option value="sim">SIM</option>
+                                                    <option value="não">NÃO</option>
+                                                </select>
+                                                <RiArrowDownSFill size={25} />
+                                            </div>
+                                        </div>
+                                        <div className="select-context which">
+                                            <label htmlFor="which-value">SE SIM, QUAL?</label>
+                                            <SelectDeficienciesToMultiUser
+                                                existentData={patient.typeOfDisability}
+                                                patient={patient}
+                                                index={index}
+                                                pcd={patient.pcd} />
+                                        </div>
+                                        <div className="input-context date-birth">
+                                            <label htmlFor="date-birth-value">Data de nascimento</label>
+                                            <input
+                                                onChange={event => setValuesOfPatientInputFile(event, index, 'dateOfBirth')}
+                                                value={patient.dateOfBirth}
+                                                type="date"
+                                                required
+                                                autoComplete="off"
+                                                className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="input-context accept-use-my-data">
-                                    <input type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value"
-                                        onChange={event => setAcceptUseOfPersonalData(event.target.checked)}/>
-                                    <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={downloadThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
+                                    <input required type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value" />
+                                    <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={openThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
+                                </div>
+                                <div className="flex justify-end">
+                                    <button type="submit" className="bg-[#D93C3C] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Salvar</button>
+                                </div>
+                                <hr />
+                            </div>
+                        </form>)}
+                    </div>
+                    : 
+                    <>
+                        <div className="form-context-patient-information">
+                            <div className="title">INFORMAÇÕES SOBRE O PACIENTE</div>
+                            <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
+                                <div className="select-context type-coagulopathy">
+                                    <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
+                                    <div className='select-input'>
+                                        <select
+                                            onChange={event => setValuesOfSelectElement(event, 'typeOfCoagulopathy')}
+                                            value={user.typeOfCoagulopathy.toLowerCase()} className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
+                                            <option selected style={{display: 'none'}}>Selecione</option>
+                                            <option value="hemofilia a">HEMOFILIA A</option>
+                                            <option value="hemofilia b">HEMOFILIA B</option>
+                                            <option value="doença de von willebrand">DOENÇA DE VON WILLEBRAND</option>
+                                            <option value="outras coagulopatias">OUTRAS COAGULOPATIAS</option>
+                                        </select>
+                                        <RiArrowDownSFill size={25} />
+                                    </div>
+                                </div>
+                                <div className="select-context severity-coagulopathy">
+                                    <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
+                                    <div className='select-input'>
+                                        <select
+                                            onChange={event => setValuesOfSelectElement(event, 'severityOfCoagulopathy')}
+                                            value={user.severityOfCoagulopathy.toLowerCase()} className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
+                                            <option selected style={{display: 'none'}}>Selecione</option>
+                                            <option value="leve">LEVE</option>
+                                            <option value="moderado">MODERADO</option>
+                                            <option value="grave">GRAVE</option>
+                                            <option value="dvw tipo 1">DVW TIPO 1</option>
+                                            <option value="dvw tipo 2">DVW TIPO 2</option>
+                                            <option value="dvw tipo 3">DVW TIPO 3</option>
+                                            <option value="não diagnosticado">NÃO DIAGNOSTICADO</option>
+                                        </select>
+                                        <RiArrowDownSFill size={25} />
+                                    </div>
+                                </div>
+                                <div className="input-context location-treatment-center">
+                                    <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
+                                    <div className='select-input'>
+                                        <select
+                                            onChange={event => setValuesOfSelectElement(event, 'callCenterLocation')}
+                                            value={user.callCenterLocation.toLowerCase()} className='location-treatment-center-value' name="" id="location-treatment-center-value">
+                                            <option selected style={{display: 'none'}}>Selecione</option>
+                                            {
+                                                listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
+                                                    {location}
+                                                </option>)
+                                            }
+                                        </select>
+                                        <RiArrowDownSFill size={25} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="pcd_which_accept-use-my-data">
+                                <div className="pcd_whick">
+                                    <div className="select-context pcd">
+                                        <label htmlFor="pcd-value">PESSOA COM DEFICIENCIA (PCD)?</label>
+                                        <div className='select-input'>
+                                            <select
+                                                onChange={event => setValuesOfSelectElement(event, 'pcd')}
+                                                value={user.pcd ? 'sim' : 'não'} className='pcd-value' name="" id="pcd-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="sim">SIM</option>
+                                                <option value="não">NÃO</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="select-context which">
+                                        <label htmlFor="which-value">SE SIM, QUAL?</label>
+                                        {user.typeOfDisability ? <SelectDeficiencies
+                                            existentData={user.typeOfDisability}
+                                            deficiencies={deficiencies}
+                                            setDeficiencies={setDeficiencies}
+                                            pcd={user.pcd} />
+                                        : <div style={{  display: 'flex', justifyContent: 'space-between', padding: 8, borderRadius: 6, border: '1px solid #C00405' }}>
+                                            <div>Selecione</div>
+                                            <div style={{ display: 'flex', gap: 5}}>
+                                                <div>Selecionada(s)</div>
+                                                <div style={{ fontWeight: 600}}>{0}</div>
+                                            </div>
+                                        </div>}
+                                        {/* <div className='select-input'>
+                                            <select
+                                                onChange={event => setValuesOfSelectElement(event, 'typeOfDisability')}
+                                                value={user.typeOfDisability.toLowerCase()} className='which-value' name="" id="which-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="pessoa sem deficiência">PESSOA SEM DEFICIÊNCIA</option>
+                                                <option value="pessoa com deficiência">PESSOA COM DEFICIÊNCIA</option>
+                                                <option value="deficiencia intelectual">DEFICIENCIA INTELECTUAL</option>
+                                                <option value="transtorno do espectro autismo/tdh">TRANSTORNO DO ESPECTRO AUTISMO/TDH</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div> */}
+                                    </div>
+                                </div>
+                                <div className="accept-use-data">
+                                    <div className="input-context accept-use-my-data">
+                                        <input type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value"
+                                            onChange={event => setAcceptUseOfPersonalData(event.target.checked)}/>
+                                        <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={openThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="save-changes">
-                        <button className="save-changes-btn" onClick={updateUser}>Salvar alterações</button>
-                    </div>
-                    <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className='back-to-top'>
+                        <div className="save-changes">
+                            <button className="save-changes-btn" onClick={updateUser}>Salvar alterações</button>
+                        </div>
+                    </>}
+                    <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className='cursor-pointer back-to-top'>
                         <span>Voltar ao topo</span>
                         <img className='logo' src={arrowUpIcon} />
                     </div>

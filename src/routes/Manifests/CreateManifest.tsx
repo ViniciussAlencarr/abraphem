@@ -171,10 +171,10 @@ export const CreateManifest = () => {
         setRequest({ ...request, [typeOfValue]: value })
     }
 
-    const downloadThermsAndServicesPdf = () => {
+    const openThermsAndServicesPdf = () => {
         var link = document.createElement('a');
         link.href = acceptUsePdfData;
-        link.download = 'TERMO DE USO';
+        link.target = '_blank';
         link.dispatchEvent(new MouseEvent('click'));
     }
 
@@ -264,10 +264,10 @@ export const CreateManifest = () => {
                                     <RiArrowDownSFill size={25} />
                                 </div>
                             </div>
-                            <div className="input-context input-channel">
+                            {/* <div className="input-context input-channel">
                                 <label className='label-value' htmlFor="input-channel-label">CANAL DE ENTRADA</label>
                                 <input required value={request.entryChannel} onChange={event => setInputValues(event, 'entryChannel')}  type="text" className="input-text input-channel-value" id="input-channel-value" placeholder="INTERNET" />
-                            </div>
+                            </div> */}
                         </div>
                         <div className="title second">REGISTRE AQUI SUA MANIFESTAÇÃO</div>
                         <div className="manifest-value">
@@ -299,7 +299,7 @@ export const CreateManifest = () => {
                         <div className="accept-use-data">
                             <div className="input-context accept-use-my-data">
                                 <input required type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value" />
-                                <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={downloadThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
+                                <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={openThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
                             </div>
                         </div>
                         <div className="forward-back-btns">

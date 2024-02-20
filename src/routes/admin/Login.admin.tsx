@@ -70,7 +70,7 @@ export const LoginAdmin = () => {
         <div style={{ height: '100%' }}>
             <div className="login-admin">
                 <div className='login-header'>
-                    <div className="logo-container">
+                    <div className="logo-container flex justify-center">
                             <Link to="">
                                 <img className='logo' src={logo} alt="" />
                             </Link>

@@ -37,7 +37,7 @@ export const Dashboard = () => {
             <div id='table-info-content' className='table-info-content'>
                 <div className="info-content">
                     <div className='header-img-context new-request'>
-                        <div className='new-request-img'>
+                        <div className='new-request-img flex justify-center'>
                             <img className='img' onClick={() => navigate('/manifest/new')} src={newManifestation} alt="" />
                         </div>
                         <div className='header-img-name new-request-name'>
@@ -48,7 +48,7 @@ export const Dashboard = () => {
                         </div>
                     </div>
                     <div className='header-img-context my-requests'>
-                        <div className='my-requests-img'>
+                        <div className='my-requests-img flex justify-center'>
                             <img className='img' onClick={() => navigate('/manifests')} src={myManifestation} alt="" />
                         </div>
                         <div className='header-img-name my-requests-name'>
@@ -59,7 +59,7 @@ export const Dashboard = () => {
                         </div>
                     </div>
                     <div className='header-img-context my-user'>
-                        <div className='my-user-img'>
+                        <div className='my-user-img flex justify-center'>
                             <img className='img' onClick={() => navigate('/account/user')}  src={myUser} alt="" />
                         </div>
                         <div className='header-img-name my-user-name'>

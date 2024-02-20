@@ -4,15 +4,23 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import api from '../services/api'
 
+import InputMask from "react-input-mask";
+
 import { RiArrowDownSFill } from "react-icons/ri"
+import { FaRegEye } from "react-icons/fa";
+
+import { FaRegEyeSlash } from "react-icons/fa";
 
 import 'react-phone-number-input/style.css'
 
 import { ThemeContext } from '../contexts/teste'
 
 import listOfBloodCenters from '../utils/getListOfBloodCenters'
+import { allDeficiencies } from "../utils/getAllDeficiencies";
 
 import { User } from "types/User"
+
+import { SelectDeficiencies } from "./SelectDeficiencies";
 
 import acceptUsePdfData from '../../public/TERMO DE USO.docx.pdf'
 
@@ -28,8 +36,8 @@ const phoneMask = (phone: string) => {
     return phone.replace(/\D/g, '')
     .replace(/^(\d)/, '($1')
     .replace(/^(\(\d{2})(\d)/, '$1) $2')
-    .replace(/(\d{4})(\d{1,5})/, '$1-$2')
-    .replace(/(-\d{5})\d+?$/, '$1');
+    .replace(/(\d{5})(\d{1,4})/, '$1-$2')
+    .replace(/(-\d{4})\d+?$/, '$1');
 }
 
 const phoneMaskPhoneLandline = (phone: string) => {
@@ -40,13 +48,15 @@ const phoneMaskPhoneLandline = (phone: string) => {
     .replace(/(-\d{4})\d+?$/, '$1');
 }
 
+
+
+
 export const SigninPatientContext = (params: {
     category: string,
     setPatientType: any,
     setCategory: any,
 }) => {
     const navigate = useNavigate();
-    const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({
         document: "",
         typeDocument: "cpf",
@@ -57,7 +67,7 @@ export const SigninPatientContext = (params: {
         city: "",
         gender: "",
         race: "",
-        category: "paciente",
+        category: params.category,
         typeOfPhone: "",
         phoneNumber: "",
         ownerName: "",
@@ -71,12 +81,28 @@ export const SigninPatientContext = (params: {
         roleUser: "2",
         profilePictureURL: ""
     })
+    const [hidePassword, setHidePassword] = useState(true)
+    const { setIsLoggedIn } = useContext(ThemeContext);
+    const [isMobile, setIsMobile] = useState(false)
+    const [deficiencies, setDeficiencies] = useState(allDeficiencies)
 
     useEffect(() => {
+        console.log(params.category)
+        params.setCategory(params.category)
+        if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
     }, [])
 
     const setValuesOfInputFile = (event: any, typeFile: string) => {
-        console.log(user.typeOfPhone)
         setUser({ ...user, [typeFile]: 
             typeFile == 'document' ?
                 cpfMask(event.target.value)
@@ -86,15 +112,23 @@ export const SigninPatientContext = (params: {
 
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
         let value = event.target.options[event.target.selectedIndex].value
-        if (typeFile == 'category' && value != 'PACIENTE') params.setCategory(value), params.setPatientType(false);
+        if (typeFile == 'category' && value.replaceAll(' ', '') == 'cuidador/responsável') params.setCategory(value), params.setPatientType(false);
         setUser({ ...user, [typeFile]: typeFile == 'pcd' ? value == 'sim' ? true : false : value })
     }
 
     const validatePhoneNumber = () => {
-        if (user.phoneNumber.length != 15) {
-            window.scroll(250, 400);
-            document.getElementById('phone-value')?.focus()
-            throw toast.error('Verifique se o número de telefone tem todos os números')
+        if (user.typeOfPhone == 'celular') {
+            if (user.phoneNumber.length != 15) {
+                window.scroll(250, 400);
+                document.getElementById('phone-value')?.focus()
+                throw toast.error('Verifique se o número de telefone tem todos os números')
+            }
+        } else {
+            if (user.phoneNumber.length != 14) {
+                window.scroll(250, 400);
+                document.getElementById('phone-value')?.focus()
+                throw toast.error('Verifique se o número de telefone tem todos os números')
+            }
         }
     }
 
@@ -107,15 +141,19 @@ export const SigninPatientContext = (params: {
     }
     const onSubmit = async (event: any) => {
         event.preventDefault()
+        user.typeOfDisability = deficiencies.filter(deficiency => deficiency.checked).map(deficiency => deficiency.text).toString()
         validatePhoneNumber()
         validateCpfValue()
         const sendSignin = async () => {
             const signIn = async () => {
-                await api.post('signup', user)
+                const { data } = await api.post('signup', user)
+                if (data.error) {
+                    toast.error(data.message)
+                    throw data.error
+                }
             }
             const login = async () => {
                 const { data } = await api.post('/login?role=2', { document: user.document, password: user.password })
-                
                 api.defaults.headers.Authorization = `Bearer ${data.token}`;
                 localStorage.setItem('user_id', data.user.id)
                 localStorage.setItem('bearer_token', data.token)
@@ -144,10 +182,10 @@ export const SigninPatientContext = (params: {
         setUser({...user, city: data?.localidade, state: data?.uf })
     }
 
-    const downloadThermsAndServicesPdf = () => {
+    const openThermsAndServicesPdf = () => {
         var link = document.createElement('a');
         link.href = acceptUsePdfData;
-        link.download = 'TERMO DE USO';
+        link.target = '_blank';
         link.dispatchEvent(new MouseEvent('click'));
     }
     
@@ -161,6 +199,7 @@ export const SigninPatientContext = (params: {
                             <div className='select-input'>
                                 <select
                                     required
+                                    value={user.category}
                                     onChange={event => setValuesOfSelectElement(event, 'category')}
                                     className='category' name="" id="category">
                                     <option value="paciente" selected>PACIENTE</option>
@@ -173,6 +212,17 @@ export const SigninPatientContext = (params: {
                         </div>
                         <div className="cpf_date-birth_state_city">
                             <div className="cpf_date-birth">
+                                {isMobile ? 
+                                <div className="input-context date-birth">
+                                    <label htmlFor="date-birth-value">Data de nascimento*</label>
+                                    <InputMask
+                                        autoComplete="off"
+                                        required
+                                        mask="99/99/9999" 
+                                        onChange={(event: any) => setValuesOfInputFile(event, 'dateOfBirth')}
+                                        type="text" className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
+                                </div>
+                                :
                                 <div className="input-context date-birth">
                                     <label htmlFor="date-birth-value">Data de nascimento*</label>
                                     <input
@@ -180,7 +230,7 @@ export const SigninPatientContext = (params: {
                                         required
                                         onChange={event => setValuesOfInputFile(event, 'dateOfBirth')}
                                         type="date" className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
-                                </div>
+                                </div>}
                             </div>
                             <div className="state_city">
                                 <div className="input-context cep">
@@ -248,7 +298,7 @@ export const SigninPatientContext = (params: {
                                         className='race-value' name="" id="race-value">
                                         <option selected style={{display: 'none'}}>Selecione</option>
                                         <option value="branca">BRANCA</option>
-                                        <option value="pardo">PARDA</option>
+                                        <option value="parda">PARDA</option>
                                         <option value="preta">PRETA</option>
                                         <option value="amarela">AMARELA</option>
                                         <option value="indígena">INDÍGENA</option>
@@ -258,14 +308,6 @@ export const SigninPatientContext = (params: {
                             </div>
                         </div>
                         <div className="category_email">
-                            <div className="input-context username">
-                                <label htmlFor="username-value">Nome de usuário*</label>
-                                <input
-                                    autoComplete="off"
-                                    required
-                                    onChange={event => setValuesOfInputFile(event, 'username')}
-                                    type="text" className="input-text username-value" id="username-value" placeholder="Digite aqui" />
-                            </div>
                             <div className="input-context name">
                                 <label htmlFor="name-value">Nome completo*</label>
                                 <input
@@ -296,13 +338,19 @@ export const SigninPatientContext = (params: {
                                     onChange={event => setValuesOfInputFile(event, 'email')}
                                     type="email" className="input-text email-value" id="email-value" placeholder="Digite aqui" />
                             </div>
-                            <div className="input-context email">
+                            <div className="input-context password">
                                 <label htmlFor="password-value">Senha*</label>
-                                <input
-                                    autoComplete="off"
-                                    required
-                                    onChange={event => setValuesOfInputFile(event, 'password')}
-                                    type="password" className="input-text password-value" id="password-value" placeholder="Digite aqui" />
+                                <div className="password-context">
+                                    <input
+                                        autoComplete="off"
+                                        required
+                                        onChange={event => setValuesOfInputFile(event, 'password')}
+                                        type={hidePassword ? `password` : 'text'} className="input-text password-value" id="password-value" placeholder="Digite aqui" />
+                                    {hidePassword ? 
+                                    <FaRegEye onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />
+                                    :
+                                    <FaRegEyeSlash  onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -328,19 +376,10 @@ export const SigninPatientContext = (params: {
                                 <input
                                     required
                                     autoComplete="off"
+                                    minLength={11}
                                     value={user.phoneNumber}
                                     onChange={event => setValuesOfInputFile(event, 'phoneNumber')}
                                     type="tel" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
-                            </div>
-                        </div>
-                        <div className="owner">
-                            <div className="input-context owner-name">
-                                <label htmlFor="owner-name-value">Nome do responsável</label>
-                                <input
-                                    required
-                                    autoComplete="off"
-                                    onChange={event => setValuesOfInputFile(event, 'ownerName')}
-                                    type="text" className="input-text owner-name-value" id="phone-value" placeholder="Digite aqui" />
                             </div>
                         </div>
                         <div className="input-context cpf">
@@ -358,6 +397,16 @@ export const SigninPatientContext = (params: {
                 <div className="form-context-patient-information">
                     <div className="title">INFORMAÇÕES SOBRE O PACIENTE</div>
                     <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
+                        <div className="owner">
+                            <div className="input-context owner-name">
+                                <label htmlFor="owner-name-value">Nome do responsável</label>
+                                <input
+                                    required
+                                    autoComplete="off"
+                                    onChange={event => setValuesOfInputFile(event, 'ownerName')}
+                                    type="text" className="input-text owner-name-value" id="phone-value" placeholder="Digite aqui" />
+                            </div>
+                        </div>
                         <div className="select-context type-coagulopathy">
                             <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
                             <div className='select-input'>
@@ -437,7 +486,12 @@ export const SigninPatientContext = (params: {
                             </div>
                             <div className="select-context which">
                                 <label htmlFor="which-value">SE SIM, QUAL?</label>
-                                <div className='select-input'>
+                                <SelectDeficiencies
+                                    existentData={undefined}
+                                    deficiencies={deficiencies}
+                                    setDeficiencies={setDeficiencies}
+                                    pcd={user.pcd} />
+                                {/* <div className="select-input">
                                     <select
                                         required
                                         value={user.typeOfDisability}
@@ -457,7 +511,7 @@ export const SigninPatientContext = (params: {
                                         }
                                     </select>
                                     <RiArrowDownSFill size={25} />
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -466,7 +520,7 @@ export const SigninPatientContext = (params: {
                             <input type="checkbox" id="accept-use-my-data-value"
                                 required    
                                 className="accept-use-my-data-value" />
-                            <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={downloadThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
+                            <label className="accept-use-my-data-value-label" htmlFor="accept-use-my-data-value" onClick={openThermsAndServicesPdf}>ACEITO O USO DOS MEUS DADOS*</label>
                         </div>
                     </div>
                     <div className="save-changes">

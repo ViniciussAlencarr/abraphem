@@ -99,6 +99,22 @@ option {
                             color: #000;
                         }
                     }
+                    .password-context {
+                        width: fit-content;
+                        border: 1px solid #C00405;
+                        border-radius: 6px;
+                        padding-right: 12px;
+                        .input-text {
+                            border: none !important;
+                            text-transform: none !important;
+                        }
+                        .eye-icon {
+                            cursor: pointer;
+                            &:hover {
+                                opacity: .8;
+                            }
+                        }
+                    }
                 }
                 .category_number-of-patients_city_state {
                     position: relative;
@@ -187,6 +203,21 @@ option {
                     border: 1px solid #C00405;
                     &::placeholder {
                         color: #000;
+                    }
+                }
+                .password-context {
+                    border: 1px solid #C00405;
+                    border-radius: 6px;
+                    padding-right: 12px;
+                    .input-text {
+                        border: none !important;
+                        text-transform: none !important;
+                    }
+                    .eye-icon {
+                        cursor: pointer;
+                        &:hover {
+                            opacity: .8;
+                        }
                     }
                 }
             }
