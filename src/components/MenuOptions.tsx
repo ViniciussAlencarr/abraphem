@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-import { Button, Card, Collapse } from 'react-bootstrap';
 import { IoIosArrowDown } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -15,10 +14,6 @@ export const MenuOptions = (params: { open: boolean }) => {
 
     const navigate = useNavigate()
 
-    const activeToggle = (parentClassName: string) => {
-        let element: any = document.querySelector(`.${parentClassName} .button-context`)
-        element.classList.toggle('active')
-    }
     const logOut = () => {
         localStorage.removeItem('user_id');
         localStorage.removeItem('bearer_token');

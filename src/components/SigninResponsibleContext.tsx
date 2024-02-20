@@ -18,7 +18,6 @@ import axios from "axios"
 import acceptUsePdfData from '../../public/TERMO DE USO.docx.pdf'
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 import { SelectDeficienciesToMultiUser } from "./SelectDeficiencies";
-import { allDeficiencies } from "../utils/getAllDeficiencies";
 
 const cpfMask = (value: string) => {
     return value
@@ -51,7 +50,6 @@ export const SiginResponsibelContext = (params: {
 }) => {
     const navigate = useNavigate();
     const [_, enableDeclarationConsent] = useState(false)
-    const [deficiencies, setDeficiencies] = useState(allDeficiencies)
     const [numberPatients, setNumberPatients] = useState(1)
     const { setIsLoggedIn } = useContext(ThemeContext);
     const [user, setUser] = useState<User>({

@@ -1,6 +1,5 @@
 import { VscThreeBars } from 'react-icons/vsc';
 import { useNavigate } from 'react-router-dom';
-import { IoIosArrowForward } from 'react-icons/io';
 import { MenuOptions } from '../components/MenuOptions';
 import { useEffect, useState } from 'react';
 
