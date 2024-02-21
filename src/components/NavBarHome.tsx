@@ -101,7 +101,7 @@ export const NavBarHome = () => {
             </div>
             <div className="action-buttons">
                 <div className="download-primer-platform">
-                    <button className="download-primer-platform-btn">Baixar cartilha da plataforma</button>
+                    <a target='_blank' href='https://abraphem-pdfs.s3.amazonaws.com/CARTILHA+OUVIDORIA.pdf' className="download-primer-platform-btn no-underline cursor-pointer">Baixar cartilha da plataforma</a>
                 </div>
                 {
                     !isLoggedIn ? <div className='register'>

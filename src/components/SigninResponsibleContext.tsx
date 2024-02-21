@@ -359,13 +359,13 @@ export const SiginResponsibelContext = (params: {
                         </div>
                         <div className="input-context password">
                             <label htmlFor="password-value">Senha*</label>
-                            <div className="password-context">
+                            <div className="password-context flex items-center">
                                 <input
                                     autoComplete="off"
                                     required
                                     onChange={event => setValuesOfInputFile(event, 'password')}
                                     type={hidePassword ? `password` : 'text'} className="input-text password-value" id="password-value" placeholder="Digite aqui" />
-                                {hidePassword ? 
+                                {!hidePassword ? 
                                 <FaRegEye onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />
                                 :
                                 <FaRegEyeSlash  onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />}
@@ -622,7 +622,6 @@ export const SiginResponsibelContext = (params: {
                     </div>
                 </div>
                 <div className="save-changes">
-                    <button onClick={(event) => onSubmit(event)}  className="save-changes-btn">test</button>
                     <button type="submit" className="save-changes-btn">Cadastrar</button>
                 </div>
             </form>
