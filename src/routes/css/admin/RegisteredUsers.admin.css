@@ -90,9 +90,14 @@
                 }
                 .MuiTablePagination-actions button {
                     background: #d93c3caa;
+                    padding: 10px 15px;                        
                     color: #fff;
                     border: none;
                     border-radius: 4px;
+                    transition: ease-out .2s;
+                    &:hover {
+                        opacity: .8;
+                    }
                 }
                 .MuiTablePagination-actions button:not(:disabled) {
                     background: #D93C3C;

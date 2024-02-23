@@ -136,7 +136,7 @@ export const CompletedManifests = () => {
                                 </td>
                                 <TablePagination
                                     rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
-                                    colSpan={6}
+                                    colSpan={3}
                                     count={request.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}

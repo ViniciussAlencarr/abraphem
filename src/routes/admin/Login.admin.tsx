@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 
 import logo from '../../assets/logo-white.svg'
 import reCaptchaLogo from '../../assets/reCaptchaLogo.svg'
+import partner1 from '../../assets/patrocinador1.png'
+import partner2 from '../../assets/patrocinador02.png'
 
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/admin/media-layout.css'
@@ -117,85 +119,66 @@ export const LoginAdmin = () => {
                         <Table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th scope="col">Titulo</th>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' target='_blank' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' target='_blank' download='TERMO DE USO.docx.pdf'>Termo de Uso e Política de Privacidade</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/PERGUNTAS+E+RESPOSTA+DO+TERMO+LGPD.docx.pdf' target='_blank' download='PERGUNTAS E RESPOSTAS.docx.pdf'>Perguntas e Respostas</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' target='_blank' download='DECLARACAO DE CONSENTIMENTO.docx.pdf'>Termo de consentimento</a></td>
                                 </tr>
                             </tbody>
                         </Table>
                         <Table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Patrocinadores</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Informação</td>
-                                </tr>
-                                <tr>
-                                    <td>Informação</td>
-                                </tr>
-                                <tr>
-                                    <td>Informação</td>
-                                </tr>
-                                <tr>
-                                    <td>Informação</td>
-                                </tr>
-
-                            </tbody>
-                        </Table>
-                        <Table className="table table-borderless">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Titulo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Informação</td>
-                                </tr>
-                                <tr>
-                                    <td>Informação</td>
-                                </tr>
-                                <tr>
-                                    <td>Informação</td>
-                                </tr>
-                                <tr>
-                                    <td>Informação</td>
+                                    <td className='flex justify-center'><img className='w-[70%]' src={partner1} alt="" /></td>
                                 </tr>
                             </tbody>
                         </Table>
                         <Table className="table table-borderless">
                             <thead>
                                 <tr>
-                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Patrocinadores</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td className='flex justify-center'><img className='w-[60%]' src={partner2} alt="" /></td>
+                            </tr>
+                            </tbody>
+                        </Table>
+                        <Table className="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' target='_blank' download='REGIMENTO INTERNO.pdf'>Regimento interno</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' target='_blank' download='TERMO DE USO.docx.pdf'>Termo de Uso e Política de Privacidade</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/PERGUNTAS+E+RESPOSTA+DO+TERMO+LGPD.docx.pdf' target='_blank' download='PERGUNTAS E RESPOSTAS.docx.pdf'>Perguntas e Respostas</a></td>
                                 </tr>
                                 <tr>
-                                    <td>Informação</td>
+                                    <td><a className='link-rodape'  href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' target='_blank' download='DECLARACAO DE CONSENTIMENTO.docx.pdf'>Termo de consentimento</a></td>
                                 </tr>
                             </tbody>
                         </Table>

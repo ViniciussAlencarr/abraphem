@@ -3,6 +3,9 @@ import { NavBarScreen, NavBarHome } from '../components'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Table } from 'react-bootstrap';
 
+import partner1 from '../assets/patrocinador1.png'
+import partner2 from '../assets/patrocinador02.png'
+
 import { ThemeContext } from '../contexts/teste';
 
 import './css/Screens.css'
@@ -32,7 +35,7 @@ export const Screens = () => {
                     <Table className="table table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col">Titulo</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,50 +56,31 @@ export const Screens = () => {
                     <Table className="table table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col">Titulo</th>
+                                <th scope="col">Patrocinadores</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Informação</td>
+                                <td className='flex justify-center'><img className='w-[70%]' src={partner1} alt="" /></td>
                             </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-
                         </tbody>
                     </Table>
                     <Table className="table table-borderless">
                         <thead>
-                            <tr>
-                                <th scope="col">Titulo</th>
+                            <tr className='flex justify-center'>
+                                <th scope="col">Patrocinadores</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
-                            </tr>
-                            <tr>
-                                <td>Informação</td>
+                                <td className='flex justify-center'><img className='w-[60%]' src={partner2} alt="" /></td>
                             </tr>
                         </tbody>
                     </Table>
                     <Table className="table table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col">Titulo</th>
+                                <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
