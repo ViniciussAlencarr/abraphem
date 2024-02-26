@@ -19,6 +19,7 @@ import acceptUsePdfData from '../../../public/TERMO DE USO.docx.pdf'
 import { getFormatDate } from '../../utils/formatDateNow.utils'
 
 import { AttachmentFileInterface } from 'types/Manifest';
+import axios from 'axios';
 
 export const CreateManifest = () => {
     const [open, setOpen] = useState(false);
@@ -206,6 +207,66 @@ export const CreateManifest = () => {
         )
     }
 
+    const transcribeFileToText = async (event: any) => {
+        const initiateTranscribeService = (url: string) => {
+            const getTranscribeFile = async () => {
+                const { data } = await api.get('getTranscribeFile', { headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
+                }})
+                switch (data.status) {
+                    case 'FAILED':
+                        throw 'Ocorreu um problema ao capturar o arquivo transcrito'
+                    case 'COMPLETED':
+                        const response = await axios.get(data.url)
+                        setInputValues({ target: { value: response.data.results.transcripts[0].transcript }}, 'manifestValue')
+                        break;
+                    case 'IN_PROGRESS':
+                        await getTranscribeFile()
+                        break;
+                    default:
+                        throw 'Ocorreu um problema ao capturar o arquivo transcrito'
+                }
+                return data
+            }
+
+            const transcribeFile = async () => {
+                const { data } = await api.post('transcribeFiles', { url }, { headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
+                }})
+                await getTranscribeFile()
+                return data
+            }
+
+            toast.promise(
+                transcribeFile,
+                {
+                    pending: 'Transcrevendo o arquivo...',
+                    success: 'Arquivo transcrito com sucesso!',
+                    error: 'Ocorreu um problema ao transcrever o arquivo'
+                }
+            )
+        }
+        
+        const uploadFile = async () => {
+            const selectedFile = event.target.files[0]
+            const formData = new FormData();
+            formData.append('file', selectedFile)
+            const { data } = await api.post('uploadTranscribeFiles', formData, { headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
+            }})
+            initiateTranscribeService(data.Location)
+        }
+        
+        toast.promise(
+            uploadFile,
+            {
+                pending: 'Subindo arquivo...',
+                success: 'O arquivo subiu com sucesso!',
+                error: 'Ocorreu um problema ao subir o arquivo'
+            }
+        )
+    }
+
     return (
         <div className='request-screen-container'>
             <MenuOptions open={open} />
@@ -279,7 +340,8 @@ export const CreateManifest = () => {
                                 <button className="action-btn transcribe-text-btn">
                                     <BsMic className="icon" size={15} />
                                 </button>
-                                <label htmlFor="" className='action-label'>Transcrever texto</label>
+                                <input onChange={transcribeFileToText} style={{ display: 'none' }} type="file" name="" id="transcribe-file" />
+                                <label htmlFor="transcribe-file" className='action-label'>Transcrever texto</label>
                             </div>
                             <div className="action-button-context">
                                 <button className="action-btn attach-file-btn">
