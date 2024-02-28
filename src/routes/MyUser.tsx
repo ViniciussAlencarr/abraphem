@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { IoIosArrowForward } from "react-icons/io"
 import { VscThreeBars } from "react-icons/vsc"
 import { RiArrowDownSFill } from "react-icons/ri"
 import { ProfilePicture } from '../contexts/ProfilePicture'
 import { useNavigate } from "react-router-dom"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 import InputMask from "react-input-mask";
 
 import { MenuOptions } from "../components/MenuOptions"
@@ -27,8 +26,6 @@ import listOfBloodCenters from '../utils/getListOfBloodCenters'
 import { allDeficiencies } from "../utils/getAllDeficiencies"
 
 import acceptUsePdfData from '../../public/TERMO DE USO.docx.pdf'
-
-/* import { validateUserSession } from '../utils/validateSession.utils' */
 
 const cpfMask = (value: string) => {
     return value
@@ -71,6 +68,7 @@ export const MyUser = () => {
         state: "",
         city: "",
         gender: "",
+        cep: '',
         race: "",
         category: "",
         typeOfPhone: "",
@@ -134,7 +132,7 @@ export const MyUser = () => {
 
     const searchCepToResponsibleUser = async (event: any) => {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
-        setUser({...user, race: data.race == 'pardo' ? 'parda' : data.race, city: data?.localidade, state: data?.uf })
+        setUser({...user, city: data?.localidade, state: data?.uf, cep: event.target.value })
     }
 
     const getUserById = async () => {
@@ -153,7 +151,6 @@ export const MyUser = () => {
     const getAllPatients = async () => {
         try  {
             const { data } = await api.get(`users/get-patients/${localStorage.getItem('user_id')}`)
-            console.log(data)
             setPatients(data)
         } catch (err) {
             console.log(err)
@@ -185,7 +182,7 @@ export const MyUser = () => {
     const setValuesOfInputFile = (event: any, typeFile: string) => {
         setUser({ ...user, [typeFile]: typeFile == 'document' ? 
             cpfMask(event.target.value) :
-            typeFile == 'phoneNumber' ?
+        typeFile == 'phoneNumber' ?
         user.typeOfPhone.toLowerCase() == 'celular' ? phoneMask(event.target.value) : phoneMaskPhoneLandline(event.target.value) : event.target.value })
     }
 
@@ -223,12 +220,6 @@ export const MyUser = () => {
                 selectedOptionText
         }
         setPatients(existentPatients)
-        /* if (typeFile == 'pcd') {
-            let selectedOptionText = event.target.options[event.target.selectedIndex].text.toLowerCase()
-            setUser({ ...user, [typeFile]: selectedOptionText == 'sim' ? true : false })
-        } else {
-            setUser({ ...user, [typeFile]: event.target.options[event.target.selectedIndex].text })
-        } */
     }
 
     const openThermsAndServicesPdf = () => {
@@ -300,15 +291,7 @@ export const MyUser = () => {
                 <span className='header-info-title'>MEU USUÁRIO</span>
             </div>
             <hr />
-            <div className='navigation-context'>
-                <div className='navitation-start'>
-                    <span>Ínicio</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div className='current'>
-                    <span>Meu usuário</span>
-                </div>
-            </div>
+            
             <div className="edit-user-info">
                 
                 <div className="header">
@@ -364,9 +347,10 @@ export const MyUser = () => {
                                         <label htmlFor="cep">CEP*</label>
                                         <input
                                             autoComplete="off"
+                                            value={user.cep}
                                             className="input-text cep" id="cep"
                                             placeholder="Digite aqui"
-                                            onChange={searchCepToResponsibleUser} type="text" name="" />
+                                            onChange={event => {setValuesOfInputFile(event, 'cep'); searchCepToResponsibleUser(event)}} type="text" name="" />
                                     </div>}
                                     <div className="select-context state">
                                         <label htmlFor="state-value">Estado*</label>
@@ -739,18 +723,6 @@ export const MyUser = () => {
                                                 <div style={{ fontWeight: 600}}>{0}</div>
                                             </div>
                                         </div>}
-                                        {/* <div className='select-input'>
-                                            <select
-                                                onChange={event => setValuesOfSelectElement(event, 'typeOfDisability')}
-                                                value={user.typeOfDisability.toLowerCase()} className='which-value' name="" id="which-value">
-                                                <option selected style={{display: 'none'}}>Selecione</option>
-                                                <option value="pessoa sem deficiência">PESSOA SEM DEFICIÊNCIA</option>
-                                                <option value="pessoa com deficiência">PESSOA COM DEFICIÊNCIA</option>
-                                                <option value="deficiencia intelectual">DEFICIENCIA INTELECTUAL</option>
-                                                <option value="transtorno do espectro autismo/tdh">TRANSTORNO DO ESPECTRO AUTISMO/TDH</option>
-                                            </select>
-                                            <RiArrowDownSFill size={25} />
-                                        </div> */}
                                     </div>
                                 </div>
                                 <div className="accept-use-data">
@@ -772,7 +744,6 @@ export const MyUser = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     )
 }

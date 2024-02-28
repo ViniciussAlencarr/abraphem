@@ -31,23 +31,6 @@ export const ReplyScreenSent = () => {
                 <span className='header-info-title'>MANIFESTAÇÃO ENVIADA COM SUCESSO</span>
             </div>
             <hr />
-            {/* <div id='reply-response-container' className='navigation-context'>
-                <div className='navitation-start'>
-                    <span>Ínicio</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div>
-                    <span>Descrição</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div>
-                    <span>Revisão</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div className='current'>
-                    <span>Manifestação enviada</span>
-                </div>
-            </div> */}
             <div className='reply-response-container'>
                 <div className="reply-response">
                     <div className="title">
@@ -65,6 +48,9 @@ export const ReplyScreenSent = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='flex justify-center mb-[50px]'>
+                <div className='w-[50%] text-center uppercase font-semibold'>Menores de 18 anos em observancia LGPD a autorização é especifica e será enviada para o email informado no cadastro para a autorização dos responsaveis. <a target='_blank' className='text-black hover:opacity-60' href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf'>Termo de consentimento</a></div>
             </div>
             <div className="action-buttons">
                 <button className="new-request" onClick={() => navigate('/manifest/new')}>

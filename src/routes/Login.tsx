@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import api from '../services/api'
 
@@ -52,6 +52,7 @@ export const Login = () => {
                         position: "top-right",
                         autoClose: false,
                         hideProgressBar: false,
+                        toastId: 'create-manifest-required',
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
@@ -60,6 +61,19 @@ export const Login = () => {
                     });
                 } else if (search.includes('myUser')) {
                     toast.warn('Crie uma conta ou faça login acessar os seus dados.', {
+                        position: "top-right",
+                        autoClose: false,
+                        toastId: 'myuser-login-required',
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                } else if (search.includes('seeManifests')) {
+                    toast.warn('Crie uma conta ou faça login acessar suas manifestações.', {
+                        toastId: 'manifest-login-required',
                         position: "top-right",
                         autoClose: false,
                         hideProgressBar: false,
@@ -151,7 +165,6 @@ export const Login = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     )
 }

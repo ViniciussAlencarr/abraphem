@@ -40,6 +40,7 @@ export const SeeProgressManifestComponent = (params: {
         typeOfPhone: "",
         phoneNumber: "",
         ownerName: "",
+        cep: '',
         typeOfCoagulopathy: "",
         severityOfCoagulopathy: "",
         callCenterLocation: "",

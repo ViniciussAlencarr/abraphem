@@ -1,8 +1,6 @@
 .option-menu {
     z-index: 1000;
     position: absolute;
-    /* top: 23.3%;
-    height: 76.7%; */
     top: 22%;
     height: 78%;
     left: 0;
@@ -75,10 +73,6 @@
                     .redirect-links {
                         background: rgba(217, 126, 126, 0.50);
                         padding: 5px 45px;
-                        /* &.show {
-                            display: grid;
-                            gap: 10px;
-                        } */
                         .links-btns {
                             display: grid;
                             gap: 5px;

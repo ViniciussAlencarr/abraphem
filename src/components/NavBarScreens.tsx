@@ -1,4 +1,3 @@
-import { NavDropdown } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 
@@ -13,24 +12,20 @@ import { ThemeContext } from '../contexts/teste'
 
 import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
-import { IoIosArrowDown } from 'react-icons/io'
+import { MdOutlineKeyboardArrowDown, MdArrowDropDown } from 'react-icons/md'
 
 export const NavBarScreen = () => {
     const [username, setUsername] = useState('');
     const [userImg, setUserImg] = useState(defaultProfile)
     const [searchForOpen, setSearchForOpen] = useState(false);
 
-    const [userTab, setUserTab] = useState(false)
-    const [faqTab, setFaqTab] = useState(false)
-    const [manifestsTab, setManifestsTab] = useState(false)
-    const [aboutUs, setAboutUs] = useState(false)
-    const [docsTab, setDocsTab] = useState(false)
+    const [openOptions, setOpenOptions] = useState(false)
     
     const navigate = useNavigate()
     const { isLoggedIn, setIsLoggedIn } = useContext(ThemeContext);
     
     const logOut = () => {
+        setOpenOptions(!openOptions)
         setIsLoggedIn(false);
         localStorage.removeItem('user_id');
         localStorage.removeItem('bearer_token');
@@ -71,65 +66,52 @@ export const NavBarScreen = () => {
             <div className='search-content relative' onMouseEnter={() => setSearchForOpen(true)}>
                 <input className='search-field' type="text" readOnly placeholder='O que você procura?' />
                 <MdOutlineKeyboardArrowDown className="search-icon" size={20} />
-                {searchForOpen && <div onMouseLeave={() => setSearchForOpen(false)} className='bg-white border-[2px] border-[red] flex z-50 justify-center w-full left-0 absolute top-10'>
-                    <div className='min-w-[400px] flex justify-around p-3 gap-3'>
-                        <div className='grid gap-2'>
-                            <div className='relative grid gap-2 items-center cursor-pointer '>
-                                <div onClick={() => setUserTab(!userTab)}  className='flex gap-2 items-center hover:opacity-75'>
-                                    <div>Usuário</div>
-                                    <div><IoIosArrowDown  /></div>
+                <div>
+                {searchForOpen && <div onMouseLeave={() => setSearchForOpen(false)} className='bg-white border-[2px] border-[red] flex z-50 justify-center w-full left-0 absolute top-[40px] sm:top-40 md:top-12 lg:top-10 xl:top-10'>
+                        <div className='grid sm:flex lg:grid xl:flex p-3  lg:!gap-5 xl:!gap-5 w-max'>
+                            <div className='grid gap-1'>
+                                <div className=''>
+                                    <div className='uppercase text-[red] text-[12px] lg:text-[16px]'>Usuário</div>
+                                    <ul className='w-full'>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]' onClick={() => navigate('/signin')}>Criar usuário</span></li>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]' onClick={() => navigate('/account/user')}>Alterar seus dados</span></li>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]' onClick={() => navigate('/login')}>Fazer login</span></li>
+                                    </ul>
                                 </div>
-                                {userTab && <div onMouseLeave={() => setUserTab(!userTab)} className='absolute top-[30px] bg-white z-50 border border-black p-2 grid gap-2'>
-                                    <div onClick={() => navigate('/signin')} className='hover:opacity-75 hover:underline'>Criar usuário</div>
-                                    <div onClick={() => navigate('/account/user')}  className='hover:opacity-75 hover:underline'>Alterar seus dados</div>
-                                    <div onClick={() => navigate('/login')} className='hover:opacity-75 hover:underline'>Fazer login</div>
-                                </div>}
+                                <div>
+                                    <div className='uppercase text-[red] text-[12px] lg:text-[16px]'>Manifestações</div>
+                                    <ul className='w-full'>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]' onClick={() => navigate('/manifest/new')}>Criar manifestação</span></li>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]' onClick={() => navigate('/manifests')}>Ver manifestações</span></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div className='relative grid gap-2 items-center cursor-pointer '>
-                                <div onClick={() => setManifestsTab(!manifestsTab)}  className='flex gap-2 items-center hover:opacity-75'>
-                                    <div>Manifestações</div>
-                                    <div><IoIosArrowDown  /></div>
+                            <div className='grid gap-1'>
+                                <div>
+                                    <div className='uppercase text-[red] text-[12px] lg:text-[16px]'>Sobre a plataforma</div>
+                                    <ul className='w-full'>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]'>Sobre nós</span></li>
+                                    </ul>
                                 </div>
-                                {manifestsTab && <div onMouseLeave={() => setManifestsTab(!manifestsTab)} className='absolute top-[30px] bg-white z-50 border border-black p-2 grid gap-2'>
-                                    <div onClick={() => navigate('/manifest/new')} className='hover:opacity-75 hover:underline'>Criar manifestação</div>
-                                    <div onClick={() => navigate('/manifests')} className='hover:opacity-75 hover:underline'>Ver manifestações</div>
-                                </div>}
-                            </div>
-                            <div className='relative grid gap-2 items-center cursor-pointer '>
-                                <div onClick={() => setAboutUs(!aboutUs)}  className='flex gap-2 items-center hover:opacity-75'>
-                                    <div>Sobre a plataforma</div>
-                                    <div><IoIosArrowDown  /></div>
+                                <div>
+                                    <div className='uppercase text-[red] text-[12px] lg:text-[16px]'>Fale conosco</div>
+                                    <ul className='w-full'>
+                                        <li className='cursor-pointer'>- <span className='hover:underline text-[12px] lg:text-[16px]' onClick={() => navigate('/faq')}>Perguntas frequentes</span></li>
+                                    </ul>
                                 </div>
-                                {aboutUs && <div onMouseLeave={() => setAboutUs(!aboutUs)} className='absolute top-[30px] bg-white z-50 border border-black p-2 grid gap-2'>
-                                    <div className='hover:opacity-75 hover:underline'>Sobre nós</div>
-                                </div>}
-                            </div>
-                        </div>
-                        <div className='grid gap-2'>
-                            <div className='relative grid gap-2 items-center cursor-pointer '>
-                                <div onClick={() => setFaqTab(!faqTab)}  className='flex gap-2 items-center hover:opacity-75'>
-                                    <div>Fale conosco</div>
-                                    <div><IoIosArrowDown  /></div>
+                                <div>
+                                    <div className='uppercase text-[red] text-[12px] lg:text-[16px]'>Documentos relevantes</div>
+                                    <ul className='w-full'>
+                                        <li className='cursor-pointer'>- <a href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' target='_blank'  className='text-[12px] lg:text-[16px] hover:underline no-underline text-black'>PDF Regimento Interno</a></li>
+                                        <li className='cursor-pointer'>- <a href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' target='_blank'  className='text-[12px] lg:text-[16px] hover:underline no-underline text-black'>PDF Termo de Uso</a></li>
+                                        <li className='cursor-pointer'>- <a href='https://abraphem-pdfs.s3.amazonaws.com/PERGUNTAS+E+RESPOSTA+DO+TERMO+LGPD.docx.pdf' target='_blank'  className='text-[12px] lg:text-[16px] hover:underline no-underline text-black'>PDF Pergutas e Respostas</a></li>
+                                        <li className='cursor-pointer'>- <a href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' target='_blank'  className='text-[12px] lg:text-[16px] hover:underline no-underline text-black'>PDF Termo de consentimento</a></li>
+                                    </ul>
                                 </div>
-                                {faqTab && <div onMouseLeave={() => setFaqTab(!faqTab)} className='absolute top-[30px] bg-white z-50 border border-black p-2 grid gap-2'>
-                                    <div onClick={() => navigate('/faq')} className='hover:opacity-75 hover:underline'>Perguntas frequentes</div>
-                                </div>}
-                            </div>
-                            <div className='relative grid gap-2 items-center cursor-pointer '>
-                                <div onClick={() => setDocsTab(!docsTab)}  className='flex gap-2 items-center hover:opacity-75'>
-                                    <div>Documentos relevantes</div>
-                                    <div><IoIosArrowDown  /></div>
-                                </div>
-                                {docsTab && <div onMouseLeave={() => setDocsTab(!docsTab)} className='absolute top-[30px] bg-white z-50 border border-black p-2 grid gap-2'>
-                                    <a href='https://abraphem-pdfs.s3.amazonaws.com/REGIMENTO+INTERNO.pdf' target='_blank'  className='hover:opacity-75 hover:underline no-underline text-black'>PDF Regimento Interno</a>
-                                    <a href='https://abraphem-pdfs.s3.amazonaws.com/TERMO+DE+USO.docx.pdf' target='_blank'  className='hover:opacity-75 hover:underline no-underline text-black'>PDF Termo de Uso</a>
-                                    <a href='https://abraphem-pdfs.s3.amazonaws.com/PERGUNTAS+E+RESPOSTA+DO+TERMO+LGPD.docx.pdf' target='_blank'  className='hover:opacity-75 hover:underline no-underline text-black'>PDF Pergutas e Respostas</a>
-                                    <a href='https://abraphem-pdfs.s3.amazonaws.com/DECLARA%C3%87%C3%83O+DE+CONSENTIMENTO.docx.pdf' target='_blank'  className='hover:opacity-75 hover:underline no-underline text-black'>PDF Termo de consentimento</a>
-                                </div>}
                             </div>
                         </div>
-                    </div>
-                </div>}
+                    </div>}
+                </div>
             </div>
             <div className="redirect-links">
                 <div className="new-request-redirect">
@@ -146,15 +128,18 @@ export const NavBarScreen = () => {
                         <button>Entre ou cadastre-se</button>
                     </Link>
                 </div>
-                :  <div className='options-container'>
-                    <div className='options'>
-                        <img className='profile-picture' src={userImg} alt="" />
-                        <NavDropdown title={username} id="basic-nav-dropdown" style={{fontSize: '12px'}}>
-                            <NavDropdown.Item href="/account/user">Meu usuário</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>
-                        </NavDropdown>
+                :  <div className='options-container relative flex justify-center'>
+                    <div onClick={() => setOpenOptions(!openOptions)} className='bg-[#FF0000] w-fit flex items-center gap-2 p-2 rounded-lg cursor-pointer'>
+                        <div><img className='w-[40px] h-[40px] rounded-full' src={userImg} alt="" /></div>
+                        <div className='flex gap-1 items-center'>
+                        <div className='uppercase text-white text-[12px] sm:text-[14px] lg:text-[14px]'>{username}</div>
+                        <div><MdArrowDropDown className='text-white text-[25px] sm:text-[30px] lg:text-[30px]' /></div>
+                        </div>
                     </div>
+                    {openOptions && <div className='absolute top-[60px] grid gap-1 border-[2px] rounded-md bg-white z-30  border-[red]'>
+                        <Link onClick={() => setOpenOptions(!openOptions)} to={'/account/user'} className='px-3 py-2 border-b-[2px] border-b-[red] no-underline text-black hover:underline cursor-pointer'>Meu usuário</Link>
+                        <Link onClick={logOut} to={''} className='no-underline px-3 py-2 text-black hover:underline cursor-pointer'>Sair</Link>
+                    </div>}
                 </div>
             }
         </div>

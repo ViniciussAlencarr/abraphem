@@ -59,6 +59,7 @@ export const SiginResponsibelContext = (params: {
         fullName: "",
         dateOfBirth: "",
         state: "",
+        cep: '',
         city: "",
         gender: "",
         race: "",
@@ -84,6 +85,7 @@ export const SiginResponsibelContext = (params: {
         username: "Perfil",
         fullName: "",
         dateOfBirth: "",
+        cep: '',
         state: "",
         city: "",
         gender: "",
@@ -160,6 +162,7 @@ export const SiginResponsibelContext = (params: {
                 state: "",
                 city: "",
                 gender: "",
+                cep: '',
                 race: "",
                 category: "paciente",
                 typeOfPhone: "",
@@ -244,7 +247,7 @@ export const SiginResponsibelContext = (params: {
 
     const searchCepToResponsibleUser = async (event: any) => {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
-        setUser({...user, city: data?.localidade, state: data?.uf })
+        setUser({...user, cep: event.target.value, city: data?.localidade, state: data?.uf })
     }
 
     const openThermsAndServicesPdf = () => {
@@ -369,6 +372,21 @@ export const SiginResponsibelContext = (params: {
                                 <FaRegEye onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />
                                 :
                                 <FaRegEyeSlash  onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />}
+                            </div>
+                        </div>
+                        <div className="select-context gender">
+                            <label htmlFor="gender-value">Sexo*</label>
+                            <div className='select-input'>
+                                <select
+                                    required
+                                    onChange={event => setValuesOfSelectElement(event, 'gender')}
+                                    className='gender-value' name="" id="gender-value">
+                                    <option selected style={{display: 'none'}}>Selecione</option>
+                                    <option value="feminino">FEMININO</option>
+                                    <option value="masculino">MASCULINO</option>
+                                    <option value="não me identifico">NÃO ME IDENTIFICO</option>
+                                </select>
+                                <RiArrowDownSFill size={25} />
                             </div>
                         </div>
                     </div>
@@ -574,27 +592,6 @@ export const SiginResponsibelContext = (params: {
                                             patient={patient}
                                             index={index}
                                             pcd={patient.pcd} />
-                                        {/* <div className='select-input'>
-                                            <select
-                                                required
-                                                value={patient.typeOfDisability.toLowerCase()}
-                                                onChange={event => setValuesOfSelectElementPatient(event, 'typeOfDisability', index)}
-                                                className='which-value' name="" id="which-value">
-                                                    <option selected style={{display: 'none'}}>Selecione</option>
-                                                    {
-                                                        patient.pcd ? <>
-                                                        <option value='artropatia de membros superiores'>Artropatia de membros superiores</option>
-                                                        <option value='artropatia de membros inferiores'>Artropatia de membros inferiores</option>
-                                                        <option value='artropatia de membros inferiores e superiores'>Artropatia de membros inferiores e superiores</option>
-                                                        <option value='deficiência intelectual'>Deficiência intelectual</option>
-                                                        <option value='transtorno de espectro autista -tea'>Transtorno de Espectro Autista -TEA</option>
-                                                        <option value='transtorno de déficit de atenção e hiperatividade - tdah'>Transtorno de Déficit de Atenção e Hiperatividade - TDAH</option>
-                                                        </>
-                                                        : <option>PESSOA SEM DEFICIÊNCIA</option>
-                                                    }
-                                            </select>
-                                            <RiArrowDownSFill size={25} />
-                                        </div> */}
                                     </div>
                                     <div className="input-context date-birth">
                                         <label htmlFor="date-birth-value">Data de nascimento</label>

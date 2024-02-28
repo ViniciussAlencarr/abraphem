@@ -1,5 +1,5 @@
+import { useNavigate } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc'
-import { IoIosArrowForward } from 'react-icons/io'
 import { useEffect, useState } from 'react'
 import { MenuOptions } from '../../components/MenuOptions'
 import TablePagination from '@mui/base/TablePagination';
@@ -19,7 +19,9 @@ import { ColorRing } from 'react-loader-spinner';
 
 import { AttachmentsModal } from '../../components/AttatchmentsModal'
 
-export const Manifests = () => {/* TODO: inserir tipo correto */
+export const Manifests = () => {
+    const navigate = useNavigate();
+    
     const [request, setRequest] = useState<ManifestRequest[]>([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(3);
@@ -70,6 +72,7 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
     })
 
     useEffect(() => {
+        if (!localStorage.getItem('bearer_token')) navigate('/login?loginRequired=true&action=seeManifests')
         getManifests()
     }, [])
 
@@ -133,15 +136,6 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                         <span className='header-info-title'>MINHAS MANIFESTAÇÕES</span>
                     </div>
                     <hr />
-                    <div className='navigation-context'>
-                        <div className='navigation-start'>
-                            <span>Ínicio</span>
-                            <IoIosArrowForward style={{ opacity: '.2'}} />
-                        </div>
-                        <div className='current'>
-                            <span>Minhas manifestações</span>
-                        </div>
-                    </div>
                     <div className="manifests-table-content">
                         <div className="title">
                             Todas as manifestações
@@ -189,29 +183,34 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                                             }
                                             )
                                         : <tr className='table-content'>
-                                            <td colSpan={4}>
-                                                <ColorRing
-                                                    visible={true}
-                                                    height="40"
-                                                    width="40"
-                                                    ariaLabel="blocks-loading"
-                                                    wrapperStyle={{}}
-                                                    wrapperClass="blocks-wrapper"
-                                                    colors={['#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d']}
-                                                />
-                                                Procurando novas manifestações...
+                                            <td colSpan={6}>
+                                                <div className='flex justify-center items-center'>
+                                                    <div>
+                                                        <ColorRing
+                                                            visible={true}
+                                                            height="40"
+                                                            width="40"
+                                                            ariaLabel="blocks-loading"
+                                                            wrapperStyle={{}}
+                                                            wrapperClass="blocks-wrapper"
+                                                            colors={['#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d']}
+                                                        />
+                                                    </div>
+                                                    <div>Procurando novas manifestações...</div>
+                                                </div>
                                             </td>
                                         </tr>
                                     }
                                     {emptyRows > 0 && (
                                         <tr style={{ height: 34 * emptyRows }}>
-                                        <td colSpan={3} />
+                                            <td colSpan={3} />
                                         </tr>
                                     )}    
                                 </tbody>
                                 <tfoot className='table-footer'>
+                                    {request.length != 0 ? 
                                     <tr>
-                                        <td className='pagination-info'>
+                                        <td className='pagination-info'  colSpan={1}>
                                             Exibindo <b>{rowsPerPage}</b> de <b>{request.length}</b> | Página {page}
                                         </td>
                                         <TablePagination
@@ -233,6 +232,29 @@ export const Manifests = () => {/* TODO: inserir tipo correto */
                                             onRowsPerPageChange={handleChangeRowsPerPage}
                                         />
                                     </tr>
+                                    : <tr>
+                                        <td className='pagination-info'  colSpan={2}>
+                                            Exibindo <b>{rowsPerPage}</b> de <b>{request.length}</b> | Página {page}
+                                        </td>
+                                        <TablePagination
+                                        colSpan={1}
+                                            rowsPerPageOptions={[request.length, { label: "Todos", value: request.length }]}
+                                            count={request.length}
+                                            rowsPerPage={rowsPerPage}
+                                            page={page}
+                                            slotProps={{
+                                                select: {
+                                                "aria-label": "rows per page"
+                                                },
+                                                actions: {
+                                                showFirstButton: false,
+                                                showLastButton: false
+                                                }
+                                            }}
+                                            onPageChange={handleChangePage}
+                                            onRowsPerPageChange={handleChangeRowsPerPage}
+                                        />
+                                    </tr>}
                                 </tfoot>
                             </table>
                         </div> 

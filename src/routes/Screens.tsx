@@ -10,8 +10,6 @@ import { ThemeContext } from '../contexts/teste';
 
 import './css/Screens.css'
 
-/* import { validateUserSession } from '../utils/validateSession.utils' */
-
 export const Screens = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const location = useLocation();

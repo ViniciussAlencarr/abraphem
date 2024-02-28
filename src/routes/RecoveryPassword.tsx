@@ -1,27 +1,49 @@
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
 
 import api from "../services/api"
 
 import './css/RecoveryPassword.css'
 import './css/media-layout.css'
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 
 export const RecoveryPassword = () => {
+    const { search } = useLocation()
     const [email, setEmail] = useState('')
-    const [token, setToken] = useState('')
+    const [tokenIsValid, setTokenIsValid] = useState(false)
+    const [emailSended, setEmailSended] = useState(false)
+    const [hidePassword, setHidePassword] = useState(true)
+    const [hideConfirmPassword, setHideConfirmPassword] = useState(true)
+    
     const [newPassword, setNewPassword] = useState('')
     const [repeatNewPassword, setRepeatNewPassword] = useState('')
-    const [tokenState, setTokenState] = useState(false)
-    const [enableRecoveryPassword, setEnableRecoveryPassword] = useState(false)
     const [userId, setUserId] = useState('')
 
     const navigate = useNavigate()
 
+
+    const decodeQueryParameters = async () => {
+        try {
+            const { data } = await api.post('decodeUrlString', { url: search.slice(1) })
+            let user_id = data.url.split('userId')[1]?.slice(1)
+            let token = data.url.split('token')[1]?.slice(1)
+            if (token) await validateToken(token)
+            user_id = user_id ? user_id.split('email')[0] : undefined
+            if (user_id) setUserId(user_id.substring(0, user_id.length - 1))
+        } catch (err) {
+            console.log(err)
+            
+        }
+    }
+
+    useEffect(() => {
+        decodeQueryParameters()
+    }, [])
+
     const searchUserByEmail = async () => {
         try {
-            const { data } = await api.get(`/user-by-email/${email}`)
-            setUserId(data[0].id)
+            return await api.get(`/user-by-email/${email}`)
         } catch (err) {
             toast.error(`O usuário com o email '${email}' não existe.`)
             throw err
@@ -30,8 +52,9 @@ export const RecoveryPassword = () => {
     const onSubmit = (event: any) => {
         event.preventDefault()
         const sendEmail = async () => {
-            await searchUserByEmail()
+            const { data } = await searchUserByEmail()
             await api.post('/recoveryPassword', {
+                userId: data[0].id,
                 from: 'Acme <onboarding@resend.dev>',
                 to: [email],
                 subject: 'Hello World',
@@ -44,7 +67,7 @@ export const RecoveryPassword = () => {
                 pending: 'Enviando e-mail...',
                 success: {
                     render() {
-                        setTokenState(true)
+                        setEmailSended(true)
                         return 'E-mail enviado com sucesso!'
                     }
                 },
@@ -52,28 +75,29 @@ export const RecoveryPassword = () => {
             }
         )
     }
-    const validateToken = (event: any) => {
-        event.preventDefault()
-        const validate = async () => {
+    const validateToken = async (token: string) => {
+        try {
             await api.post('/health', { token })
+            setTokenIsValid(true)
+        } catch (err: any) {
+            setTokenIsValid(false)
+            toast.error('Ocorreu um problema com o link ou o link expirou. Tente novamente', {
+                toastId: 'token-validation-id',
+                position: "top-right",
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            navigate('/recovery-password')
         }
-        toast.promise(
-            validate,
-            {
-                pending: 'Validando o token...',
-                success: {
-                    render() {
-                        setEnableRecoveryPassword(true)
-                        return 'O seu token é valido!'
-                    }
-                },
-                error: 'O token expirou ou não é válido, tente novamente.'
-            }
-        )
     }
 
     const comparePassword = () => {
-        if (newPassword != repeatNewPassword) throw toast.error('As senhas não coincidem.')
+        if (newPassword != repeatNewPassword) throw toast.error('As senhas não conferem.')
     }
     const updatePassword = (event: any) => {
         event.preventDefault()
@@ -96,62 +120,64 @@ export const RecoveryPassword = () => {
         )
     }
     return (
-        <div className="recovery-password-container">
-            <div className="title">Recuperação de senha</div>
-            <div className="recovery-password-context">
-                {
-                    !enableRecoveryPassword ? <>
-                        {
-                            tokenState ? <form className="form-data" onSubmit={validateToken}>
-                                <div className="input-context token-value">
-                                    <label htmlFor="token-value">Token</label>
-                                    <input
-                                        required
-                                        value={token}
-                                        onChange={event => setToken(event.target.value)}
-                                    type="text" className="input-text email-value" id="token-value" placeholder="Insira o token aqui" />
-
-                                </div>
-                                <button type="submit" className="submit-button">Validar</button>
-                            </form>
-                            : <form className="form-data" onSubmit={onSubmit}>
-                                <div className="message-info">
-                                    Para recuperar a sua senha, informe seu endereço de e-mail cadastrado que nós enviaremos um token que será ultilizado para realizar a alteração da sua senha.
-                                </div>
-                                <div className="input-context date-birth">
-                                    <label htmlFor="email-value">Email</label>
-                                    <input
-                                        required
-                                        value={email}
-                                        onChange={event => setEmail(event.target.value)}
-                                        type="email" className="input-text email-value" id="email-value" placeholder="Digite aqui" />
-                                </div>
-                                <button type="submit" className="submit-button">Enviar e-mail</button>
-                            </form>
-                        }
-                    </>: 
-                    <form className="form-data" onSubmit={updatePassword}>
-                        <div className="input-context new-password">
-                            <label htmlFor="new-password-value">Nova senha*</label>
+        <div className="border-t-[2px] grid justify-center py-10 ">
+            <div className="text-[16px] lg:text-[20px] font-medium uppercase text-center">Recuperação de senha</div>
+            {!tokenIsValid && !emailSended && <div>
+                <div className="flex justify-center">
+                    <div className="text-center w-[80%] sm:w-[50%] lg:w-[50%] text-[14px] lg:text-[16px]">
+                        Para recuperar a sua senha, informe seu endereço de e-mail cadastrado que nós enviaremos um link onde você poderá alterar a sua senha.
+                    </div>
+                </div>
+                <div className="grid justify-center">
+                    <form onSubmit={onSubmit} className="grid gap-4">
+                        <div className="grid gap-1">
+                            <label className="uppercase font-semibold" htmlFor="email-value">Email</label>
+                            <input
+                            value={email}
+                            onChange={event => setEmail(event.target.value)}
+                            required type="email" name="" id="" placeholder="Digite aqui" className="text-[14px] placeholder:uppercase placeholder:text-black py-[6px] px-[16px] text-black border-[1px] border-[red] rounded" />
+                        </div>
+                        <div className="flex justify-center"><button className="bg-[#C00405] uppercase font-medium text-white p-1 px-4 rounded-lg text-[14px] lg:text-[16px] hover:opacity-70" type="submit">Enviar e-mail</button></div>
+                    </form>
+                </div>
+            </div>}
+            {emailSended && <div className="">
+                <div className="font-bold uppercase">O link foi enviado para o email com sucesso!</div>
+                <div className="text-[red] text-center">Você pode fechar essa janela  agora</div>
+            </div>}
+            {tokenIsValid && <div>
+                <form className="grid gap-3" onSubmit={updatePassword}>
+                    <div className="grid gap-1">
+                        <label className="uppercase font-semibold" htmlFor="new-password-value">Nova senha*</label>
+                        <div className="flex gap-1 justify-between items-center border-[1px] py-[6px] px-[16px] border-[#C00405] rounded">
                             <input
                                 required
                                 value={newPassword}
                                 onChange={event => setNewPassword(event.target.value)}
-                                type="password" className="input-text email-value" id="new-password-value" />
+                                type={hidePassword ? `password` : 'text'} className="border-none w-full outline-none placeholder:text-black placeholder:uppercase" id="new-password-value" placeholder="Digite aqui" />
+                            {!hidePassword ? 
+                                <FaRegEye onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />
+                                :
+                                <FaRegEyeSlash  onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />}
                         </div>
-                        <div className="input-context repeat-new-password">
-                            <label htmlFor="repeat-new-password">Confime a nova senha*</label>
+                    </div>
+                    <div className="grid gap-1">
+                        <label className="uppercase font-semibold" htmlFor="repeat-new-password">Nova senha*</label>
+                        <div className="flex gap-1 justify-between items-center border-[1px] py-[6px] px-[16px] border-[#C00405] rounded">
                             <input
                                 required
                                 value={repeatNewPassword}
                                 onChange={event => setRepeatNewPassword(event.target.value)}
-                                type="password" className="input-text email-value" id="repeat-new-password" />
+                                type={hideConfirmPassword ? `password` : 'text'} className="border-none w-full outline-none placeholder:text-black placeholder:uppercase" id="repeat-new-password" placeholder="Digite aqui"  />
+                            {!hideConfirmPassword ? 
+                                <FaRegEye onClick={() => setHideConfirmPassword(!hideConfirmPassword)} size={20} className="eye-icon" />
+                                :
+                                <FaRegEyeSlash  onClick={() => setHideConfirmPassword(!hideConfirmPassword)} size={20} className="eye-icon" />}
                         </div>
-                        <button type="submit" className="submit-button">Alterar</button>
-                    </form>
-                    
-                }
-            </div>
+                    </div>
+                    <button type="submit" className="bg-[#C00405] uppercase font-medium text-white p-1 px-4 rounded-lg text-[14px] lg:text-[16px] hover:opacity-70">Alterar</button>
+                </form>
+            </div>}
         </div>
     )
 }

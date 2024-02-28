@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
-import { IoIosArrowForward } from "react-icons/io"
 import { VscThreeBars } from "react-icons/vsc"
-import { ToastContainer, toast } from "react-toastify"
+import { toast } from "react-toastify"
 
 import { ManifestRequest } from '../types/Manifest'
 import { ServiceEvaluation } from '../types/Service'
@@ -10,7 +9,6 @@ import { ServiceEvaluation } from '../types/Service'
 import api from '../services/api'
 
 import './css/ManifestDetails.css'
-/* import '../routes/css/media-layout.css' */
 
 import arrowIcon from '../assets/fa-solid_check.svg'
 
@@ -165,19 +163,7 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                 <span className='header-info-title'>MINHAS MANIFESTAÇÕES</span>
             </div>
             <hr />
-            <div className='navigation-context'>
-                <div className='navigation-start'>
-                    <span>Ínicio</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div className='navigation-start'>
-                    <span>Minhas manifestações</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div className='current'>
-                    <span>Manifestação {params.manifest.protocol.value}</span>
-                </div>
-            </div>
+           
             <MenuOptions open={openOptionsModal} />
             {
                 params.open ? <>
@@ -347,7 +333,6 @@ export const ManifestDetails = (params: { manifest: ManifestRequest, open: boole
                 </>
                 : <></>
             }
-            <ToastContainer />
         </div>
     )
 }

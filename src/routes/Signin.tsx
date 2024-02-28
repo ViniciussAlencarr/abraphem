@@ -1,7 +1,5 @@
-import { IoIosArrowForward } from 'react-icons/io'
 import { VscThreeBars } from 'react-icons/vsc'
 import { useEffect, useState } from 'react';
-import { ToastContainer } from 'react-toastify';
 
 import './css/Signin.css'
 import './css/media-layout.css'
@@ -29,16 +27,6 @@ export const Signin = () => {
                 <span className='header-info-title'>Cadastro usuário</span>
             </div>
             <hr />
-            <div className='navigation-context'>
-                <div className='navigation-start'>
-                    <span>Ínicio</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div className='navigation-start'>
-                    <span className='current'>Cadastro usuário</span>
-                </div>
-            </div>
-            
             <div className="signin-content">
                 <div className='mandatory-info'>
                     OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO
@@ -60,7 +48,6 @@ export const Signin = () => {
                     />
                 }
             </div>
-            <ToastContainer />
         </div>
     )
 }

@@ -65,9 +65,10 @@ export const SigninPatientContext = (params: {
         dateOfBirth: "",
         state: "",
         city: "",
+        cep: '',
         gender: "",
         race: "",
-        category: params.category,
+        category: 'paciente',
         typeOfPhone: "",
         phoneNumber: "",
         ownerName: "",
@@ -87,8 +88,7 @@ export const SigninPatientContext = (params: {
     const [deficiencies, setDeficiencies] = useState(allDeficiencies)
 
     useEffect(() => {
-        console.log(params.category)
-        params.setCategory(params.category)
+        params.setCategory('paciente')
         if (navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
         || navigator.userAgent.match(/iPhone/i)
@@ -142,6 +142,7 @@ export const SigninPatientContext = (params: {
     const onSubmit = async (event: any) => {
         event.preventDefault()
         user.typeOfDisability = deficiencies.filter(deficiency => deficiency.checked).map(deficiency => deficiency.text).toString()
+        user.username = user.fullName
         validatePhoneNumber()
         validateCpfValue()
         const sendSignin = async () => {
@@ -179,7 +180,7 @@ export const SigninPatientContext = (params: {
 
     const searchCep = async (event: any) => {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
-        setUser({...user, city: data?.localidade, state: data?.uf })
+        setUser({...user, cep: event.target.value, city: data?.localidade, state: data?.uf })
     }
 
     const openThermsAndServicesPdf = () => {
@@ -316,20 +317,6 @@ export const SigninPatientContext = (params: {
                                     onChange={event => setValuesOfInputFile(event, 'fullName')}
                                     type="text" className="input-text name-value" id="name-value" placeholder="Digite aqui" />
                             </div>
-                            {/* <div className="select-context category">
-                                <label htmlFor="category">Em que categoria você se encaixa?*</label>
-                                <div className='select-input'>
-                                    <select
-                                        onChange={event => {params.setPatientType(false); setValuesOfSelectElement(event, 'category')}}
-                                        className='category' name="" id="category">
-                                        <option value="paciente" selected>PACIENTE</option>
-                                        <option value="cuidador / responsável">CUIDADOR / RESPONSÁVEL</option>
-                                        <option value="profissional da saúde / acadêmicos">PROFISSIONAL DA SAÚDE / ACADÊMICOS</option>
-                                        <option value="outros">OUTROS</option>
-                                    </select>
-                                    <RiArrowDownSFill size={25} />
-                                </div>
-                            </div> */}
                             <div className="input-context email">
                                 <label htmlFor="email-value">Email*</label>
                                 <input
@@ -401,7 +388,7 @@ export const SigninPatientContext = (params: {
                             <div className="input-context owner-name">
                                 <label htmlFor="owner-name-value">Nome do responsável</label>
                                 <input
-                                    required
+                                    
                                     autoComplete="off"
                                     onChange={event => setValuesOfInputFile(event, 'ownerName')}
                                     type="text" className="input-text owner-name-value" id="phone-value" placeholder="Digite aqui" />
@@ -455,16 +442,9 @@ export const SigninPatientContext = (params: {
                                             {location}
                                         </option>)
                                     }
-                                    {/* <option value="1">ACRE (RIO GRANDE)</option>
-                                    <option value="2">ALAGOAS (MACEIO)</option>
-                                    <option value="3">AMAPÁ</option>
-                                    <option value="4">NÃO DIAGNOSTICADO</option> */}
                                 </select>
                                 <RiArrowDownSFill size={25} />
                             </div>
-                            {/* <input
-                                onChange={event => setValuesOfInputFile(event, 'callCenterLocation')}
-                                type="text" className="input-text location-treatment-center-value" id="location-treatment-center-value" placeholder="Digite aqui" /> */}
                         </div>
                     </div>
                     <div className="pcd_which_accept-use-my-data">
@@ -491,27 +471,6 @@ export const SigninPatientContext = (params: {
                                     deficiencies={deficiencies}
                                     setDeficiencies={setDeficiencies}
                                     pcd={user.pcd} />
-                                {/* <div className="select-input">
-                                    <select
-                                        required
-                                        value={user.typeOfDisability}
-                                        onChange={event => setValuesOfSelectElement(event, 'typeOfDisability')}
-                                        className='which-value' name="" id="which-value">
-                                        {
-                                            user.pcd ? <>
-                                                <option selected style={{display: 'none'}}>Selecione</option>
-                                                <option value='artropatia de membros superiores'>Artropatia de membros superiores</option>
-                                                <option value='artropatia de membros inferiores'>Artropatia de membros inferiores</option>
-                                                <option value='artropatia de membros inferiores e superiores'>Artropatia de membros inferiores e superiores</option>
-                                                <option value='deficiência intelectual'>Deficiência intelectual</option>
-                                                <option value='transtorno de espectro autista -tea'>Transtorno de Espectro Autista -TEA</option>
-                                                <option value='transtorno de déficit de atenção e hiperatividade - tdah'>Transtorno de Déficit de Atenção e Hiperatividade - TDAH</option>
-                                            </>
-                                            : <option className="pessoa sem deficiencia" selected>PESSOA SEM DEFICIÊNCIA</option>
-                                        }
-                                    </select>
-                                    <RiArrowDownSFill size={25} />
-                                </div> */}
                             </div>
                         </div>
                     </div>

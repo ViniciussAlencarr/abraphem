@@ -1,12 +1,12 @@
-import { IoIosArrowForward } from 'react-icons/io';
 import { BsMic } from 'react-icons/bs';
 import { ImAttachment } from 'react-icons/im';
 import { VscThreeBars } from 'react-icons/vsc';
+import { FaRegTrashAlt } from "react-icons/fa";
 import { useEffect, useState } from 'react';
 import { RiArrowDownSFill } from 'react-icons/ri';
 import { MenuOptions } from '../../components/MenuOptions';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import api from '../../services/api';
 
 import './../css/CreateManifest.css';
@@ -91,8 +91,6 @@ export const CreateManifest = () => {
     }
     
     const onSubmit = (event: any) => {
-        
-        
         const sendEmail = async () => {
             try {
                 await api.post('sendEmail', {
@@ -136,6 +134,9 @@ export const CreateManifest = () => {
                     }
                 },
                 error: 'Ocorreu um problema ao realizar a manifestação'
+            },
+            {
+                toastId: 'create-manifest-action-toast'
             }
         )
         setTimeout(() => sendEmail(), 200)
@@ -203,6 +204,9 @@ export const CreateManifest = () => {
                     }
                 },
                 error: 'Ocorreu um problema ao adicionar o anexo'
+            },
+            {
+                toastId: 'attachment-action-toast'
             }
         )
     }
@@ -243,6 +247,9 @@ export const CreateManifest = () => {
                     pending: 'Transcrevendo o arquivo...',
                     success: 'Arquivo transcrito com sucesso!',
                     error: 'Ocorreu um problema ao transcrever o arquivo'
+                },
+                {
+                    toastId: 'transaction-action-toast'
                 }
             )
         }
@@ -263,8 +270,51 @@ export const CreateManifest = () => {
                 pending: 'Subindo arquivo...',
                 success: 'O arquivo subiu com sucesso!',
                 error: 'Ocorreu um problema ao subir o arquivo'
+            },
+            {
+                toastId: 'upload-file-action-toast'
             }
         )
+    }
+
+    const getAssignedUrlAttachmentFile = async (key: string) => {
+        try {
+            const { data } = await api.post('getSignedUrl', { key })
+            return data.url
+        } catch (err) {
+            throw err
+        }
+    }
+
+    const openAttachmentFile = async (file: AttachmentFileInterface) => {
+        try {
+            const url = await getAssignedUrlAttachmentFile(file.key)
+            var link = document.createElement('a');
+            link.href = url;
+            link.target = '_blank'
+            link.dispatchEvent(new MouseEvent('click'));
+        } catch (err) {
+            toast.error('Ocorreu um problema ao abrir o anexo')
+        }
+    }
+
+    const deleteS3File = async (file: AttachmentFileInterface) => {
+        try {
+            return await api.delete(`deleteAttachment/${file.key}`)
+        } catch (err) {
+            throw err
+        }
+    }
+
+    const deleteAttachment = async (file: AttachmentFileInterface) => {
+        try {
+            setUploadedFiles(files => files.filter(existentFile => existentFile.ETag !== file.ETag))
+            const { data } = await deleteS3File(file)
+            toast.success(data.message)
+        } catch (err) {
+            console.log(err)
+            toast.error('Ocorreu um problema ao deletar o anexo')
+        }
     }
 
     return (
@@ -278,15 +328,6 @@ export const CreateManifest = () => {
                 <span className='header-info-title'>FAÇA SUA MANIFESTAÇÃO</span>
             </div>
             <hr />
-            <div className='navigation-context'>
-                <div className='navitation-start'>
-                    <span>Ínicio</span>
-                    <IoIosArrowForward style={{ opacity: '.2'}} />
-                </div>
-                <div className='current'>
-                    <span>Descrição</span>
-                </div>
-            </div>
             <div className="new-request-container">
                 
                 <div className="info-advice">OS CAMPOS SINALIZADOS COM ASTERÍSCO (*) SÃO DE PREENCHIMENTO OBRIGATÓRIO</div>
@@ -340,7 +381,7 @@ export const CreateManifest = () => {
                                 <button className="action-btn transcribe-text-btn">
                                     <BsMic className="icon" size={15} />
                                 </button>
-                                <input onChange={transcribeFileToText} style={{ display: 'none' }} type="file" name="" id="transcribe-file" />
+                                <input onChange={transcribeFileToText} style={{ display: 'none' }} accept="audio/mp3,audio/*;capture=microphone" type="file" name="" id="transcribe-file" />
                                 <label htmlFor="transcribe-file" className='action-label'>Transcrever texto</label>
                             </div>
                             <div className="action-button-context">
@@ -351,13 +392,13 @@ export const CreateManifest = () => {
                                 <label htmlFor="attachment-file" className='action-label'>Anexar arquivos</label>
                             </div>
                         </div>
-                        {/* <div className='uploadedFiles'>
-                            <div className='uploadedFile'>
-                                <div>Arquivo.png</div>
-                                <div className='remove-file'>x</div>
-                            </div>
-                            <button onClick={() => console.log(uploadedFiles)}>ss</button>
-                        </div> */}
+                        {uploadedFiles.length != 0 && <div className='grid gap-2 justify-end my-4'>
+                            <div className='uppercase text-[red] text-[14px] sm:text-[14px] lg:text-[16px]'>Arquivos adicionados</div>
+                            {uploadedFiles.map(file => <div className='flex gap-2 items-center'>
+                                <div onClick={() => openAttachmentFile(file)} className='cursor-pointer text-[12px] sm:text-[12px] lg:text-[14px] hover:underline'>{file.Key}</div>
+                                <div><FaRegTrashAlt className='text-[#ff00009b] hover:text-[red] cursor-pointer text-[16px] sm:text-[16px] lg:text-[18px]' onClick={() => deleteAttachment(file)} /></div>
+                            </div>)}
+                        </div>}
                         <div className="accept-use-data">
                             <div className="input-context accept-use-my-data">
                                 <input required type="checkbox" id="accept-use-my-data-value" className="accept-use-my-data-value" />
@@ -375,7 +416,6 @@ export const CreateManifest = () => {
                 <span>Voltar ao topo</span>
                 <img className='logo' src={arrowUpIcon} />
             </div>
-            <ToastContainer />
         </div>  
     ) 
 }

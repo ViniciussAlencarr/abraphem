@@ -36,6 +36,7 @@ export const AnalizeOpenManifestComponent = (params: {
         city: "",
         gender: "",
         race: "",
+        cep: '',
         category: "",
         typeOfPhone: "",
         phoneNumber: "",

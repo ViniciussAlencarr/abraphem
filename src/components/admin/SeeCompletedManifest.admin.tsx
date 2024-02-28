@@ -34,6 +34,7 @@ export const SeeCompletedManifest = (params: {
         username: "",
         fullName: "",
         dateOfBirth: "",
+        cep: '',
         state: "",
         city: "",
         gender: "",

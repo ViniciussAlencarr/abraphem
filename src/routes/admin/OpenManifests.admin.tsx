@@ -117,7 +117,6 @@ export const OpenManifests = () => {
                             {
                                 request.length != 0 ?
                                     (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((manifest, index) => {
-                                        /* getClientName(manifest.userId) */
                                         return <tr key={index} className='table-content'>
                                             <td style={{ display: 'flex', justifyContent: 'center', gap: '10px'}}>
                                                 <input type="checkbox" name="" id={manifest.id} />

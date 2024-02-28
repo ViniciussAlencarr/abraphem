@@ -25,6 +25,7 @@ export const RegisteredUsers = () => {
         fullName: "",
         dateOfBirth: "",
         state: "",
+        cep: '',
         city: "",
         gender: "",
         race: "",
@@ -107,7 +108,6 @@ export const RegisteredUsers = () => {
                             {
                                 request.length != 0 ?
                                     (request.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)).map((user, index) => {
-                                        /* getClientName(manifest.userId) */
                                         return <tr key={index} className='table-content'>
                                             <td style={{ display: 'flex', justifyContent: 'left', gap: '10px'}}>
                                                 <input type="checkbox" name="" id={user.id} />
