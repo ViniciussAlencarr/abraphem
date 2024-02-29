@@ -4,6 +4,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import '../css/admin/Screens.admin.css'
 
 import logo from '../../assets/logo-white.svg'
+import { useEffect } from 'react'
 
 export const AdminScreens = () => {
     const navigate = useNavigate()
@@ -21,7 +22,13 @@ export const AdminScreens = () => {
         })
         let activeNavigationElement = document.querySelector(`.option.${className}`)
         activeNavigationElement?.classList.toggle('active')
+        localStorage.setItem('lastNavigation', className)
     }
+
+    useEffect(() => {
+        let navigation = localStorage.getItem('lastNavigation')
+        if (navigation) activeNavigation(navigation)
+    }, [])
 
     return (
         <div className='admin-screens-container'>

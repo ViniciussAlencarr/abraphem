@@ -76,10 +76,9 @@ export const CompletedManifests = () => {
     }
 
     const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
+        _: any,
         newPage: number,
     ) => {
-        console.log(event);
         setPage(newPage);
     };
 

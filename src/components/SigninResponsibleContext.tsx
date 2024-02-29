@@ -463,7 +463,7 @@ export const SiginResponsibelContext = (params: {
                                         autoComplete="off"
                                         required
                                         value={patient.fullName}
-                                        onChange={event => setValuesOfInputFilePatient(event, 'fullName', index)}
+                                        onChange={event => {setValuesOfInputFilePatient(event, 'fullName', index); setValuesOfInputFilePatient(event, 'username', index)}}
                                         type="text" className="input-text patient-fullname-value" id="patient-fullname-value" placeholder="Digite aqui" />
                                 </div>
                                 <div className="select-context patient-gender">

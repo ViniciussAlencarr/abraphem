@@ -64,10 +64,9 @@ export const RegisteredUsers = () => {
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - request.length) : 0;
 
     const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
+        _: any,
         newPage: number,
     ) => {
-        console.log(event)
         setPage(newPage);
     };
 

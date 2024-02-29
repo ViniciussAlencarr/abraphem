@@ -116,7 +116,7 @@ export const DashboardAdmin = () => {
         })
     }
 
-    const percentage = (partialValue: number, totalValue: number) => Math.round((partialValue / totalValue) * 100)
+    const percentage = (partialValue: number, totalValue: number) => partialValue != 0 ? Math.round((partialValue / totalValue) * 100) : 0
     
     const getTypeOfManifests = (data: any) => {
         setFirstChartInfo({

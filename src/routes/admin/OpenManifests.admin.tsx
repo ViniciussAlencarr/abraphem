@@ -82,10 +82,9 @@ export const OpenManifests = () => {
     }
     
     const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
+        _: any,
         newPage: number,
     ) => {
-        console.log(event)
         setPage(newPage);
     };
 
