@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
+/* import { toast } from 'react-toastify' */
 
 import '../css/admin/ExportData.admin.css'
 
@@ -12,21 +12,21 @@ import api from '../../services/api'
 
 export const ExportData = () => {
     const navigate = useNavigate()
-    const [users, setUsers] = useState([])
+    const [users, _] = useState([])
     const [fileType, setFileType] = useState('')
 
     useEffect(() => {
         validateAdmSession(navigate)
     }, [])
 
-    const getAllUsers = async () => {
+    /* const getAllUsers = async () => {
         try {
             
         } catch (err) {
             toast.error('Ocorreu um problema ao pegar os usuários')
         }
         
-    }
+    } */
 
     const exportUsers = async () => {
         try {   
