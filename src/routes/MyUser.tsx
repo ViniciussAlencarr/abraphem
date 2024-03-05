@@ -51,6 +51,33 @@ const phoneMaskPhoneLandline = (phone: string) => {
     .replace(/(-\d{4})\d+?$/, '$1');
 }
 
+const userInitialObject = {
+    document: "",
+    typeDocument: "",
+    username: "",
+    fullName: "",
+    dateOfBirth: "",
+    state: "",
+    city: "",
+    gender: "",
+    cep: '',
+    race: "",
+    category: "paciente",
+    typeOfPhone: "",
+    phoneNumber: "",
+    ownerName: "",
+    typeOfCoagulopathy: "",
+    severityOfCoagulopathy: "",
+    callCenterLocation: "",
+    password: "",
+    pcd: false,
+    typeOfDisability: "",
+    email: "-",
+    roleUser: "2",
+    profilePictureURL: ""
+}
+
+
 export const MyUser = () => {
     const navigate = useNavigate()
     const [userImg, setUserImg] = useState(defaultProfile)
@@ -58,32 +85,8 @@ export const MyUser = () => {
     const [acceptUseOfPersonalData, setAcceptUseOfPersonalData] = useState(false);
     const [isMobile, setIsMobile] = useState(false)
     const [patients, setPatients] = useState<Patient[]>([])
-    const [user, setUser] = useState<User>({
-        id: "",
-        document: "",
-        typeDocument: "",
-        username: "",
-        fullName: "",
-        dateOfBirth: "",
-        state: "",
-        city: "",
-        gender: "",
-        cep: '',
-        race: "",
-        category: "",
-        typeOfPhone: "",
-        phoneNumber: "",
-        ownerName: "",
-        typeOfCoagulopathy: "",
-        severityOfCoagulopathy: "",
-        callCenterLocation: "",
-        password: "",
-        pcd: false,
-        typeOfDisability: "",
-        email: "",
-        roleUser: "",
-        profilePictureURL: ""
-    })
+    const [user, setUser] = useState<User>(userInitialObject)
+    const [newPatient, setNewPatient] = useState<Patient>({ ...userInitialObject, responsibleId: user.id })
     const [deficiencies, setDeficiencies] = useState(allDeficiencies)
 
     useEffect(() => {
@@ -200,6 +203,13 @@ export const MyUser = () => {
         setPatients(existentPatients)
     }
 
+    const setValuesOfNewPatientInputFile = (event: any, typeFile: string) => {
+        setNewPatient({ ...newPatient, [typeFile]: typeFile == 'document' ? 
+            cpfMask(event.target.value) :
+            typeFile == 'phoneNumber' ?
+            user.typeOfPhone.toLowerCase() == 'celular' ? phoneMask(event.target.value) : phoneMaskPhoneLandline(event.target.value) : event.target.value })
+        }
+
     const setValuesOfSelectElement = (event: any, typeFile: string) => {
         if (typeFile == 'pcd') {
             let selectedOptionText = event.target.options[event.target.selectedIndex].text.toLowerCase()
@@ -220,6 +230,15 @@ export const MyUser = () => {
                 selectedOptionText
         }
         setPatients(existentPatients)
+    }
+
+    const setValuesOfNewPatientSelectElement = (event: any, typeFile: string) => {
+        let selectedOptionText = event.target.options[event.target.selectedIndex].text.toLowerCase()
+        if (typeFile == 'pcd') {
+            setNewPatient({ ...newPatient, [typeFile]: selectedOptionText == 'sim' ? true : false })
+        } else {
+            setNewPatient({ ...newPatient, [typeFile]: selectedOptionText })
+        }
     }
 
     const openThermsAndServicesPdf = () => {
@@ -280,6 +299,37 @@ export const MyUser = () => {
         )
     }
 
+    const addNewPatient = (event: any) => {
+        event.preventDefault()
+        newPatient.username = user.fullName
+        newPatient.responsibleId = user.id
+        newPatient.ownerName = user.fullName
+        const createPatient = async () => {
+            const create = async () => {
+                const { data } = await api.post('signup', newPatient)
+                console.log(data)
+                if (data.error) {
+                    toast.error(data.message)
+                    throw data.error
+                }
+            }
+            await create()
+        }
+        toast.promise(
+            createPatient,
+            {
+                pending: 'Criando paciente...',
+                success: {
+                    render() {
+                        setTimeout(() => window.location.reload(), 500)
+                        return 'Paciente criado com sucesso!'
+                    }
+                },
+                error: 'Ocorreu um problema ao criar o paciente'
+            }
+        )
+    }
+
     return (
         <div className="my-user-container">
             <MenuOptions open={open} />
@@ -293,7 +343,6 @@ export const MyUser = () => {
             <hr />
             
             <div className="edit-user-info">
-                
                 <div className="header">
                     <div className="preview-user-img">
                         <ProfilePicture.Provider value={{ userImg }} >
@@ -738,6 +787,166 @@ export const MyUser = () => {
                             <button className="save-changes-btn" onClick={updateUser}>Salvar alterações</button>
                         </div>
                     </>}
+                    {user.category == 'cuidador / responsável' && <div>
+                        <form onSubmit={addNewPatient}>
+                            <div className="form-context-patient-information">
+                                <div className="title">INFORMAÇÕES SOBRE O NOVO PACIENTE <span className="text-[grey] uppercase text-[14px]">* opicional *</span></div>
+                                <div className="patient-fullname_patient-gender_patient-race_patient-cpf grid gap-2">
+                                    <div className="input-context patient-fullname">
+                                        <label htmlFor="patient-fullname-value">Nome completo do paciente*</label>
+                                        <input
+                                            value={newPatient.fullName}
+                                            onChange={event => setValuesOfNewPatientInputFile(event, 'fullName')}
+                                            autoComplete="off"
+                                            required
+                                            type="text" className="input-text patient-fullname-value" id="patient-fullname-value" placeholder="Digite aqui" />
+                                    </div>
+                                    <div className="select-context patient-gender">
+                                        <label htmlFor="patient-gender-value">Sexo*</label>
+                                        <div className='select-input'>
+                                            <select
+                                                value={newPatient.gender}
+                                                onChange={event => setValuesOfNewPatientSelectElement(event, 'gender')}
+                                                required
+                                                className='patient-gender-value' name="" id="patient-gender-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="feminino">FEMININO</option>
+                                                <option value="masculino">MASCULINO</option>
+                                                <option value="não me identifico">NÃO ME IDENTIFICO</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="select-context patient-race">
+                                        <label htmlFor="patient-race">Raça*</label>
+                                        <div className='select-input'>
+                                            <select
+                                                required
+                                                value={newPatient.race}
+                                                onChange={event => setValuesOfNewPatientSelectElement(event, 'race')}
+                                                className='patient-race' name="" id="patient-race">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="branca">BRANCA</option>
+                                                <option value="parda">PARDA</option>
+                                                <option value="preta">PRETA</option>
+                                                <option value="amarela">AMARELA</option>
+                                                <option value="indígena">INDÍGENA</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="input-context patient-cpf">
+                                        <label htmlFor={`patient-cpf-value-`}>Cpf do paciente*</label>
+                                        <input
+                                            value={newPatient.document}
+                                            onChange={event => setValuesOfNewPatientInputFile(event, 'document')}
+                                            required
+                                            autoComplete="off"
+                                            type="text" className="input-text patient-cpf-value" id={`patient-cpf-value`} placeholder="Digite aqui" />
+                                    </div>
+                                </div>
+                                <div className="type-coagulopathy_severity-coagulopathy_location-treatment-center">
+                                    <div className="select-context type-coagulopathy">
+                                        <label htmlFor="type-coagulopathy-value">Tipo de coagulopatia</label>
+                                        <div className='select-input'>
+                                            <select
+                                                required
+                                                value={newPatient.typeOfCoagulopathy}
+                                                onChange={event => setValuesOfNewPatientSelectElement(event, 'typeOfCoagulopathy')}
+                                                className='type-coagulopathy-value' name="" id="type-coagulopathy-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="hemofilia a">HEMOFILIA A</option>
+                                                <option value="hemofilia b">HEMOFILIA B</option>
+                                                <option value="doença de von willebrand">DOENÇA DE VON WILLEBRAND</option>
+                                                <option value="outras coagulopatias">OUTRAS COAGULOPATIAS</option>
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="select-context severity-coagulopathy">
+                                        <label htmlFor="severity-coagulopathy-value">Gravidade da coagulopatia</label>
+                                        <div className='select-input'>
+                                            <select
+                                                required
+                                                value={newPatient.severityOfCoagulopathy}
+                                                onChange={event => setValuesOfNewPatientSelectElement(event, 'severityOfCoagulopathy')}
+                                                className='severity-coagulopathy-value' name="" id="severity-coagulopathy-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                <option value="leve">LEVE</option>
+                                                <option value="moderado">MODERADO</option>
+                                                <option value="grave">GRAVE</option>
+                                                <option value="dvw tipo 1">DVW TIPO 1</option>
+                                                <option value="dvw tipo 2">DVW TIPO 2</option>
+                                                <option value="dvw tipo 3">DVW TIPO 3</option>
+                                                <option value="não diagnosticado">NÃO DIAGNOSTICADO</option>
+                                                
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                    <div className="input-context location-treatment-center">
+                                        <label htmlFor="location-treatment-center-value">Centro de Tratamento</label>
+                                        <div className='select-input'>
+                                            <select
+                                                value={newPatient.callCenterLocation}
+                                                onChange={event => setValuesOfNewPatientSelectElement(event, 'callCenterLocation')}
+                                                required
+                                                className='location-treatment-center-value' name="" id="location-treatment-center-value">
+                                                <option selected style={{display: 'none'}}>Selecione</option>
+                                                {
+                                                    listOfBloodCenters.map((location, index) => <option key={index} value={location.toLowerCase()}>
+                                                        {location}
+                                                    </option>)
+                                                }
+                                            </select>
+                                            <RiArrowDownSFill size={25} />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="pcd_which_accept-use-my-data">
+                                    <div className="pcd_whick">
+                                        <div className="select-context pcd">
+                                            <label htmlFor="pcd-value">PESSOA COM DEFICIENCIA (PCD)?</label>
+                                            <div className='select-input'>
+                                                <select
+                                                    onChange={event => setValuesOfNewPatientSelectElement(event, 'pcd')}
+                                                    value={newPatient.pcd ? 'sim' : 'não'}
+                                                    required
+                                                    className='pcd-value' name="" id="pcd-value">
+                                                    <option selected style={{display: 'none'}}>Selecione</option>
+                                                    <option value="sim">SIM</option>
+                                                    <option value="não">NÃO</option>
+                                                </select>
+                                                <RiArrowDownSFill size={25} />
+                                            </div>
+                                        </div>
+                                        <div className="select-context which">
+                                            <label htmlFor="which-value">SE SIM, QUAL?</label>
+                                            <SelectDeficienciesToMultiUser
+                                                existentData={newPatient.typeOfDisability}
+                                                patient={newPatient}
+                                                index={null}
+                                                pcd={newPatient.pcd} />
+                                        </div>
+                                        <div className="input-context date-birth">
+                                            <label htmlFor="date-birth-value">Data de nascimento</label>
+                                            <input
+                                                value={newPatient.dateOfBirth}
+                                                onChange={event => setValuesOfNewPatientInputFile(event, 'dateOfBirth')}
+                                                type="date"
+                                                required
+                                                autoComplete="off"
+                                                className="input-text date-birth-value" id="date-birth-value" placeholder="Digite aqui" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="my-4 justify-end flex">
+                                <button type="submit" className="bg-[#D93C3C] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Adicionar paciente</button>
+                            </div>
+                            <hr />
+                        </form>
+                    </div>}
                     <div onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className='cursor-pointer back-to-top'>
                         <span>Voltar ao topo</span>
                         <img className='logo' src={arrowUpIcon} />

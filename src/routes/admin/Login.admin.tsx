@@ -39,9 +39,8 @@ export const LoginAdmin = () => {
         }, 100)
     }, [])    
 
-    const login = () => {
-        let errorMsg = email == '' && password == '' ? 'Os campos são obrigatorios' : 
-        email == '' ? 'Insira um valor para o e-mail' : 'Digite a senha'
+    const login = (event: any) => {
+        event.preventDefault();
         const makeLogin = async () => {
             try {
                 const { data } = await api.post('/loginAdm?role=1', { email, password })
@@ -53,7 +52,6 @@ export const LoginAdmin = () => {
                 throw err
             }
         }
-        if (email == '' || password == '') return toast.error(errorMsg)
         toast.promise(
             makeLogin,
             {
@@ -78,19 +76,19 @@ export const LoginAdmin = () => {
                             </Link>
                     </div>
                     <div className='login-container-form'>
-                        <div className='login-content'>
+                        <form onSubmit={login} className='login-content'>
                             <p className='title'>Para continuar, faça o login</p>
-                            <form id="form-login" className='form-login'>
+                            <div id="form-login" className='form-login'>
                                 <p className='title'>PAINEL ADMINISTRATIVO</p>
                                 <div className='form-field login-credentials'>
                                     <label htmlFor="login-credentials">lOGIN</label>
-                                    <input id="login-credentials" type="text" value={email} onChange={event => setEmail(event.target.value)}/>
+                                    <input required id="login-credentials" type="text" value={email} onChange={event => setEmail(event.target.value)}/>
                                 </div>
                                 <div className='form-field password'>
                                     <label htmlFor="password">Senha</label>
-                                    <input id="password" type="password" value={password} onChange={event => setPassword(event.target.value)} />
+                                    <input required id="password" type="password" value={password} onChange={event => setPassword(event.target.value)} />
                                 </div>
-                            </form>
+                            </div>
                             <div className='register-account'>
                                 <div className='register-redirect'>
                                     <span>Não possui usuário? <b><Link to="">Criar conta</Link></b></span>
@@ -102,7 +100,7 @@ export const LoginAdmin = () => {
                             <div className="captcha">
                                 <div className="captcha-content">
                                     <div className="captcha-input">
-                                        <input type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
+                                        <input required type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
                                         <label htmlFor="captcha-value-input">I am not  a robot</label>
                                     </div>
                                     <div className="captcha-logo">
@@ -110,8 +108,8 @@ export const LoginAdmin = () => {
                                     </div>
                                 </div>
                             </div>
-                            <button className='login-button' onClick={login}>Entrar</button>
-                        </div>
+                            <button className='login-button' type='submit'>Entrar</button>
+                        </form>
                     </div>
                 </div>
                 <div className='footer-bottom'>

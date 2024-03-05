@@ -7,6 +7,8 @@ import defaultProfile from './../../assets/profile.svg'
 
 import '../css/admin/SeeDetailsOfUser.admin.css'
 
+import { SelectDeficienciesToMultiUser } from '../../components/SelectDeficiencies'
+
 export const SeeDetailsOfUser = (params: {
     user: User,
     open: boolean,
@@ -124,13 +126,18 @@ export const SeeDetailsOfUser = (params: {
                     </div>
                 </div>
                 <div className="person-with-disability_which">
-                    <div className="info-block-content person-with-disability">
+                    <div className="info-block-content person-with-disability w-full">
                         <label className="label-value" htmlFor="person-with-disability">Pessoa com deficiencia (PCD)?</label>
                         <input value={params.user.pcd ? 'Sim' : 'Não'}  readOnly type="text" className="input-value person-with-disability" id="person-with-disability" />
                     </div>
-                    <div className="info-block-content which">
+                    <div className="info-block-content which w-full">
                         <label className="label-value" htmlFor="which">Se sim, qual?</label>
-                        <input value={params.user.typeOfDisability}  readOnly type="text" className="input-value which" id="which" />
+                        <SelectDeficienciesToMultiUser
+                            existentData={params.user.typeOfDisability}
+                            patient={params.user}
+                            readonly={true}
+                            index={null}
+                            pcd={params.user.pcd} />
                     </div>
                 </div>
             </div>

@@ -89,9 +89,8 @@ export const Login = () => {
         }, 100)
     }, [])    
 
-    const login = () => {
-        let errorMsg = cpf == '' && password == '' ? 'Os campos são obrigatorios' : 
-            cpf == '' ? 'Insira um valor para o CPF' : 'Digite a senha'
+    const login = (event: any) => {
+        event.preventDefault();
         const makeLogin = async () => {
             try {
                 const { data } = await api.post('/login?role=2', { document: cpf, password })
@@ -103,7 +102,6 @@ export const Login = () => {
                 throw err
             }
         }
-        if (cpf == '' || password == '') return toast.error(errorMsg)
         toast.promise(
             makeLogin,
             {
@@ -116,6 +114,8 @@ export const Login = () => {
                     }
                 },
                 error: 'Ocorreu um problema ao realizar o login'
+            }, {
+                autoClose: 1000
             }
         )
     }
@@ -129,19 +129,19 @@ export const Login = () => {
                 </div>
                 <hr />
                 <div className='login-container-form'>
-                    <div className='login-content'>
+                    <form onSubmit={login} className='login-content'>
                         <p className='title'>Para continuar, faça o login</p>
-                        <form id="form-login" className='form-login'>
+                        <div id="form-login" className='form-login'>
                             <p className='title'>LOGIN OUVIDORIA DA ABRAPHEM</p>
                             <div className='form-field cpf'>
                                 <label htmlFor="cpf">CPF</label>
-                                <input id="cpf" type="text" value={cpf} onChange={event => setCpf(cpfMask(event.target.value))}/>
+                                <input required id="cpf" type="text" value={cpf} onChange={event => setCpf(cpfMask(event.target.value))}/>
                             </div>
                             <div className='form-field password'>
                                 <label htmlFor="password">Senha</label>
-                                <input id="password" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
+                                <input required id="password" type="password" value={password} onChange={event => setPassword(event.target.value)}/>
                             </div>
-                        </form>
+                        </div>
                         <div className='register-account'>
                             <div className='register-redirect'>
                                 <span>Não possui usuário? <b><Link to="/signin">Criar conta</Link></b></span>
@@ -153,7 +153,7 @@ export const Login = () => {
                         <div className="captcha">
                             <div className="captcha-content">
                                 <div className="captcha-input">
-                                    <input type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
+                                    <input required type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
                                     <label htmlFor="captcha-value-input">I am not  a robot</label>
                                 </div>
                                 <div className="captcha-logo">
@@ -161,8 +161,8 @@ export const Login = () => {
                                 </div>
                             </div>
                         </div>
-                        <button className='login-button' onClick={login}>Entrar</button>
-                    </div>
+                        <button className='login-button' type='submit'>Entrar</button>
+                    </form>
                 </div>
             </div>
         </div>

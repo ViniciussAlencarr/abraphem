@@ -4,6 +4,7 @@ interface ParamsInterface {
     pcd: boolean,
     deficiencies: any[],
     existentData: string | undefined,
+    
     setDeficiencies: (deficiencies: any[]) => any
 }
 
@@ -11,6 +12,7 @@ interface MultipleUsers {
     pcd: boolean,
     patient: any,
     index: any,
+    readonly?: boolean,
     existentData: string | undefined
 }
 
@@ -117,14 +119,14 @@ export const SelectDeficienciesToMultiUser = (params: MultipleUsers) => {
                 </div> : <></>}
             </div>
             :
-            <div style={{ position: 'relative' }}>
-                {open ? <div onMouseLeave={() => setOpen(false)} style={{ borderEndEndRadius: 6,borderEndStartRadius: 6, background: 'white', position: 'absolute', gap: 10, top: 5, display: 'grid', border: '1px solid #C00405', padding: 8, width: '100%'}}>
+            open ? <div style={{ position: 'relative' }}>
+                <div onMouseLeave={() => setOpen(false)} style={{ borderEndEndRadius: 6,borderEndStartRadius: 6, background: 'white', position: 'absolute', gap: 10, top: 5, display: 'grid', border: '1px solid #C00405', padding: 8, width: '100%'}}>
                     {deficiencies.map(({ checked, text }, index) => <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
                         <label htmlFor={text.toLowerCase()} style={{ fontSize: 12, fontWeight: 'normal' }}>{text}</label>
-                        <input checked={checked} type="checkbox" data-index={index} onClick={checkDeficiency} name="deficiencies" id={text.toLowerCase()} />
+                        <input checked={checked} type="checkbox" data-index={index} onClick={params.readonly ? () => {} : checkDeficiency} name="deficiencies" id={text.toLowerCase()} />
                     </div>)}
-                </div> : <></>}
-            </div>}
+                </div>
+            </div> : <></>}
         </div>
     )
 }
