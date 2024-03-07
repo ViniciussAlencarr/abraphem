@@ -6,7 +6,6 @@ import api from "../services/api"
 
 import './css/RecoveryPassword.css'
 import './css/media-layout.css'
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 
 export const RecoveryPassword = () => {
     const { search } = useLocation()
@@ -38,7 +37,7 @@ export const RecoveryPassword = () => {
     }
 
     useEffect(() => {
-        decodeQueryParameters()
+        if (search || search != '') decodeQueryParameters()
     }, [])
 
     const searchUserByEmail = async () => {
@@ -55,9 +54,9 @@ export const RecoveryPassword = () => {
             const { data } = await searchUserByEmail()
             await api.post('/recoveryPassword', {
                 userId: data[0].id,
-                from: 'Acme <onboarding@resend.dev>',
+                from: 'Abraphem <noreply@ouvidoria.abraphem.org.br>',
                 to: [email],
-                subject: 'Hello World',
+                subject: 'Recuperação de senha',
                 html: '<strong>It works!</strong>'
             })
         }
@@ -120,8 +119,8 @@ export const RecoveryPassword = () => {
         )
     }
     return (
-        <div className="border-t-[2px] grid justify-center py-10 ">
-            <div className="text-[16px] lg:text-[20px] font-medium uppercase text-center">Recuperação de senha</div>
+        <div className="border-t-[2px] grid justify-center py-10 gap-7 ">
+            <div className="text-[16px] lg:text-[20px] font-medium uppercase text-center">Alterar senha</div>
             {!tokenIsValid && !emailSended && <div>
                 <div className="flex justify-center">
                     <div className="text-center w-[80%] sm:w-[50%] lg:w-[50%] text-[14px] lg:text-[16px]">
@@ -145,37 +144,35 @@ export const RecoveryPassword = () => {
                 <div className="font-bold uppercase">O link foi enviado para o email com sucesso!</div>
                 <div className="text-[red] text-center">Você pode fechar essa janela  agora</div>
             </div>}
-            {tokenIsValid && <div>
+            {tokenIsValid && <div className="grid gap-3 m-3">
+                <div className="font-bold text-[16px] sm:!text-[18px] lg:!text-[20px]">Crie uma senha forte</div>
+                <div className="text-[14px] sm:!text-[16px] lg:!text-[16px]">Crie uma senha forte que você não use em outros sites</div>
                 <form className="grid gap-3" onSubmit={updatePassword}>
                     <div className="grid gap-1">
-                        <label className="uppercase font-semibold" htmlFor="new-password-value">Nova senha*</label>
+                        <label className="uppercase font-semibold  text-[14px] sm:!text-[16px] lg:!text-[16px]" htmlFor="new-password-value">Nova senha*</label>
                         <div className="flex gap-1 justify-between items-center border-[1px] py-[6px] px-[16px] border-[#C00405] rounded">
                             <input
                                 required
                                 value={newPassword}
                                 onChange={event => setNewPassword(event.target.value)}
-                                type={hidePassword ? `password` : 'text'} className="border-none w-full outline-none placeholder:text-black placeholder:uppercase" id="new-password-value" placeholder="Digite aqui" />
-                            {!hidePassword ? 
-                                <FaRegEye onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />
-                                :
-                                <FaRegEyeSlash  onClick={() => setHidePassword(!hidePassword)} size={20} className="eye-icon" />}
+                                type={hidePassword ? `password` : 'text'} className="border-none w-full outline-none text-[14px] sm:!text-[16px] lg:!text-[16px] placeholder:text-black" id="new-password-value" placeholder="Nova senha" />
                         </div>
                     </div>
                     <div className="grid gap-1">
-                        <label className="uppercase font-semibold" htmlFor="repeat-new-password">Nova senha*</label>
+                        <label className="uppercase font-semibold text-[14px] sm:!text-[16px] lg:!text-[16px]" htmlFor="repeat-new-password">Confirmar Nova senha*</label>
                         <div className="flex gap-1 justify-between items-center border-[1px] py-[6px] px-[16px] border-[#C00405] rounded">
                             <input
                                 required
                                 value={repeatNewPassword}
                                 onChange={event => setRepeatNewPassword(event.target.value)}
-                                type={hideConfirmPassword ? `password` : 'text'} className="border-none w-full outline-none placeholder:text-black placeholder:uppercase" id="repeat-new-password" placeholder="Digite aqui"  />
-                            {!hideConfirmPassword ? 
-                                <FaRegEye onClick={() => setHideConfirmPassword(!hideConfirmPassword)} size={20} className="eye-icon" />
-                                :
-                                <FaRegEyeSlash  onClick={() => setHideConfirmPassword(!hideConfirmPassword)} size={20} className="eye-icon" />}
+                                type={hideConfirmPassword ? `password` : 'text'} className="border-none w-full outline-none placeholder:text-black text-[14px] sm:!text-[16px] lg:!text-[16px]" id="repeat-new-password" placeholder="Confirmar nova senha"  />
                         </div>
                     </div>
-                    <button type="submit" className="bg-[#C00405] uppercase font-medium text-white p-1 px-4 rounded-lg text-[14px] lg:text-[16px] hover:opacity-70">Alterar</button>
+                    <div className="flex gap-3 items-center">
+                        <div><input type="checkbox" id="show-password" onChange={() => { setHideConfirmPassword(!hideConfirmPassword);setHidePassword(!hidePassword) }} /></div>
+                        <label htmlFor="show-password" className="text-[14px] sm:!text-[16px] lg:!text-[16px]">Mostrar senha</label>
+                    </div>
+                    <button type="submit" className="bg-[#C00405] uppercase font-medium text-white p-1 px-4 rounded-lg text-[14px] lg:text-[16px] hover:opacity-70">Alterar senha</button>
                 </form>
             </div>}
         </div>

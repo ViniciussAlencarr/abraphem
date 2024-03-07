@@ -94,12 +94,9 @@ export const CreateManifest = () => {
         const sendEmail = async () => {
             try {
                 await api.post('sendEmail', {
-                    /* TODO:  colocar o email da abraphem */
-                    from: "cme <onboarding@resend.dev>",
                     name: user.fullName,
                     protocol: request.protocol.value,
-                    /* TODO: colocar o email do usuário */
-                    to: ["viniciussalencargithub@gmail.com"],
+                    to: [user.email],
                     subject: "ello World",
                     html: "<strong>It works!</strong>"
                 }, { headers: {
