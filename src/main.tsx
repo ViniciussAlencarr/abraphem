@@ -25,6 +25,7 @@ import {
   ProgressManifests,
   ExportData,
   RegisteredUsers,
+  SendMailToRecoveryPassword,
   Signin
 } from './routes'
 
@@ -76,6 +77,10 @@ const router = createBrowserRouter([
       },
       {
         path: '/recovery-password',
+        element: <SendMailToRecoveryPassword />
+      },
+      {
+        path: '/recovery-password/change-password',
         element: <RecoveryPassword />
       },
     ]
