@@ -28,15 +28,17 @@ export const GetUserName = (params: { userId: string }) => {
     return <>
     {
         userName == '' ?
-        <ColorRing
-            visible={true}
-            height="40"
-            width="40"
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            wrapperClass="blocks-wrapper"
-            colors={['#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d']}
-            />
+        <div className="flex justify-center">
+            <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="blocks-loading"
+                wrapperStyle={{}}
+                wrapperClass="blocks-wrapper"
+                colors={['#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d', '#d15d5d']}
+                />
+        </div>
         : <>{userName}</>
     }
     </>
