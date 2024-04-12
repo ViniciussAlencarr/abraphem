@@ -154,7 +154,7 @@ export const Login = () => {
                             <div className="captcha-content">
                                 <div className="captcha-input">
                                     <input required type="checkbox" name="" className="captcha-value-input" id="captcha-value-input" />
-                                    <label htmlFor="captcha-value-input">I am not  a robot</label>
+                                    <label htmlFor="captcha-value-input">Não sou um robô</label>
                                 </div>
                                 <div className="captcha-logo">
                                     <img className='logo' src={reCaptchaLogo} alt="" />

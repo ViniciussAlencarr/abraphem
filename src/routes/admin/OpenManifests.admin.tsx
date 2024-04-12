@@ -170,7 +170,6 @@ export const OpenManifests = () => {
                 </div>
                 : <AnalizeOpenManifestComponent getOpenManifests={getOpenManifests} open={open} manifest={manifest} setOpen={setOpen} />
             }
-            <ToastContainer />
         </div>
     )
 }

@@ -6,7 +6,7 @@ export interface User {
     fullName: string,
     dateOfBirth: string,
     cep: string,
-    state: string,
+    stateName: string,
     city: string,
     gender: string,
     race: string,

@@ -60,7 +60,7 @@ export const NavBar = () => {
                     <div className="my-user-btn">
                         <FaUserCircle size={40} />
                         <NavDropdown title={username} id="basic-nav-dropdown" className="dropdown-title">
-                            <NavDropdown.Item href="#">Meu usuário</NavDropdown.Item>
+                            <NavDropdown.Item href="/administrador/account/user">Meu usuário</NavDropdown.Item>
                             <NavDropdown.Divider />
                             <NavDropdown.Item onClick={logOut}>Sair</NavDropdown.Item>
                         </NavDropdown>

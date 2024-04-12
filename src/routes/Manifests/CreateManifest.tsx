@@ -338,29 +338,27 @@ export const CreateManifest = () => {
                                     <select
                                         required
                                         value={request.manifestType}
-                                        onChange={event => setSelectValues(event, 'manifestType')} className='select-element type-manifestation-value' id='type-manifestation-value'>
-                                        <option selected style={{display: 'none'}}>Selecione</option>
-                                        <option value="reclamacao">RECLAMAÇÃO</option>
-                                        <option value="solicitacao">SOLICITAÇÃO</option>
-                                        <option value="informacao">INFORMAÇÃO</option>
-                                        <option value="elogio">ELOGIO</option>
-                                        <option value="sugestao">SUGESTÃO</option>
-                                        <option value="denuncia">DENÚNCIA</option>
+                                        onChange={event => setSelectValues(event, 'manifestType')} className='w-full bg-transparent p-1 outline-none type-manifestation-value ' id='type-manifestation-value'>
+                                            <option selected style={{display: 'none'}}>Selecione</option>
+                                            <option value="reclamacao">RECLAMAÇÃO</option>
+                                            <option value="solicitacao">SOLICITAÇÃO</option>
+                                            <option value="informacao">INFORMAÇÃO</option>
+                                            <option value="elogio">ELOGIO</option>
+                                            <option value="sugestao">SUGESTÃO</option>
+                                            <option value="denuncia">DENÚNCIA</option>
                                     </select>
-                                    <RiArrowDownSFill size={25} />
                                 </div>
                             </div>
                             <div className="select-context">
                                 <label className='label-value' htmlFor="who-opening-manifest-label">QUEM ESTÁ ABRINDO A MANIFESTAÇÃO?*</label>
                                 <div className='select-input'>
-                                    <select required onChange={event => setSelectValues(event, 'whoIsOpenManifest')} className='select-element who-opening-manifest-value' id='who-opening-manifest-value'>
+                                    <select required onChange={event => setSelectValues(event, 'whoIsOpenManifest')} className='w-full bg-transparent p-1 outline-none who-opening-manifest-value' id='who-opening-manifest-value'>
                                         <option selected style={{display: 'none'}}>Selecione</option>
                                         <option value="">PACIENTE</option>
                                         <option value="">CUIDADOR / RESPONSÁVEL</option>
                                         <option value="">PROFISSIONAL DA SAÚDE / ACADÊMICOS</option>
                                         <option value="">OUTROS</option>
                                     </select>
-                                    <RiArrowDownSFill size={25} />
                                 </div>
                             </div>
                             {/* <div className="input-context input-channel">

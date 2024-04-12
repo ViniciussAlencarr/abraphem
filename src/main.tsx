@@ -26,7 +26,8 @@ import {
   ExportData,
   RegisteredUsers,
   SendMailToRecoveryPassword,
-  Signin
+  Signin,
+  AdmMyUser
 } from './routes'
 
 const router = createBrowserRouter([
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: '/administrador/export-data',
         element: <ExportData />
+      },
+      {
+        path: '/administrador/account/user',
+        element: <AdmMyUser />
       },
     ]
   },

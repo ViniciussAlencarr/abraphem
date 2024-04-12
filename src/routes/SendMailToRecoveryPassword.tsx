@@ -10,22 +10,11 @@ export const SendMailToRecoveryPassword = () => {
     const [email, setEmail] = useState('')
     const [emailSended, setEmailSended] = useState(false)
 
-
-    const searchUserByEmail = async () => {
-        try {
-            return await api.get(`/user-by-email/${email}`)
-        } catch (err) {
-            toast.error(`O usuário com o email '${email}' não existe.`)
-            throw err
-        }
-    }
-
     const onSubmit = (event: any) => {
         event.preventDefault()
         const sendEmail = async () => {
-            const { data } = await searchUserByEmail()
             await api.post('/recoveryPassword', {
-                userId: data[0].id,
+                userId: '',
                 from: 'Abraphem <noreply@ouvidoria.abraphem.org.br>',
                 to: [email],
                 subject: 'Recuperação de senha',

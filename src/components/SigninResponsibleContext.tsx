@@ -58,7 +58,7 @@ export const SiginResponsibelContext = (params: {
         username: "Perfil",
         fullName: "",
         dateOfBirth: "",
-        state: "",
+        stateName: "",
         cep: '',
         city: "",
         gender: "",
@@ -86,7 +86,7 @@ export const SiginResponsibelContext = (params: {
         fullName: "",
         dateOfBirth: "",
         cep: '',
-        state: "",
+        stateName: "",
         city: "",
         gender: "",
         race: "",
@@ -159,7 +159,7 @@ export const SiginResponsibelContext = (params: {
                 username: "",
                 fullName: "",
                 dateOfBirth: "",
-                state: "",
+                stateName: "",
                 city: "",
                 gender: "",
                 cep: '',
@@ -247,7 +247,7 @@ export const SiginResponsibelContext = (params: {
 
     const searchCepToResponsibleUser = async (event: any) => {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
-        setUser({...user, cep: event.target.value, city: data?.localidade, state: data?.uf })
+        setUser({...user, cep: event.target.value, city: data?.localidade, stateName: data?.uf })
     }
 
     const openThermsAndServicesPdf = () => {
@@ -316,11 +316,11 @@ export const SiginResponsibelContext = (params: {
                                         <select
                                             required
                                             aria-readonly
-                                            value={user.state == '' ? undefined : user.state}
-                                            onChange={event => setValuesOfSelectElement(event, 'state')}
+                                            value={user.stateName == '' ? undefined : user.stateName}
+                                            onChange={event => setValuesOfSelectElement(event, 'stateName')}
                                             className='state-value' name="" id="state-value">
                                             <option selected style={{display: 'none'}}>--</option>
-                                            <option value={user.state}>{user.state}</option>
+                                            <option value={user.stateName}>{user.stateName}</option>
                                         </select>
                                         <RiArrowDownSFill size={25} />
                                     </div>

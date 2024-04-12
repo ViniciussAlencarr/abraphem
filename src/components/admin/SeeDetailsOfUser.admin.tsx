@@ -55,7 +55,7 @@ export const SeeDetailsOfUser = (params: {
                         </div>
                         <div className="info-block-content state">
                             <label className="label-value" htmlFor="state-value">Estado</label>
-                            <input value={params.user.state} type="text" className="input-value state-value" readOnly id="state-value"/>
+                            <input value={params.user.stateName} type="text" className="input-value state-value" readOnly id="state-value"/>
                         </div>
                         <div className="info-block-content city">
                             <label className="label-value" htmlFor="city">Cidade</label>

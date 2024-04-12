@@ -32,7 +32,7 @@ export const AnalizeOpenManifestComponent = (params: {
         username: "",
         fullName: "",
         dateOfBirth: "",
-        state: "",
+        stateName: "",
         city: "",
         gender: "",
         race: "",
@@ -68,8 +68,11 @@ export const AnalizeOpenManifestComponent = (params: {
             const { data } = await api.get(`user/${params.manifest.userId}`)
             setUser(data)
             setOpen(true)
-        } catch (err) {
-            console.log(err)
+        } catch (err: any) {
+            if (err.message === 'Request failed with status code 404') {
+                toast.error(err.response.data.message, { toastId: 'not-found-user' })
+            } else toast.error('Ocorreu um problema ao encontrar o usuário')
+
         }
     }
     const sendResponse = () => {
@@ -193,7 +196,6 @@ export const AnalizeOpenManifestComponent = (params: {
                 </>
                 : <></>
             }
-            <ToastContainer />
         </div>
     )
 }

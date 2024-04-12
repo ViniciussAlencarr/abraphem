@@ -21,3 +21,5 @@ export { ProgressManifests } from './admin/ProgressManifests.admin'
 export { RegisteredUsers } from './admin/RegisteredUsers.admin'
 export { ExportData } from './admin/ExportData.admin'
 export { AdminScreens } from './admin/Screens.admin'
+export { AdmMyUser } from './admin/MyUser.admin'
+

@@ -5,6 +5,7 @@ import '../css/admin/Screens.admin.css'
 
 import logo from '../../assets/logo-white.svg'
 import { useEffect } from 'react'
+import { ToastContainer } from 'react-toastify'
 
 export const AdminScreens = () => {
     const navigate = useNavigate()
@@ -12,6 +13,7 @@ export const AdminScreens = () => {
     const logOut = () => {
         localStorage.removeItem('adm_user_id');
         localStorage.removeItem('adm_bearer_token');
+        localStorage.removeItem('adm_user');
         return navigate('/administrador/login')
     }
 
@@ -71,6 +73,7 @@ export const AdminScreens = () => {
                     © 2023 ABRAPHEM. TODOS OS DIREITOS RESERVADOS | Desenvolvido por XXXXXXXXXXX
                 </div>
             </div>
+            <ToastContainer />
         </div>
     )
 }

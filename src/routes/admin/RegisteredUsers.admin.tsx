@@ -114,7 +114,7 @@ export const RegisteredUsers = () => {
                                             </td>
                                             <td>{user.username}</td>
                                             <td>{user.gender}</td>
-                                            <td>{user.state}</td>
+                                            <td>{user.stateName}</td>
                                             <td>{user.city}</td>
                                             <td>{user.category}</td>
                                             <td><button className='analize-btn'

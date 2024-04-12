@@ -57,7 +57,7 @@ const userInitialObject = {
     username: "",
     fullName: "",
     dateOfBirth: "",
-    state: "",
+    stateName: "",
     city: "",
     gender: "",
     cep: '',
@@ -135,7 +135,7 @@ export const MyUser = () => {
 
     const searchCepToResponsibleUser = async (event: any) => {
         const { data } = await axios.get(`https://viacep.com.br/ws/${event.target.value}/json/`)
-        setUser({...user, city: data?.localidade, state: data?.uf, cep: event.target.value })
+        setUser({...user, city: data?.localidade, stateName: data?.uf, cep: event.target.value })
     }
 
     const getUserById = async () => {
@@ -405,10 +405,10 @@ export const MyUser = () => {
                                         <label htmlFor="state-value">Estado*</label>
                                         <div className='select-input'>
                                             <select
-                                                onChange={event => setValuesOfSelectElement(event, 'state')}
-                                                value={user.state == '' ? undefined : user.state} className='state-value' name="" id="state-value">
+                                                onChange={event => setValuesOfSelectElement(event, 'stateName')}
+                                                value={user.stateName == '' ? undefined : user.stateName} className='state-value' name="" id="state-value">
                                                 <option selected style={{display: 'none'}}>Selecione</option>
-                                                <option value={user.state}>{user.state}</option>
+                                                <option value={user.stateName}>{user.stateName}</option>
                                             </select>
                                             <RiArrowDownSFill size={25} />
                                         </div>
