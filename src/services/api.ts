@@ -5,4 +5,4 @@ const api = axios.create({
   // baseURL: 'http://localhost:3000/dev'
 });
 
-export default api;
+export default api; 
