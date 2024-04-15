@@ -13,7 +13,6 @@ import { AnalizeOpenManifestComponent } from '../../components/admin/AnalizeOpen
 import { GetUserName } from '../../components/admin/GetUserName.admin'
 
 import { validateAdmSession } from '../../utils/validateSession.utils'
-import { ToastContainer } from 'react-toastify';
 
 export const OpenManifests = () => {
     const navigate = useNavigate()

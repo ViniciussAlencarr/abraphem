@@ -24,7 +24,7 @@ export const RegisteredUsers = () => {
         username: "",
         fullName: "",
         dateOfBirth: "",
-        state: "",
+        stateName: "",
         cep: '',
         city: "",
         gender: "",

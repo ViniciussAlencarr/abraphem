@@ -32,7 +32,7 @@ export const SeeProgressManifestComponent = (params: {
         username: "",
         fullName: "",
         dateOfBirth: "",
-        state: "",
+        stateName: "",
         city: "",
         gender: "",
         race: "",

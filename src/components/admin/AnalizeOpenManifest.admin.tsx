@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 
 import api from "../../services/api"
 
