@@ -295,7 +295,7 @@ export const SiginResponsibelContext = (params: {
                                     autoComplete="off"
                                     className="input-text number-of-patients-value" id="number-of-patients-value"
                                     value={numberPatients}
-                                    onChange={event => {addPatient(parseInt(event.target.value)); console.log(patients); console.log(event.target.value); setNumberPatients(parseInt(event.target.value))}} type="number" min={1} max={10} name="" />
+                                    onChange={event => {addPatient(parseInt(event.target.value)); setNumberPatients(parseInt(event.target.value))}} type="number" min={1} max={10} name="" />
                             </div>
                         </div>
                         <div className="location-context">

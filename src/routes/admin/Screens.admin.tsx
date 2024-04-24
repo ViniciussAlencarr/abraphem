@@ -56,9 +56,9 @@ export const AdminScreens = () => {
                         <div className="option users" onClick={() => {activeNavigation('users'); navigate('/administrador/clients')}}>
                             <Link to='/administrador/clients' >Usuários cadastrados</Link>
                         </div>
-                        {/* <div className="option export-data" onClick={() => {activeNavigation('export-data'); navigate('/administrador/export-data')}}>
+                        <div className="option export-data" onClick={() => {activeNavigation('export-data'); navigate('/administrador/export-data')}}>
                             <Link to='#' >Exportar dados</Link>
-                        </div> */}
+                        </div>
                         <div className="option">
                             <Link to='#'  onClick={logOut}>Sair</Link>
                         </div>

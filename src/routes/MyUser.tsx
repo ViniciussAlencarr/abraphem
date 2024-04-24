@@ -307,7 +307,6 @@ export const MyUser = () => {
         const createPatient = async () => {
             const create = async () => {
                 const { data } = await api.post('signup', newPatient)
-                console.log(data)
                 if (data.error) {
                     toast.error(data.message)
                     throw data.error
