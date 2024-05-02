@@ -23,7 +23,7 @@ export const RecoveryPassword = () => {
         try {
             const { data } = await api.post('decodeUrlString', { url: search.slice(1) })
             let user_id = data.url.split('userId')[1]?.slice(1)
-            let token = data.url.split('token')[1]?.slice(1)
+            const token = data.url.split('token')[1]?.slice(1)
             if (token) await validateToken(token)
             user_id = user_id ? user_id.split('email')[0] : undefined
             if (user_id) setUserId(user_id.substring(0, user_id.length - 1))

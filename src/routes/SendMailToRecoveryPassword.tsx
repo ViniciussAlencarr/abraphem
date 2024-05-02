@@ -12,9 +12,25 @@ export const SendMailToRecoveryPassword = () => {
 
     const onSubmit = (event: any) => {
         event.preventDefault()
-        const sendEmail = async () => {
+        const aux = async () => {
+            await checkEmail()
+            // await sendEmail()
+        }
+        const checkEmail = async () => {
+            try {
+                const { data } = await api.get(`/user-by-email/${email}`)
+                const [user] = data
+                sendEmail(user.id)
+            } catch (err: any) {
+                if (err.name === 'AxiosError') {
+                    toast.error(err.response.data.message)
+                } else toast.error('Ocorreu um problema ao verificar o email')
+                throw err
+            }
+        }
+        const sendEmail = async (userId: string) => {
             await api.post('/recoveryPassword', {
-                userId: '',
+                userId,
                 from: 'Abraphem <noreply@ouvidoria.abraphem.org.br>',
                 to: [email],
                 subject: 'Recuperação de senha',
@@ -22,7 +38,7 @@ export const SendMailToRecoveryPassword = () => {
             })
         }
         toast.promise(
-            sendEmail,
+            aux,
             {
                 pending: 'Enviando e-mail...',
                 success: {
