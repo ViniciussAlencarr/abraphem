@@ -29,7 +29,7 @@ export const NavBarScreen = () => {
         setIsLoggedIn(false);
         localStorage.removeItem('user_id');
         localStorage.removeItem('bearer_token');
-        return navigate('/login')
+        navigate('/login')
     }
 
     const getUser = async () => {
@@ -138,7 +138,7 @@ export const NavBarScreen = () => {
                     </div>
                     {openOptions && <div className='absolute top-[60px] grid gap-1 border-[2px] rounded-md bg-white z-30  border-[red]'>
                         <Link onClick={() => setOpenOptions(!openOptions)} to={'/account/user'} className='px-3 py-2 border-b-[2px] border-b-[red] no-underline text-black hover:underline cursor-pointer'>Meu usuário</Link>
-                        <Link onClick={logOut} to={''} className='no-underline px-3 py-2 text-black hover:underline cursor-pointer'>Sair</Link>
+                        <button onClick={logOut} className='no-underline px-3 py-2 text-black hover:underline cursor-pointer'>Sair</button>
                     </div>}
                 </div>
             }

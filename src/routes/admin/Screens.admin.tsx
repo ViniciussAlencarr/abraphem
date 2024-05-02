@@ -60,7 +60,7 @@ export const AdminScreens = () => {
                             <Link to='#' >Exportar dados</Link>
                         </div>
                         <div className="option">
-                            <Link to='#'  onClick={logOut}>Sair</Link>
+                            <button onClick={logOut}>Sair</button>
                         </div>
                         
                     </div>

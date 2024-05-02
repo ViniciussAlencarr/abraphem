@@ -38,7 +38,7 @@ export const MenuOptions = (params: { open: boolean }) => {
                             <Link to={'/'}  className='hover:underline no-underline text-[#100410]  cursor-pointer uppercase py-1'>Início</Link>
                             <Link to={'/manifest/new'}  className='hover:underline no-underline text-[#100410]  cursor-pointer uppercase pb-1'>Nova manifestação</Link>
                             <Link to={'/manifests'}  className='hover:underline no-underline text-[#100410]  cursor-pointer uppercase pb-1'>Minhas manifestações</Link>
-                            <Link onClick={logOut} to={''}  className='hover:underline no-underline text-[#100410] cursor-pointer uppercase py-1'>Sair</Link>
+                            <button onClick={logOut}  className='text-left hover:underline no-underline text-[#100410] cursor-pointer uppercase py-1'>Sair</button>
                         </div>}
                     </div>
                     <div className='grid'>
