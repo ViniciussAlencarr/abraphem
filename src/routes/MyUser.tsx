@@ -507,7 +507,7 @@ export const MyUser = () => {
                                         value={user.phoneNumber} type="text" className="input-text phone-value" id="phone-value" placeholder="Digite aqui" />
                                 </div>
                             </div>
-                            {user.category != 'cuidador / responsável' &&  <div className="owner">
+                            {user.category.toLowerCase() != 'cuidador / responsável' &&  <div className="owner">
                                 <div className="input-context owner-name">
                                     <label htmlFor="owner-name-value">Nome do responsável*</label>
                                     <input
@@ -516,12 +516,12 @@ export const MyUser = () => {
                                 </div>
                             </div>}
                         </div>
-                        {user.category == 'cuidador / responsável' && <div className="flex justify-end">
+                        {user.category.toLowerCase() == 'cuidador / responsável' && <div className="flex justify-end">
                             <button type="submit" className="bg-[#D93C3C] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Salvar</button>
                         </div>}
                         <hr />
                     </form>
-                    {user.category == 'cuidador / responsável' ? <div>
+                    {user.category.toLowerCase() == 'cuidador / responsável' ? <div>
                         {patients.map((patient, index) => <form data-patient-index={index} onSubmit={updatePatient}>
                             <div className="form-context-patient-information">
                                 <div className="title">INFORMAÇÕES SOBRE O PACIENTE {index + 1}</div>
@@ -786,7 +786,7 @@ export const MyUser = () => {
                             <button className="save-changes-btn" onClick={updateUser}>Salvar alterações</button>
                         </div>
                     </>}
-                    {user.category == 'cuidador / responsável' && <div>
+                    {user.category.toLowerCase() == 'cuidador / responsável' && <div>
                         <form onSubmit={addNewPatient}>
                             <div className="form-context-patient-information">
                                 <div className="title">INFORMAÇÕES SOBRE O NOVO PACIENTE <span className="text-[grey] uppercase text-[14px]">* opicional *</span></div>

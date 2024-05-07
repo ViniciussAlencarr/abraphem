@@ -136,10 +136,10 @@ export const NavBarScreen = () => {
                         <div><MdArrowDropDown className='text-white text-[25px] sm:text-[30px] lg:text-[30px]' /></div>
                         </div>
                     </div>
-                    {openOptions && <div className='absolute top-[60px] grid gap-1 border-[2px] rounded-md bg-white z-30  border-[red]'>
-                        <Link onClick={() => setOpenOptions(!openOptions)} to={'/account/user'} className='px-3 py-2 border-b-[2px] border-b-[red] no-underline text-black hover:underline cursor-pointer'>Meu usuário</Link>
-                        <button onClick={logOut} className='no-underline px-3 py-2 text-black hover:underline cursor-pointer'>Sair</button>
-                    </div>}
+                    {openOptions && <div className='absolute top-[51px] grid gap-1 border-[2px] w-full rounded-b-md bg-white z-30  border-[red]'>
+                            <Link onClick={() => setOpenOptions(!openOptions)} to={'/account/user'} className='px-3 py-2 border-b-[2px] border-b-[red] no-underline text-black hover:underline cursor-pointer'>Alterar meus dados</Link>
+                            <button onClick={logOut} className=' text-left no-underline px-3 py-2 text-black hover:underline cursor-pointer'>Sair</button>
+                        </div>}
                 </div>
             }
         </div>

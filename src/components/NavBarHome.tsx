@@ -11,7 +11,6 @@ import { ThemeContext } from '../contexts/teste';
 import logo from '../assets/logo-white.svg'
 import defaultProfile from '../assets/profile.svg'
 
-import { validateUserSession } from '../utils/validateSession.utils';
 import { MdOutlineKeyboardArrowDown, MdArrowDropDown } from 'react-icons/md';
 
 export const NavBarHome = () => {
@@ -25,17 +24,26 @@ export const NavBarHome = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setUserImg(defaultProfile)
-        setUsername('')
-        validateUserSession(navigate, setIsLoggedIn)
-        if (isLoggedIn) {
-            getUser()
+        const health = async () => {
+            try {
+                const token = localStorage.getItem('bearer_token');
+                if (token) {
+                    await api.post('health', { token })
+                    getUser()
+                    setIsLoggedIn(true)
+                } else setIsLoggedIn(false)
+            } catch (err) {
+                console.log(err)
+            }
         }
-    }, [isLoggedIn])
+        health()
+    }, [])
+
 
     const getUser = async () => {
         try {
-            let userId = localStorage.getItem('user_id');
+            const userId = localStorage.getItem('user_id');
+            
             const { data } = await api.get(`user/${userId}`, { headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('bearer_token')
             }})
@@ -129,8 +137,8 @@ export const NavBarHome = () => {
                             <div><MdArrowDropDown className='text-white text-[25px] sm:text-[30px] lg:text-[30px]' /></div>
                             </div>
                         </div>
-                        {openOptions && <div className='absolute top-[60px] grid gap-1 border-[2px] rounded-md bg-white z-30  border-[red]'>
-                            <Link onClick={() => setOpenOptions(!openOptions)} to={'/account/user'} className='px-3 py-2 border-b-[2px] border-b-[red] no-underline text-black hover:underline cursor-pointer'>Meu usuário</Link>
+                        {openOptions && <div className='absolute top-[51px] grid gap-1 border-[2px] w-full rounded-b-md bg-white z-30  border-[red]'>
+                            <Link onClick={() => setOpenOptions(!openOptions)} to={'/account/user'} className='px-3 py-2 border-b-[2px] border-b-[red] no-underline text-black hover:underline cursor-pointer'>Alterar meus dados</Link>
                             <button onClick={logOut} className=' text-left no-underline px-3 py-2 text-black hover:underline cursor-pointer'>Sair</button>
                         </div>}
                     </div>

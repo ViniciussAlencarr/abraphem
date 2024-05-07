@@ -3,7 +3,7 @@ import { Carousel, Modal, Table } from 'react-bootstrap';
 import { TfiHelpAlt } from "react-icons/tfi"
 import { AiOutlineClose } from "react-icons/ai"
 
-import { useEffect, useState } from 'react';
+import { memo, useState } from 'react';
 
 import "./css/Home.css"
 import './css/media-layout.css'
@@ -19,13 +19,10 @@ import requestCard from '../assets/CARDS_HOME_solicitação 1.svg'
 import suggestionCard from '../assets/CARDS_HOME_sugestão 1.svg'
 
 
-export const Home = () => {
+export const Home = memo(() => {
     const [smShow, setSmShow] = useState(false);
     const navigate = useNavigate()
     
-    useEffect(() => {
-    }, [])
-
     return (
         <div className='home-container'>
             <Modal
@@ -172,4 +169,4 @@ export const Home = () => {
             </div>
         </div>
     )
-}
+})
