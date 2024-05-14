@@ -223,8 +223,8 @@ export const Manifests = () => {
                                                 "aria-label": "rows per page"
                                                 },
                                                 actions: {
-                                                showFirstButton: false,
-                                                showLastButton: false
+                                                    showFirstButton: false,
+                                                    showLastButton: false
                                                 }
                                             }}
                                             onPageChange={handleChangePage}

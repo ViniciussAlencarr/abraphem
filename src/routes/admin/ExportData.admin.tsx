@@ -216,31 +216,31 @@ export const ExportData = () => {
                 <div><b>Obs:</b> Caso nenhum campo seja adicionado, todos serão selecionados.</div>
                 <div><b>Obs:</b> Se nenhum status da manifestação for selecionado, será gerado usando todas as manifestações.</div>
             </div>
-            <div className='flex gap-5'>
+            <div className='grid lg:flex gap-5'>
                 <div className='grid gap-3'>
-                    <div className='uppercase font-semibold text-[red]'>Exportar manifestações</div>
+                    <div className='text-[14px] md:text-[16px]lg:text-[16px] uppercase font-semibold text-[red]'>Exportar manifestações</div>
                     <form onSubmit={exportManifests} className='grid gap-5 w-fit'>
-                        <div className='flex gap-5'>
-                            <div>Total de manifestações <b>{manifests.length}</b></div>
+                        <div className='sm:grid md:flex lg:flex gap-5'>
+                            <div className='mb-3 md:m-0 lg:m-0 text-[12px] md:text-[14px] lg:text-[14px]'>Total de manifestações <b>{manifests.length}</b></div>
                             <div className='grid gap-4'>
                                 <div className='w-max border-[1px] border-[#C00405] py-[6px] px-[12px] rounded'>
-                                    <input required className='outline-none border-none' type="text" placeholder={`Nome do arquivo`} value={manifestFileName} onChange={event => setManifestFileName(event.target.value)}/>
-                                    <span>.{manifestsFileType}</span>
+                                    <input required className='outline-none border-none text-[12px] md:text-[14px] lg:text-[14px]' type="text" placeholder={`Nome do arquivo`} value={manifestFileName} onChange={event => setManifestFileName(event.target.value)}/>
+                                    <span className='text-[12px] md:text-[14px] lg:text-[14px]'>.{manifestsFileType}</span>
                                 </div>
                                 <div className='w-full'>
                                     <select
                                         value={manifestStatus}
                                         onChange={event => setManifestStatus(event.target.options[event.target.selectedIndex].value)}
-                                        required className='w-full border-[1px] border-[#C00405] py-[6px] px-[12px] outline-none rounded bg-white'>
+                                        required className='text-[12px] md:text-[14px] lg:text-[14px] w-full border-[1px] border-[#C00405] py-[6px] px-[12px] outline-none rounded bg-white'>
                                         <option className='hidden' defaultValue={''}>Selecione o status da manifestação</option>
-                                        <option value="open">Em aberto</option>
-                                        <option value="inProgress">Em andamento</option>
-                                        <option value="concluded">Concluído</option>
+                                        <option className='text-[12px] md:text-[14px] lg:text-[14px]' value="open">Em aberto</option>
+                                        <option className='text-[12px] md:text-[14px] lg:text-[14px]' value="inProgress">Em andamento</option>
+                                        <option className='text-[12px] md:text-[14px] lg:text-[14px]' value="concluded">Concluído</option>
                                     </select>
                                 </div>
                                 
                                 <div className='w-full'>
-                                    <select required value={manifestsFileType} onChange={event => setTypeOfExport(event, 'manifest')}  className='w-full border-[1px] border-[#C00405] py-[6px] px-[12px] outline-none rounded bg-white'>
+                                    <select required value={manifestsFileType} onChange={event => setTypeOfExport(event, 'manifest')}  className='w-full border-[1px] border-[#C00405] py-[6px] text-[12px] md:text-[14px] lg:text-[14px] px-[12px] outline-none rounded bg-white'>
                                         <option className='hidden' defaultValue={''}>Selecione o tipo da exportação</option>
                                         <option value="xlsx">Excel</option>
                                     </select>
@@ -248,46 +248,46 @@ export const ExportData = () => {
                             </div>
                         </div>
                         <div className='flex justify-end'>
-                            <button type='submit' className="bg-[#D93C3C] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Exportar</button>
+                            <button type='submit' className="bg-[#D93C3C] text-white py-[12px] px-[24px] text-[12px] md:text-[14px] lg:text-[14px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Exportar</button>
                         </div>
                     </form>
                 </div>
-                <div className='border-l border-l-[red] px-[35px]'>
-                    <div className='cursor-pointer uppercase text-[red]'>Selecione os campos que serão adicionados ao arquivo de manifestações</div>
-                    <div className='relative h-full'>
-                        <div className='grid overflow-auto absolute top-3 h-[200px] border rounded w-full'>
+                <div className='lg:border-l border-l-[red] lg:px-[35px] grid gap-3 lg:block lg:gap-0'>
+                    <div className='cursor-pointer uppercase text-[red] text-[14px] md:text-[16px]lg:text-[16px]'>Selecione os campos que serão adicionados ao arquivo de manifestações</div>
+                    <div className='lg:relative h-full'>
+                        <div className='grid overflow-auto lg:absolute top-3 h-[200px] border rounded w-full'>
                             <Grid container spacing={1} className='w-auto px-3 py-2 border-b m-0'>
                                 {manifestColumns.length != 0 ? manifestColumns.map(({ header }, index) => <Grid key={index} spacing={1} item xs="auto" className='w-min'>
                                     <Item key={index} className='text-[#575C63] w-max !p-1 bg-[transparent] shadow-none flex items-center rounded-md border border-[red] gap-1'>
-                                        <span className='text-[#575C63]'>{header}</span>
+                                        <span className='text-[#575C63] text-[12px] md:text-[14px] lg:text-[14px]'>{header}</span>
                                         <button onClick={() => removeManifestColumn(index)}><AiOutlineClose color='red' size={13} /></button>
                                     </Item>
                                 </Grid>)
-                                : <span className='text-[#575C63]'>Adicione os campos</span>}
+                                : <span className='text-[#575C63] text-[12px] md:text-[14px] lg:text-[14px]'>Adicione os campos</span>}
                             </Grid>
                             <div>
                                 {manifestContext.filter(context => manifestColumns.findIndex(column => column.key === context.key) == -1).map((column, index) => <div
                                     onClick={() => addManifestColumn(column)}
-                                    className='cursor-pointer hover:bg-[#c3c3c34d] px-3 py-2' key={index}>{column.value}</div>)}
+                                    className='cursor-pointer hover:bg-[#c3c3c34d] px-3 py-2 min-w-[200px] text-[12px] md:text-[14px] lg:text-[14px]' key={index}>{column.value}</div>)}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <hr className='text-[red]'/>
-            <div className='flex gap-5'>
+            <div className='grid lg:flex gap-5'>
                 <div className='grid gap-3'>
                     <div className='uppercase font-semibold text-[red]'>Exportar usuários cadastrados</div>
                     <form onSubmit={exportUsers} className='grid gap-5 w-fit'>
-                        <div className='flex gap-5'>
-                            <div>Quantidade de usuários <b>{users.length}</b></div>
+                        <div className='text-[14px] md:text-[16px]lg:text-[16px] uppercase font-semibold text-[red]'>
+                            <div className='text-[12px] md:text-[14px] lg:text-[14px] mb-3 md:m-0 lg:m-0'>Quantidade de usuários <b>{users.length}</b></div>
                             <div className='grid gap-3'>
-                                <div className='w-full border-[1px] border-[#C00405] py-[6px] px-[12px] rounded'>
-                                    <input required className='outline-none border-none' type="text" placeholder={`Nome do arquivo`} value={userFileName} onChange={event => setUserFileName(event.target.value)}/>
-                                    <span>.{usersFileType}</span>
+                                <div className='w-max border-[1px] border-[#C00405] py-[6px] px-[12px] rounded'>
+                                    <input required className='text-[12px] md:text-[14px] lg:text-[14px] outline-none border-none' type="text" placeholder={`Nome do arquivo`} value={userFileName} onChange={event => setUserFileName(event.target.value)}/>
+                                    <span className='text-[12px] md:text-[14px] lg:text-[14px]'>.{usersFileType}</span>
                                 </div>
                                 <div className='w-full'>
-                                    <select required onChange={event => setTypeOfExport(event, 'user')} value={usersFileType} className='w-full border-[1px] border-[#C00405] py-[6px] px-[12px] outline-none rounded bg-white'>
+                                    <select required onChange={event => setTypeOfExport(event, 'user')} value={usersFileType} className='text-[12px] md:text-[14px] lg:text-[14px] w-full border-[1px] border-[#C00405] py-[6px] px-[12px] outline-none rounded bg-white'>
                                         <option selected className='hidden'>Selecione o tipo da exportação</option>
                                         <option value="xlsx">Excel</option>
                                     </select>
@@ -295,27 +295,27 @@ export const ExportData = () => {
                             </div>
                         </div>
                         <div className='flex justify-end'>
-                            <button type='submit' className="bg-[#D93C3C] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Exportar</button>
+                            <button type='submit' className="bg-[#D93C3C] text-[12px] md:text-[14px] lg:text-[14px] text-white py-[12px] px-[24px] font-semibold uppercase rounded-md hover:opacity-70 transition-all">Exportar</button>
                         </div>
                     </form>
                 </div>
-                <div className='border-l border-l-[red] px-[35px]'>
-                    <div className='cursor-pointer uppercase text-[red]'>Selecione os campos que serão adicionados ao arquivo de usuários</div>
-                    <div className='relative h-full'>
-                        <div className='grid overflow-auto absolute top-3 h-[200px] border rounded w-full'>
+                <div className='lg:border-l border-l-[red] lg:px-[35px] grid gap-3 lg:block lg:gap-0'>
+                    <div className='cursor-pointer uppercase text-[red] text-[14px] md:text-[16px]lg:text-[16px]'>Selecione os campos que serão adicionados ao arquivo de usuários</div>
+                    <div className='lg:relative h-full'>
+                        <div className='grid overflow-auto lg:absolute top-3 h-[200px] border rounded w-full'>
                             <Grid container spacing={1} className='w-auto px-3 py-2 border-b m-0'>
                                 {usersColumns.length != 0 ? usersColumns.map(({ header }, index) => <Grid key={index} spacing={1} item xs="auto" className='w-min'>
                                     <Item key={index} className='text-[#575C63] w-max !p-1 bg-[transparent] shadow-none flex items-center rounded-md border border-[red] gap-1'>
-                                        <span className='text-[#575C63]'>{header}</span>
+                                        <span className='text-[#575C63] text-[12px] md:text-[14px] lg:text-[14px]'>{header}</span>
                                         <button onClick={() => removeUserColumn(index)}><AiOutlineClose color='red' size={13} /></button>
                                     </Item>
                                 </Grid>)
-                                : <span className='text-[#575C63]'>Adicione os campos</span>}
+                                : <span className='text-[#575C63] text-[12px] md:text-[14px] lg:text-[14px]'>Adicione os campos</span>}
                             </Grid>
                             <div>
                                 {userContext.filter(context => usersColumns.findIndex(column => column.key === context.key) == -1).map((column, index) => <div
                                     onClick={() => addUserColumn(column)}
-                                    className='cursor-pointer hover:bg-[#c3c3c34d] px-3 py-2' key={index}>{column.value}</div>)}
+                                    className='cursor-pointer hover:bg-[#c3c3c34d] px-3 py-2 min-w-[200px] text-[12px] md:text-[14px] lg:text-[14px]' key={index}>{column.value}</div>)}
                             </div>
                         </div>
                     </div>

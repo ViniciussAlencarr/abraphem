@@ -136,7 +136,7 @@ export const ProgressManifests = () => {
                                 </td>
                                 <TablePagination
                                     rowsPerPageOptions={[3, 6, 12, { label: "Todos", value: -1 }]}
-                                    colSpan={3}
+                                    colSpan={request.length != 0 ? 3 : 2}
                                     count={request.length}
                                     rowsPerPage={rowsPerPage}
                                     page={page}

@@ -6,6 +6,7 @@ import api from '../../services/api';
 
 import '../css/admin/Dashboard.admin.css'
 import '../css/admin/media-layout.css'
+import ReactApexChart from 'react-apexcharts';
 
 var thisMonth = [0,0,0,0,0,0,0]
 var lastMonth = [0,0,0,0,0,0,0]
@@ -17,7 +18,8 @@ export const DashboardAdmin = () => {
     const [concludedManifests, setConcludedManifests] = useState()
     const [chartWidth, setChartWidth] = useState(500)
     const [manifestNumber, setManifestNumber] = useState(0)
-
+    
+    
     const [usersAges, setUsersAges] = useState({
         smaller19: 0,
         bigger60: 0,
@@ -240,10 +242,11 @@ export const DashboardAdmin = () => {
         }, 100)
     }
 
-    const a = {
+    const a: any = {
         options: {
             chart: {
-                id: "basic-bar",
+                type: 'bar',
+                height: 400,
                 background: '#e5e5e575'
             },
             plotOptions: {
@@ -256,7 +259,18 @@ export const DashboardAdmin = () => {
                             }
                         }
                     }
-                }
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            legend: {
+                show: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
             },
             xaxis: {
                 categories: [
@@ -271,55 +285,23 @@ export const DashboardAdmin = () => {
             markers: {
                 size: [4, 7]
             },
-        },
-        series: [
-            {
-                name: "Quantidade",
-                data: [
-                    firstChartInfo.requests.amount,
-                    firstChartInfo.claims.amount,
-                    firstChartInfo.complaints.amount,
-                    firstChartInfo.compliments.amount,
-                    firstChartInfo.information.amount,
-                    firstChartInfo.suggestions.amount,
-                ]
-            }
-        ]
+            fill: {
+                opacity: 1
+            },
+          },
+          series: [{
+            name: "Quantidade",
+            data: [
+                firstChartInfo.requests.amount,
+                firstChartInfo.claims.amount,
+                firstChartInfo.complaints.amount,
+                firstChartInfo.compliments.amount,
+                firstChartInfo.information.amount,
+                firstChartInfo.suggestions.amount,
+            ]
+        }]
     }
-    const b = {
-        options: {
-            chart: {
-                id: "basic-bar",
-                background: '#e5e5e575'
 
-            },
-            xaxis: {
-                categories: [
-                    `1/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    `5/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    `10/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    `15/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    `20/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    `25/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    `30/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
-                    ]
-            },
-            markers: {
-                size: [7, 7]
-            },
-            colors: ["#FFA500", "#C00405"],
-        },
-        series: [
-            {
-                name: "Este mês",
-                data: thisMonth
-            },
-            {
-                name: "Mês anterior",
-                data: lastMonth
-            }
-        ]
-    }
     const c = {
         series: [
             thirdChartInfo.feminine,
@@ -395,6 +377,57 @@ export const DashboardAdmin = () => {
         },
     }
 
+    const b: any = {
+        series: [
+            {
+                name: "Este mês",
+                data: thisMonth
+            },
+            {
+                name: "Mês anterior",
+                data: lastMonth
+            }
+        ],
+        options: {
+            chart: {
+                type: 'line',
+                background: '#e5e5e575',
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'straight'
+            },
+            title: {
+                text: 'Product Trends by Month',
+                align: 'left'
+            },
+            grid: {
+                row: {
+                    colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                    opacity: 0.5
+                }
+            },
+            colors: ["#FFA500", "#C00405"],
+            markers: {
+                size: [7, 7]
+            },
+            xaxis: {
+                categories: [
+                    `1/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                    `5/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                    `10/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                    `15/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                    `20/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                    `25/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                    `30/${date.getMonth() + 1}/${JSON.stringify(date.getFullYear()).slice(-2)}`,
+                ]
+            }
+        }
+    }
+    
+
     return (
         <div className="dashboard-admin">
             <div className="manifest-status-info">
@@ -436,22 +469,12 @@ export const DashboardAdmin = () => {
                 </div>
             </div>
             <div className='charts'>
-                <Chart
-                    className="chart-1"
+                <ReactApexChart
                     options={a.options}
-                    series={a.series}
-                    type="bar"
-                    width={chartWidth}
-                    height="400"
-                />
-                <Chart
-                    className="chart-2"
+                    series={a.series} width={chartWidth} type="bar" height={400} />
+                <ReactApexChart
                     options={b.options}
-                    series={b.series}
-                    type="line"
-                    width={chartWidth}
-                    height="400"
-                />
+                    series={b.series} width={chartWidth} type="line" height={400} />
             </div>
             <div className="manifestation-funnel">
                 <div className="title">Funil de manifestações</div>

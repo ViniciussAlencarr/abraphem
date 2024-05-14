@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc';
 import { MenuOptions } from '../components/MenuOptions'
@@ -17,8 +17,6 @@ export const Dashboard = () => {
     const navigate = useNavigate()
     const [open, setOpen] = useState(false);
     
-    useEffect(() => {
-    }, [])
 
     return (
         <div className='dashboard-container'>
