@@ -87,22 +87,34 @@ export const Login = () => {
                 window.history.pushState({}, document.title, window.location.pathname);
             }
         }, 100)
-    }, [])    
+    }, [])   
+
 
     const login = (event: any) => {
         event.preventDefault();
+        const id = toast.loading("Fazendo login...")
+
         const makeLogin = async () => {
             try {
                 const { data } = await api.post('/login?role=2', { document: cpf, password })
+                toast.update(id, { render: "Login realizado com sucesso", type: "success", isLoading: false, autoClose: 1000 });
                 api.defaults.headers.Authorization = `Bearer ${data.token}`;
                 localStorage.setItem('user_id', data.user.id)
                 localStorage.setItem('bearer_token', data.token)
-            } catch (err) {
+                setIsLoggedIn(true)
+                setTimeout(() => navigate('/'), 500)
+            } catch (err: any) {
                 console.log(err)
+                if (err?.name === 'AxiosError') {
+                    toast.update(id, { render: err.response.data.message, type: "error", isLoading: false, autoClose: 5000 });
+                } else {
+                    toast.update(id, {render: "Ocorreu um problema ao realizar o login", type: "error", isLoading: false, autoClose: 5000 });
+                }
                 throw err
             }
         }
-        toast.promise(
+        makeLogin()
+        /* toast.promise(
             makeLogin,
             {
                 pending: 'Fazendo login...',
@@ -117,7 +129,7 @@ export const Login = () => {
             }, {
                 autoClose: 1000
             }
-        )
+        ) */
     }
     return (
         <div className='login-container'>
