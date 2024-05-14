@@ -1,4 +1,4 @@
-import TablePagination from '@mui/base/TablePagination';
+import { TablePagination } from '@mui/base';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

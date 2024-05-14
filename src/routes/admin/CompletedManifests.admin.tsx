@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import TablePagination from '@mui/base/TablePagination';
+import { TablePagination } from '@mui/base';
 import { ToastContainer } from 'react-toastify';
 
 import api from '../../services/api';

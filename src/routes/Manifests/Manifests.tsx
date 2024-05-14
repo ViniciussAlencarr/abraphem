@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { VscThreeBars } from 'react-icons/vsc'
 import { useEffect, useState } from 'react'
 import { MenuOptions } from '../../components/MenuOptions'
-import TablePagination from '@mui/base/TablePagination';
+import { TablePagination } from '@mui/base';
 
 import api from '../../services/api'; 
 

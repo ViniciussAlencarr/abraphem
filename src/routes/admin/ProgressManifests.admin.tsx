@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ManifestRequest } from '../../types/Manifest';
-import TablePagination from '@mui/base/TablePagination';
+import { TablePagination } from '@mui/base';
 
 import api from '../../services/api';
 
