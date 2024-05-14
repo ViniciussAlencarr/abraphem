@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { MenuOptions } from '../../components/MenuOptions'
 import TablePagination from '@mui/base/TablePagination';
 
-import api from '../../services/api';
+import api from '../../services/api'; 
 
 import { AttachmentFileInterface, ManifestRequest } from '../../types/Manifest'
 
